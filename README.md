@@ -11,6 +11,15 @@ Tóm tắt kiến thức từng bài của khóa TOEIC Pre ver 3.0 (Reading, Lis
 
 **Cách gửi bài cho lớp:** mở link *Chọn bài mở cho lớp* → tick các bài lớp đã học → bấm **Sao chép link** → gửi link đó cho học sinh. Bài chưa tick sẽ hiện "Chưa mở". Mỗi lớp có thể dùng một link riêng; lớp học tới bài mới thì tạo link mới và gửi lại.
 
+## Flashcard từ vựng
+
+Mỗi bài có nút **🃏 Flashcard từ vựng** (ở đầu bài và ngay trên bảng từ vựng). Thẻ được tạo tự động từ bảng từ vựng của bài, nên sửa bảng là thẻ đổi theo.
+
+- Chạm vào thẻ để lật (English ↔ Tiếng Việt), có thể đổi mặt trước sang tiếng Việt.
+- 🔊 nghe phát âm, 🔀 trộn thẻ, vuốt trái/phải trên điện thoại để chuyển thẻ.
+- Đánh dấu **Đã thuộc / Chưa thuộc**; hết một vòng có thể ôn riêng các từ chưa thuộc. Tiến độ được lưu trên máy của học sinh.
+- Phím tắt trên máy tính: Space lật thẻ, ← → chuyển thẻ, 1 chưa thuộc, 2 đã thuộc.
+
 ## Reading
 
 | Bài | Chủ điểm | Nội dung |
@@ -51,6 +60,7 @@ Tóm tắt kiến thức từng bài của khóa TOEIC Pre ver 3.0 (Reading, Lis
 docs/
   index.html     trang chủ (danh sách các bài, có chế độ ?gv để chọn bài mở cho lớp)
   style.css      giao diện chung
+  flashcards.js  flashcard từ vựng (tự đọc bảng từ vựng của mỗi bài)
   reading/       trang web từng bài Reading
   listening/     trang web từng bài Listening
   weekly/        trang web từng bài Weekly Revision
