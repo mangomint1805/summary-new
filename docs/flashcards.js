@@ -183,7 +183,11 @@
   function countKnown() { return cards.filter(function (c) { return known[c.en]; }).length; }
   function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
-  var canSpeak = 'speechSynthesis' in window;
+  // Phát âm: ưu tiên giọng có sẵn trên máy (speechSynthesis). Nếu máy không có giọng tiếng Anh,
+  // trình duyệt không hỗ trợ (VD mở link trong Zalo/Messenger) hoặc đọc không ra tiếng,
+  // thì tự chuyển sang giọng Google online (phát bằng thẻ <audio>, chạy được trên mọi điện thoại).
+  var native = 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined';
+  var canSpeak = true;
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var VKEY = 'summaryNew.fc.voice';
   var vs = (function () { try { return JSON.parse(localStorage.getItem(VKEY)) || {}; } catch (e) { return {}; } })();
@@ -191,10 +195,13 @@
   function saveVs() { try { localStorage.setItem(VKEY, JSON.stringify(vs)); } catch (e) {} }
   var vsel = bg.querySelector('.fc-vsel'), rsel = bg.querySelector('.fc-rate'), auto = bg.querySelector('.fc-auto');
   var ACC = { US: 'Mỹ', GB: 'Anh', AU: 'Úc', IN: 'Ấn Độ', CA: 'Canada', IE: 'Ireland', NZ: 'New Zealand', ZA: 'Nam Phi', SG: 'Singapore', PH: 'Philippines' };
-  function voices() { try { return speechSynthesis.getVoices().filter(function (v) { return /^en[-_]?/i.test(v.lang); }); } catch (e) { return []; } }
+  function voices() { if (!native) return []; try { return speechSynthesis.getVoices().filter(function (v) { return /^en[-_]?/i.test(v.lang); }); } catch (e) { return []; } }
   function fillVoices() {
     var list = voices();
-    var html = '<option value="">Mặc định</option>';
+    var html = '<option value="">Tự động</option>' +
+      '<option value="g:en">Google · Mỹ (online)</option>' +
+      '<option value="g:en-GB">Google · Anh (online)</option>' +
+      '<option value="g:en-AU">Google · Úc (online)</option>';
     list.sort(function (a, b) { return a.lang.localeCompare(b.lang) || a.name.localeCompare(b.name); });
     list.forEach(function (v) {
       var cc = (v.lang.split(/[-_]/)[1] || '').toUpperCase();
@@ -205,32 +212,58 @@
     vsel.value = vs.v || '';
     if (vsel.value !== (vs.v || '')) vsel.value = '';
   }
-  function speak(text) {
-    if (!canSpeak) return;
+  function talk(on) { [].forEach.call(main.querySelectorAll('.fc-say'), function (b) { b.classList.toggle('talk', on); }); }
+  var audio = null, watchdog = null;
+  function stopAll() {
+    clearTimeout(watchdog);
+    if (audio) try { audio.pause(); } catch (e) {}
+    if (native) try { if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel(); } catch (e) {}
+    talk(false);
+  }
+  function gSpeak(t, tl) {
     try {
-      speechSynthesis.cancel();
-      var u = new SpeechSynthesisUtterance(text.replace(/\([^)]*\)/g, '').replace(/\//g, ', ').trim());
-      var v = vs.v && voices().filter(function (x) { return x.voiceURI === vs.v; })[0];
-      if (v) { u.voice = v; u.lang = v.lang; } else u.lang = 'en-US';
+      if (!audio) {
+        audio = new Audio();
+        audio.addEventListener('playing', function () { talk(true); });
+        audio.addEventListener('ended', function () { talk(false); });
+        audio.addEventListener('error', function () { talk(false); });
+      }
+      audio.src = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=' + tl + '&q=' + encodeURIComponent(t);
+      audio.playbackRate = Math.max(0.6, parseFloat(vs.r) + 0.1 || 1);
+      var pr = audio.play(); if (pr && pr.catch) pr.catch(function () { talk(false); });
+    } catch (e) { talk(false); }
+  }
+  function speak(text) {
+    var t = text.replace(/\([^)]*\)/g, '').replace(/\//g, ', ').replace(/\s+/g, ' ').trim();
+    stopAll();
+    if (vs.v && vs.v.indexOf('g:') === 0) { gSpeak(t, vs.v.slice(2)); return; }
+    var list = voices();
+    if (!native || !list.length) { gSpeak(t, 'en'); return; }
+    try {
+      var u = new SpeechSynthesisUtterance(t);
+      var v = vs.v && list.filter(function (x) { return x.voiceURI === vs.v; })[0];
+      if (!v) v = list.filter(function (x) { return /en[-_]US/i.test(x.lang); })[0] || list[0];
+      u.voice = v; u.lang = v.lang;
       u.rate = parseFloat(vs.r) || 0.9;
-      var btns = main.querySelectorAll('.fc-say');
-      u.onstart = function () { [].forEach.call(btns, function (b) { b.classList.add('talk'); }); };
-      u.onend = u.onerror = function () { [].forEach.call(btns, function (b) { b.classList.remove('talk'); }); };
+      var started = false;
+      u.onstart = function () { started = true; clearTimeout(watchdog); talk(true); };
+      u.onend = function () { talk(false); };
+      u.onerror = function (e) { talk(false); if (!started && e && e.error !== 'interrupted' && e.error !== 'canceled') gSpeak(t, 'en'); };
       speechSynthesis.speak(u);
-    } catch (e) {}
+      // Một số điện thoại "nhận lệnh" nhưng không đọc ra tiếng: sau 1,5 giây vẫn im thì chuyển sang Google.
+      watchdog = setTimeout(function () {
+        if (!started) { try { speechSynthesis.cancel(); } catch (e) {} gSpeak(t, 'en'); }
+      }, 1500);
+    } catch (e) { gSpeak(t, 'en'); }
   }
-  if (canSpeak) {
-    fillVoices();
-    try { speechSynthesis.addEventListener('voiceschanged', fillVoices); } catch (e) { speechSynthesis.onvoiceschanged = fillVoices; }
-    rsel.value = vs.r; auto.checked = !!vs.a;
-    function sample() { var c = deck[i] || cards[0]; speak(c.en); }
-    vsel.addEventListener('change', function () { vs.v = vsel.value; saveVs(); sample(); });
-    rsel.addEventListener('change', function () { vs.r = rsel.value; saveVs(); sample(); });
-    auto.addEventListener('change', function () { vs.a = auto.checked ? 1 : 0; saveVs(); if (auto.checked) sample(); });
-  } else {
-    bg.querySelector('.fc-voice').style.display = 'none';
-  }
-  function autoSay() { if (canSpeak && vs.a && deck[i] && (viFirst ? flipped : !flipped)) speak(deck[i].en); }
+  fillVoices();
+  if (native) try { speechSynthesis.addEventListener('voiceschanged', fillVoices); } catch (e) { try { speechSynthesis.onvoiceschanged = fillVoices; } catch (e2) {} }
+  rsel.value = vs.r; auto.checked = !!vs.a;
+  function sample() { var c = deck[i] || cards[0]; speak(c.en); }
+  vsel.addEventListener('change', function () { vs.v = vsel.value; saveVs(); sample(); });
+  rsel.addEventListener('change', function () { vs.r = rsel.value; saveVs(); sample(); });
+  auto.addEventListener('change', function () { vs.a = auto.checked ? 1 : 0; saveVs(); if (auto.checked) sample(); });
+  function autoSay() { if (vs.a && deck[i] && (viFirst ? flipped : !flipped)) speak(deck[i].en); }
 
   function stats() {
     var k = countKnown();
@@ -372,7 +405,7 @@
   }
   function close() {
     bg.classList.remove('on'); document.documentElement.style.overflow = '';
-    if (canSpeak) try { speechSynthesis.cancel(); } catch (e) {}
+    stopAll();
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
 })();
