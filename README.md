@@ -7,9 +7,23 @@ Tóm tắt kiến thức từng bài của khóa TOEIC Pre ver 3.0 (Reading, Lis
 | Dùng để | Link |
 |---|---|
 | 🏠 Trang chủ (mở tất cả bài) | [mangomint1805.github.io/summary-new](https://mangomint1805.github.io/summary-new/) |
-| 🔒 Chọn bài mở cho lớp (giáo viên) | [mangomint1805.github.io/summary-new/?gv](https://mangomint1805.github.io/summary-new/?gv) |
+| 👩‍🏫 Chế độ giáo viên (lịch từng lớp, link gửi lớp) | [mangomint1805.github.io/summary-new/?gv](https://mangomint1805.github.io/summary-new/?gv) |
 
-**Cách gửi bài cho lớp:** mở link *Chọn bài mở cho lớp* → tick các bài lớp đã học → bấm **Sao chép link** → gửi link đó cho học sinh. Bài chưa tick sẽ hiện "Chưa mở". Mỗi lớp có thể dùng một link riêng; lớp học tới bài mới thì tạo link mới và gửi lại.
+## Mã lớp và lịch mở bài
+
+Học sinh vào trang chủ phải **nhập mã lớp** (hoặc mở link có sẵn mã, VD `…/summary-new/?lop=TOPRE115276`). Bài nào sẽ tự mở từ 0h ngày lớp học tới bài đó theo lịch 24 buổi; bài chưa tới hiện "🔒 Mở ngày …", mở thẳng link bài cũng bị chặn.
+
+Thêm lớp mới / sửa lịch: mở file `docs/classes.js`, sửa danh sách `SN_CLASSES`:
+
+```js
+{ ma: 'TOPRE115276', ten: 'TOPRE115276 (2-4-6, 19h45 - 21h15)', khaiGiang: '2026-09-25', thu: [2, 4, 6], nghi: [] }
+```
+
+- `thu`: các thứ học (2 = Thứ 2 … 7 = Thứ 7, 8 = Chủ nhật).
+- `nghi`: ngày lớp nghỉ (`'2026-11-20'`…), các buổi sau tự lùi lại.
+- `hocToi`: (tuỳ chọn) ép mở tới buổi số mấy nếu lớp học nhanh/chậm hơn lịch.
+
+Mở link `?gv` một lần trên máy của thầy để xem được mọi bài và xem lịch từng lớp. Đây chỉ là khoá đơn giản trên trình duyệt, không phải bảo mật thật.
 
 ## Flashcard từ vựng
 
@@ -59,7 +73,8 @@ Mỗi bài có nút **🃏 Flashcard từ vựng** (ở đầu bài và ngay tr�
 
 ```
 docs/
-  index.html     trang chủ (danh sách các bài, có chế độ ?gv để chọn bài mở cho lớp)
+  index.html     trang chủ (nhập mã lớp; chế độ ?gv cho giáo viên)
+  classes.js     danh sách lớp + lịch mở bài
   style.css      giao diện chung
   flashcards.js  flashcard từ vựng (tự đọc bảng từ vựng của mỗi bài)
   reading/       trang web từng bài Reading

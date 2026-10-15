@@ -1,0 +1,132 @@
+/* =====================================================================
+   DANH SÁCH LỚP: thầy chỉ cần sửa phần này
+   ---------------------------------------------------------------------
+   ma        : mã lớp học sinh nhập để vào trang (không phân biệt hoa/thường)
+   ten       : tên hiện trên trang
+   khaiGiang : ngày học buổi 1, dạng 'YYYY-MM-DD'
+   thu       : các thứ trong tuần lớp học (2 = Thứ 2 … 7 = Thứ 7, 8 = Chủ nhật)
+   nghi      : các ngày lớp NGHỈ (lễ, thầy bận…), dạng 'YYYY-MM-DD'.
+               Buổi học rơi vào ngày nghỉ sẽ tự dời sang buổi kế tiếp.
+   hocToi    : (không bắt buộc) ép mở tới buổi số mấy, dùng khi lớp học
+               nhanh/chậm hơn lịch. Để 0 hoặc bỏ đi thì mở theo ngày.
+   Bài của buổi nào sẽ mở từ 0h ngày học buổi đó.
+   ===================================================================== */
+var SN_CLASSES = [
+  { ma: 'TOPRE115276', ten: 'TOPRE115276 (2-4-6, 19h45 - 21h15)', khaiGiang: '2026-09-25', thu: [2, 4, 6], nghi: [] }
+];
+
+/* Bài học ứng với buổi nào trong lịch 24 buổi (TOEIC PRE ver 3.0) */
+var SN_SESSIONS = {
+  R1: 1, L1: 2, R2: 3, L2: 4, W1: 5, R3: 6, L3: 7, R4: 8, W2: 9,
+  L4: 12, R5: 13, L5: 14, W3: 15, L6: 16, R6: 17, L7: 18, R7: 19, L8: 20, W4: 21
+};
+var SN_TOTAL = 24;
+var SN_FILES = {
+  'reading/unit-01-nouns-pronouns.html': 'R1',
+  'reading/unit-02-adjectives-adverbs-comparison.html': 'R2',
+  'reading/unit-03-verb-tenses.html': 'R3',
+  'reading/unit-04-active-passive-voice.html': 'R4',
+  'reading/unit-05-participles.html': 'R5',
+  'reading/unit-06-conjunctions-prepositions.html': 'R6',
+  'reading/unit-07-comparison.html': 'R7',
+  'listening/unit-01-photos-of-people.html': 'L1',
+  'listening/unit-02-photos-of-objects-scenes.html': 'L2',
+  'listening/unit-03-information-questions.html': 'L3',
+  'listening/unit-04-yes-no-questions.html': 'L4',
+  'listening/unit-05-other-types-of-questions.html': 'L5',
+  'listening/unit-06-at-the-office.html': 'L6',
+  'listening/unit-07-daily-life.html': 'L7',
+  'listening/unit-08-telephone-messages-advertisements.html': 'L8',
+  'weekly/revision-1.html': 'W1',
+  'weekly/revision-2.html': 'W2',
+  'weekly/revision-3.html': 'W3',
+  'weekly/revision-4.html': 'W4'
+};
+
+/* ===================== phần xử lý (không cần sửa) ===================== */
+var SN = (function () {
+  'use strict';
+  var KEY = 'summaryNew.lop', GV = 'summaryNew.gv';
+  function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function set(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
+  function norm(s) { return String(s || '').replace(/\s+/g, '').toUpperCase(); }
+  function find(code) {
+    code = norm(code); if (!code) return null;
+    for (var i = 0; i < SN_CLASSES.length; i++) if (norm(SN_CLASSES[i].ma) === code) return SN_CLASSES[i];
+    return null;
+  }
+  function ymd(s) { var p = String(s).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function key(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  var cache = {};
+  function dates(c) {
+    if (cache[c.ma]) return cache[c.ma];
+    var out = [], d = ymd(c.khaiGiang), off = {}, days = {}, guard = 0;
+    (c.nghi || []).forEach(function (x) { off[x] = 1; });
+    (c.thu || []).forEach(function (t) { days[t === 8 ? 0 : t - 1] = 1; });
+    while (out.length < SN_TOTAL && guard++ < 800) {
+      if (days[d.getDay()] && !off[key(d)]) out.push(new Date(d));
+      d.setDate(d.getDate() + 1);
+    }
+    return (cache[c.ma] = out);
+  }
+  function today() { var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
+  function doneSessions(c) {
+    var t = today(), ds = dates(c), n = 0;
+    ds.forEach(function (d, i) { if (d <= t) n = i + 1; });
+    return Math.max(n, c.hocToi || 0);
+  }
+  function isOpen(c, id) { var s = SN_SESSIONS[id]; return !s || s <= doneSessions(c); }
+  function openDate(c, id) { var s = SN_SESSIONS[id]; return s ? dates(c)[s - 1] : null; }
+  var TH = ['CN', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
+  function fmt(d, withDay) {
+    if (!d) return '';
+    var s = ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2);
+    return withDay ? TH[d.getDay()] + ', ' + s : s;
+  }
+  function current() { return find(get(KEY)); }
+  function choose(code) { var c = find(code); if (c) set(KEY, c.ma); return c; }
+  function leave() { set(KEY, null); }
+  function teacher(v) { if (v === undefined) return get(GV) === '1'; set(GV, v ? '1' : null); }
+  return { find: find, current: current, choose: choose, leave: leave, teacher: teacher, dates: dates,
+    doneSessions: doneSessions, isOpen: isOpen, openDate: openDate, fmt: fmt, today: today, norm: norm };
+})();
+
+/* ===== Khoá trang bài học: bài chưa tới buổi thì không cho xem ===== */
+(function () {
+  'use strict';
+  var path = location.pathname.replace(/\\/g, '/');
+  var file = Object.keys(SN_FILES).filter(function (f) { return path.slice(-f.length) === f; })[0];
+  if (!file) return; // không phải trang bài học (VD trang chủ)
+  var id = SN_FILES[file];
+  var q = new URLSearchParams(location.search);
+  if (q.has('lop')) SN.choose(q.get('lop'));
+  if (SN.teacher()) return;
+  var c = SN.current();
+  if (c && SN.isOpen(c, id)) return;
+
+  var css = document.createElement('style');
+  css.textContent = 'html.sn-lock main{display:none}' +
+    '.sn-box{max-width:520px;margin:40px auto;padding:26px 24px;background:var(--card,#fff);border:1.5px solid var(--amber,#a8691a);border-radius:14px;text-align:center;font-family:inherit;}' +
+    '.sn-box .ic{font-size:44px;line-height:1;}' +
+    '.sn-box h2{font-family:Lora,"Times New Roman",serif;font-weight:600;font-size:23px;margin:12px 0 6px;}' +
+    '.sn-box p{color:var(--dim,#666e7a);margin:6px 0;}' +
+    '.sn-box a.btn{display:inline-block;margin:14px 6px 0;padding:11px 18px;border-radius:10px;font-weight:700;text-decoration:none;background:var(--amber,#a8691a);color:#fff;}' +
+    '.sn-box a.alt{background:var(--card,#fff);color:var(--amber-ink,#6b4410);border:1.5px solid var(--amber,#a8691a);}';
+  document.head.appendChild(css);
+  document.documentElement.classList.add('sn-lock');
+  document.addEventListener('DOMContentLoaded', function () {
+    var home = '../index.html';
+    var box = document.createElement('div'); box.className = 'sn-box';
+    if (!c) {
+      box.innerHTML = '<div class="ic">🔑</div><h2>Bạn chưa nhập mã lớp</h2><p>Vào trang chủ, nhập mã lớp thầy gửi để xem các bài lớp đã học nhé.</p>' +
+        '<a class="btn" href="' + home + '">Về trang chủ nhập mã lớp</a>';
+    } else {
+      var d = SN.openDate(c, id);
+      box.innerHTML = '<div class="ic">🔒</div><h2>Lớp mình chưa học tới bài này</h2>' +
+        '<p>Bài này sẽ mở vào <b>' + SN.fmt(d, true) + '/' + d.getFullYear() + '</b> (buổi ' + SN_SESSIONS[id] + ' của lớp ' + c.ma + ').</p>' +
+        '<p>Ôn lại các bài đã học trước nha!</p><a class="btn" href="' + home + '">← Về danh sách bài</a>';
+    }
+    var main = document.querySelector('main');
+    (main ? main.parentNode : document.body).insertBefore(box, main || null);
+  });
+})();
