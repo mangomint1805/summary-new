@@ -7,12 +7,15 @@
    thu       : các thứ trong tuần lớp học (2 = Thứ 2 … 7 = Thứ 7, 8 = Chủ nhật)
    nghi      : các ngày lớp NGHỈ (lễ, thầy bận…), dạng 'YYYY-MM-DD'.
                Buổi học rơi vào ngày nghỉ sẽ tự dời sang buổi kế tiếp.
-   hocToi    : (không bắt buộc) ép mở tới buổi số mấy, dùng khi lớp học
-               nhanh/chậm hơn lịch. Để 0 hoặc bỏ đi thì mở theo ngày.
+   moc       : (không bắt buộc) ['YYYY-MM-DD', số buổi] = "tới ngày đó lớp đã
+               học xong buổi số mấy". Dùng khi lớp chậm/nhanh hơn lịch: các buổi
+               sau sẽ tính tiếp từ mốc này theo các thứ học.
+   hocToi    : (không bắt buộc) ép mở tới buổi số mấy dù chưa tới ngày.
    Bài của buổi nào sẽ mở từ 0h ngày học buổi đó.
    ===================================================================== */
 var SN_CLASSES = [
-  { ma: 'TOPRE115276', ten: 'TOPRE115276 (2-4-6, 19h45 - 21h15)', khaiGiang: '2026-09-25', thu: [2, 4, 6], nghi: [] }
+  { ma: 'TOPRE115276', ten: 'TOPRE115276 (2-4-6, 19h45 - 21h15)', khaiGiang: '2026-09-25', thu: [2, 4, 6], nghi: [],
+    moc: ['2026-10-14', 7] } // 14/10 mới học tới buổi 7 (Listening 3 – Information Questions)
 ];
 
 /* Bài học ứng với buổi nào trong lịch 24 buổi (TOEIC PRE ver 3.0) */
@@ -63,9 +66,22 @@ var SN = (function () {
     var out = [], d = ymd(c.khaiGiang), off = {}, days = {}, guard = 0;
     (c.nghi || []).forEach(function (x) { off[x] = 1; });
     (c.thu || []).forEach(function (t) { days[t === 8 ? 0 : t - 1] = 1; });
-    while (out.length < SN_TOTAL && guard++ < 800) {
-      if (days[d.getDay()] && !off[key(d)]) out.push(new Date(d));
+    function isDay(x) { return days[x.getDay()] && !off[key(x)]; }
+    var m = c.moc && c.moc[1] ? { d: ymd(c.moc[0]), n: Math.min(+c.moc[1], SN_TOTAL) } : null;
+    var need = m ? m.n : SN_TOTAL;
+    while (out.length < need && guard++ < 800) {
+      if (isDay(d)) out.push(new Date(d));
       d.setDate(d.getDate() + 1);
+    }
+    if (m) {
+      // các buổi đã học: không trễ hơn ngày mốc, buổi mốc = đúng ngày mốc
+      out = out.map(function (x) { return x > m.d ? new Date(m.d) : x; });
+      out[m.n - 1] = new Date(m.d);
+      d = new Date(m.d); d.setDate(d.getDate() + 1);
+      while (out.length < SN_TOTAL && guard++ < 1600) {
+        if (isDay(d)) out.push(new Date(d));
+        d.setDate(d.getDate() + 1);
+      }
     }
     return (cache[c.ma] = out);
   }

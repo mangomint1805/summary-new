@@ -21,7 +21,8 @@ Thêm lớp mới / sửa lịch: mở file `docs/classes.js`, sửa danh sách 
 
 - `thu`: các thứ học (2 = Thứ 2 … 7 = Thứ 7, 8 = Chủ nhật).
 - `nghi`: ngày lớp nghỉ (`'2026-11-20'`…), các buổi sau tự lùi lại.
-- `hocToi`: (tuỳ chọn) ép mở tới buổi số mấy nếu lớp học nhanh/chậm hơn lịch.
+- `moc`: (tuỳ chọn) `['2026-10-14', 7]` = tới ngày 14/10 lớp đã học xong buổi 7; các buổi sau tính tiếp từ mốc này. Dùng khi lớp chậm/nhanh hơn lịch.
+- `hocToi`: (tuỳ chọn) ép mở tới buổi số mấy dù chưa tới ngày.
 
 Mở link `?gv` một lần trên máy của thầy để xem được mọi bài và xem lịch từng lớp. Đây chỉ là khoá đơn giản trên trình duyệt, không phải bảo mật thật.
 
