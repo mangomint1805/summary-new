@@ -183,78 +183,90 @@
   function countKnown() { return cards.filter(function (c) { return known[c.en]; }).length; }
   function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
-  // Phát âm: ưu tiên giọng có sẵn trên máy (speechSynthesis). Nếu máy không có giọng tiếng Anh,
-  // trình duyệt không hỗ trợ (VD mở link trong Zalo/Messenger) hoặc đọc không ra tiếng,
-  // thì tự chuyển sang giọng Google online (phát bằng thẻ <audio>, chạy được trên mọi điện thoại).
+  // Phát âm: mặc định phát file mp3 có sẵn trong thư mục audio/ (tạo bằng tools/make_audio.py),
+  // chạy được trên mọi điện thoại và cả trong Zalo/Messenger. Có thể chọn giọng của máy nếu muốn.
+  // Nếu thiếu file thì dùng giọng của máy, cuối cùng là giọng Google online.
   var native = 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined';
   var canSpeak = true;
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var VKEY = 'summaryNew.fc.voice';
   var vs = (function () { try { return JSON.parse(localStorage.getItem(VKEY)) || {}; } catch (e) { return {}; } })();
   if (!vs.r) vs.r = '0.9';
+  if (!vs.v || vs.v.indexOf('g:') === 0) vs.v = 'f:us-f';
   function saveVs() { try { localStorage.setItem(VKEY, JSON.stringify(vs)); } catch (e) {} }
   var vsel = bg.querySelector('.fc-vsel'), rsel = bg.querySelector('.fc-rate'), auto = bg.querySelector('.fc-auto');
   var ACC = { US: 'Mỹ', GB: 'Anh', AU: 'Úc', IN: 'Ấn Độ', CA: 'Canada', IE: 'Ireland', NZ: 'New Zealand', ZA: 'Nam Phi', SG: 'Singapore', PH: 'Philippines' };
+  var AUDIO_BASE = (function () {
+    var sc = document.querySelector('script[src*="flashcards.js"]');
+    return sc ? sc.getAttribute('src').replace(/flashcards\.js.*$/, '') + 'audio/' : '../audio/';
+  })();
+  function clean(t) { return t.replace(/\([^)]*\)/g, '').replace(/\//g, ', ').replace(/\s+/g, ' ').trim(); }
+  function slug(t) { return clean(t).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-+|-+$)/g, ''); }
   function voices() { if (!native) return []; try { return speechSynthesis.getVoices().filter(function (v) { return /^en[-_]?/i.test(v.lang); }); } catch (e) { return []; } }
   function fillVoices() {
     var list = voices();
-    var html = '<option value="">Tự động</option>' +
-      '<option value="g:en">Google · Mỹ (online)</option>' +
-      '<option value="g:en-GB">Google · Anh (online)</option>' +
-      '<option value="g:en-AU">Google · Úc (online)</option>';
+    var html = '<option value="f:us-f">Mỹ · nữ</option><option value="f:us-m">Mỹ · nam</option><option value="f:uk-f">Anh · nữ</option>';
     list.sort(function (a, b) { return a.lang.localeCompare(b.lang) || a.name.localeCompare(b.name); });
+    if (list.length) html += '<optgroup label="Giọng có trên máy">';
     list.forEach(function (v) {
       var cc = (v.lang.split(/[-_]/)[1] || '').toUpperCase();
       var name = v.name.replace(/^(Microsoft|Google)\s+/, '').replace(/\s*(Online \(Natural\)|\(Natural\))/, ' ✨').replace(/\s*-\s*English.*$/, '');
       html += '<option value="' + esc(v.voiceURI) + '">' + esc(name) + ' · ' + (ACC[cc] || v.lang) + '</option>';
     });
+    if (list.length) html += '</optgroup>';
     vsel.innerHTML = html;
-    vsel.value = vs.v || '';
-    if (vsel.value !== (vs.v || '')) vsel.value = '';
+    vsel.value = vs.v;
+    if (vsel.value !== vs.v) vsel.value = 'f:us-f';
   }
   function talk(on) { [].forEach.call(main.querySelectorAll('.fc-say'), function (b) { b.classList.toggle('talk', on); }); }
-  var audio = null, watchdog = null;
+  var audio = new Audio(), watchdog = null, onFail = null;
+  audio.preload = 'auto';
+  audio.addEventListener('playing', function () { talk(true); });
+  audio.addEventListener('ended', function () { talk(false); });
+  audio.addEventListener('error', function () { talk(false); if (onFail) { var f = onFail; onFail = null; f(); } });
   function stopAll() {
-    clearTimeout(watchdog);
-    if (audio) try { audio.pause(); } catch (e) {}
+    clearTimeout(watchdog); onFail = null;
+    try { audio.pause(); } catch (e) {}
     if (native) try { if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel(); } catch (e) {}
     talk(false);
   }
-  function gSpeak(t, tl) {
+  function rate() { return parseFloat(vs.r) || 0.9; }
+  function playUrl(url, fail) {
     try {
-      if (!audio) {
-        audio = new Audio();
-        audio.addEventListener('playing', function () { talk(true); });
-        audio.addEventListener('ended', function () { talk(false); });
-        audio.addEventListener('error', function () { talk(false); });
-      }
-      audio.src = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=' + tl + '&q=' + encodeURIComponent(t);
-      audio.playbackRate = Math.max(0.6, parseFloat(vs.r) + 0.1 || 1);
-      var pr = audio.play(); if (pr && pr.catch) pr.catch(function () { talk(false); });
+      onFail = fail || null;
+      audio.src = url;
+      audio.playbackRate = Math.max(0.6, rate() + 0.1);
+      var pr = audio.play();
+      if (pr && pr.catch) pr.catch(function (e) { talk(false); if (e && e.name === 'NotSupportedError' && onFail) { var f = onFail; onFail = null; f(); } });
     } catch (e) { talk(false); }
   }
-  function speak(text) {
-    var t = text.replace(/\([^)]*\)/g, '').replace(/\//g, ', ').replace(/\s+/g, ' ').trim();
-    stopAll();
-    if (vs.v && vs.v.indexOf('g:') === 0) { gSpeak(t, vs.v.slice(2)); return; }
+  function gSpeak(t) { playUrl('https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=' + encodeURIComponent(t)); }
+  function nativeSpeak(t, voiceURI, fail) {
     var list = voices();
-    if (!native || !list.length) { gSpeak(t, 'en'); return; }
+    if (!native || !list.length) { fail(); return; }
     try {
       var u = new SpeechSynthesisUtterance(t);
-      var v = vs.v && list.filter(function (x) { return x.voiceURI === vs.v; })[0];
+      var v = voiceURI && list.filter(function (x) { return x.voiceURI === voiceURI; })[0];
       if (!v) v = list.filter(function (x) { return /en[-_]US/i.test(x.lang); })[0] || list[0];
-      u.voice = v; u.lang = v.lang;
-      u.rate = parseFloat(vs.r) || 0.9;
+      u.voice = v; u.lang = v.lang; u.rate = rate();
       var started = false;
       u.onstart = function () { started = true; clearTimeout(watchdog); talk(true); };
       u.onend = function () { talk(false); };
-      u.onerror = function (e) { talk(false); if (!started && e && e.error !== 'interrupted' && e.error !== 'canceled') gSpeak(t, 'en'); };
+      u.onerror = function (e) { talk(false); if (!started && e && e.error !== 'interrupted' && e.error !== 'canceled') fail(); };
       speechSynthesis.speak(u);
-      // Một số điện thoại "nhận lệnh" nhưng không đọc ra tiếng: sau 1,5 giây vẫn im thì chuyển sang Google.
-      watchdog = setTimeout(function () {
-        if (!started) { try { speechSynthesis.cancel(); } catch (e) {} gSpeak(t, 'en'); }
-      }, 1500);
-    } catch (e) { gSpeak(t, 'en'); }
+      watchdog = setTimeout(function () { if (!started) { try { speechSynthesis.cancel(); } catch (e) {} fail(); } }, 1500);
+    } catch (e) { fail(); }
+  }
+  function speak(text) {
+    var t = clean(text);
+    stopAll();
+    var file = AUDIO_BASE + 'us-f/' + slug(text) + '.mp3';
+    if (vs.v.indexOf('f:') === 0) {
+      file = AUDIO_BASE + vs.v.slice(2) + '/' + slug(text) + '.mp3';
+      playUrl(file, function () { nativeSpeak(t, '', function () { gSpeak(t); }); });
+    } else {
+      nativeSpeak(t, vs.v, function () { playUrl(file, function () { gSpeak(t); }); });
+    }
   }
   fillVoices();
   if (native) try { speechSynthesis.addEventListener('voiceschanged', fillVoices); } catch (e) { try { speechSynthesis.onvoiceschanged = fillVoices; } catch (e2) {} }

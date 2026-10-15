@@ -16,10 +16,12 @@
 .stop.locked .dot{border-color:var(--line);background:var(--paper);color:var(--dim);}
 .stop.locked .name{color:var(--dim);}
 /* nhập mã lớp */
-body.gated .sec,body.gated .path,body.gated .tips,body.gated .lopbar{display:none;}
-.gate{display:none;margin:26px 0 0;background:var(--card);border:1.5px solid var(--amber);border-radius:14px;padding:24px 22px;text-align:center;}
+body.gated .sec,body.gated .path,body.gated .tips,body.gated .lopbar,body.gated .hero{display:none;}
+.gate{display:none;margin:40px 0 0;background:var(--card);border:1.5px solid var(--amber);border-radius:14px;padding:24px 22px;text-align:center;}
 body.gated .gate{display:block;}
 .gate .ic{font-size:40px;line-height:1;}
+.gate .kick{margin:0 0 14px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-ink);}
+@media (max-width:480px){.gate{margin-top:24px;padding:22px 16px}.gate form{flex-direction:column}}
 .gate h2{font-family:'Lora','Times New Roman',serif;font-weight:600;font-size:23px;margin:10px 0 4px;}
 .gate p{margin:4px 0 14px;color:var(--dim);font-size:15px;}
 .gate form{display:flex;gap:8px;max-width:400px;margin:0 auto;}
@@ -61,20 +63,23 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
 .gv .tag.l{background:#efece5;color:var(--dim);}
 </style>
 </head>
-<body>
+<body class="gated">
 <div class="wrap">
+  <section class="gate" id="gate" aria-label="Nhập mã lớp">
+    <p class="kick">Tóm tắt kiến thức TOEIC Pre</p>
+    <div class="ic">🔑</div>
+    <h2>Nhập mã lớp</h2>
+    <p>Nhập mã lớp thầy gửi để xem các bài lớp mình đã học.</p>
+    <form id="gateForm" autocomplete="off"><input id="code" name="code" placeholder="Mã lớp" aria-label="Mã lớp" autocapitalize="characters" spellcheck="false"><button type="submit">Vào học</button></form>
+    <div class="err" id="err" role="alert"></div>
+  </section>
+
   <header class="hero">
     <h1>Tóm tắt kiến thức TOEIC Pre</h1>
     <p>Tóm tắt từng bài Reading, Listening và Weekly Revision (giáo trình mới) bằng tiếng Việt, kèm bảng từ vựng và flashcard. Nhập mã lớp để xem các bài lớp bạn đã học; bài mới sẽ tự mở vào ngày lớp học tới bài đó.</p>
   </header>
 
-  <section class="gate" id="gate" aria-label="Nhập mã lớp">
-    <div class="ic">🔑</div>
-    <h2>Nhập mã lớp</h2>
-    <p>Mã lớp có trên lịch học hoặc hỏi thầy nhé (ví dụ: TOPRE123456).</p>
-    <form id="gateForm" autocomplete="off"><input id="code" name="code" placeholder="Mã lớp" aria-label="Mã lớp" autocapitalize="characters" spellcheck="false"><button type="submit">Vào học</button></form>
-    <div class="err" id="err" role="alert"></div>
-  </section>
+
 
   <div class="lopbar" id="lopbar"><div><b id="lopName"></b><small id="lopInfo"></small></div><button type="button" id="doiLop">Đổi lớp</button><div class="prog"><i id="lopProg"></i></div></div>
 
@@ -172,7 +177,7 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
   if(!SN.teacher()){ var c=SN.current(); if(c) showClass(c); else gate(''); return; }
 
   // ----- chế độ giáo viên -----
-  document.body.classList.add('gvmode');
+  document.body.classList.add('gvmode'); document.body.classList.remove('gated');
   paint(null,true);
   var NAME={}; stops.forEach(function(s){ var id=s.dataset.id; NAME[id]=id[0]==='W'?'Weekly Revision '+id.slice(1):(id[0]==='R'?'Reading ':'Listening ')+id.slice(1)+' · '+s.querySelector('.name').textContent; });
   var BY={}; Object.keys(SN_SESSIONS).forEach(function(id){BY[SN_SESSIONS[id]]=id;});

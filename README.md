@@ -31,7 +31,7 @@ Mở link `?gv` một lần trên máy của thầy để xem được mọi bà
 Mỗi bài có nút **🃏 Flashcard từ vựng** (ở đầu bài và ngay trên bảng từ vựng). Thẻ được tạo tự động từ bảng từ vựng của bài, nên sửa bảng là thẻ đổi theo.
 
 - Chạm vào thẻ để lật (English ↔ Tiếng Việt), có thể đổi mặt trước sang tiếng Việt.
-- 🔊 nghe phát âm: chọn **giọng đọc** (Mỹ, Anh, Úc… tuỳ máy có sẵn giọng nào), **tốc độ** Chậm/Vừa/Nhanh, bật **Tự đọc từ** để thẻ tự đọc khi hiện ra. Lựa chọn được nhớ cho mọi bài. Điện thoại không có giọng tiếng Anh (hoặc mở link trong Zalo/Messenger) sẽ tự dùng giọng Google online, cần có mạng.
+- 🔊 nghe phát âm: phát từ file mp3 có sẵn (thư mục `docs/audio/`, 3 giọng Mỹ nữ / Mỹ nam / Anh nữ) nên điện thoại nào, mở trong Zalo/Messenger cũng nghe được. Có chọn **tốc độ** và **Tự đọc từ**; ai thích có thể chọn giọng có sẵn trên máy. Thêm từ mới thì chạy `python tools/make_audio.py <thư mục model>` để tạo file phát âm.
 - 🔀 trộn thẻ, vuốt trái/phải trên điện thoại để chuyển thẻ; thẻ có hiệu ứng lật, trượt, đóng dấu ✅ / 🔁 và pháo giấy khi thuộc hết.
 - Đánh dấu **Đã thuộc / Chưa thuộc**; hết một vòng có thể ôn riêng các từ chưa thuộc. Tiến độ được lưu trên máy của học sinh.
 - Phím tắt trên máy tính: Space lật thẻ, ← → chuyển thẻ, 1 chưa thuộc, 2 đã thuộc.
@@ -76,6 +76,7 @@ Mỗi bài có nút **🃏 Flashcard từ vựng** (ở đầu bài và ngay tr�
 docs/
   index.html     trang chủ (nhập mã lớp; chế độ ?gv cho giáo viên)
   classes.js     danh sách lớp + lịch mở bài
+  audio/         file phát âm từ vựng (tạo bằng tools/make_audio.py)
   style.css      giao diện chung
   flashcards.js  flashcard từ vựng (tự đọc bảng từ vựng của mỗi bài)
   reading/       trang web từng bài Reading
