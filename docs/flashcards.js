@@ -4,25 +4,52 @@
   'use strict';
 
   // ---------- 1. Lấy từ vựng từ bảng ----------
-  var h2 = [].slice.call(document.querySelectorAll('.doc h2')).filter(function (h) {
-    return /Bảng từ vựng|Vocabulary/i.test(h.textContent);
-  })[0];
+  var hs2 = [].slice.call(document.querySelectorAll('.doc h2'));
+  var h2 = hs2.filter(function (h) { return /Bảng từ vựng|Vocabulary Sheet/i.test(h.textContent); })[0] ||
+    hs2.filter(function (h) { return /Vocabulary|Từ vựng/i.test(h.textContent); }).pop();
   if (!h2) return;
-  var table = h2.nextElementSibling;
-  while (table && table.tagName !== 'TABLE') table = table.nextElementSibling;
-  if (!table) return;
+  // Lấy MỌI bảng nằm giữa tiêu đề "Bảng từ vựng" và tiêu đề h2 kế tiếp
+  var tables = [], el = h2.nextElementSibling;
+  while (el && el.tagName !== 'H2') {
+    if (el.tagName === 'TABLE') tables.push(el);
+    else if (el.querySelectorAll) [].push.apply(tables, el.querySelectorAll('table'));
+    el = el.nextElementSibling;
+  }
+  if (!tables.length) return;
 
+  function txt(n) { return n ? n.textContent.replace(/\s+/g, ' ').trim() : ''; }
   var POS = /\s*\((n|v|adj|adv|phr|prep|conj|n\/v|v\/n|pron)\)\s*$/i;
-  var cards = [];
-  [].slice.call(table.querySelectorAll('tbody tr')).forEach(function (tr) {
-    var td = tr.querySelectorAll('td');
-    if (td.length < 2) return;
-    var en = td[0].textContent.replace(/\s+/g, ' ').trim();
-    var vi = td[1].textContent.replace(/\s+/g, ' ').trim();
-    if (!en || !vi) return;
-    var m = en.match(POS), pos = '';
-    if (m) { pos = m[1].toLowerCase(); en = en.replace(POS, ''); }
-    cards.push({ en: en, vi: vi, pos: pos });
+  var cards = [], seen = {};
+  tables.forEach(function (table) {
+    var rows = [].slice.call(table.querySelectorAll('tr'));
+    if (!rows.length) return;
+    // Xác định cột theo dòng tiêu đề: English / Pronunciation / Vietnamese
+    var head = table.querySelector('thead tr') || rows[0];
+    var hs = [].slice.call(head.children).map(function (c) { return txt(c).toLowerCase(); });
+    var cEn = -1, cIpa = -1, cVi = -1;
+    hs.forEach(function (h, k) {
+      if (/english|tiếng anh|từ vựng|word/.test(h) && cEn < 0) cEn = k;
+      else if (/pronunc|phát âm|ipa|phiên âm/.test(h)) cIpa = k;
+      else if (/vietnam|tiếng việt|nghĩa|meaning/.test(h)) cVi = k;
+    });
+    if (cEn < 0 || cVi < 0) {
+      if (hs.length === 2) { cEn = 0; cVi = 1; }
+      else if (hs.length === 3) { cEn = 0; cIpa = 1; cVi = 2; }
+      else return; // không phải bảng từ vựng
+    }
+    rows.forEach(function (tr) {
+      if (tr === head || tr.parentNode.tagName === 'THEAD') return;
+      var td = tr.children;
+      if (td.length <= Math.max(cEn, cVi)) return;
+      var en = txt(td[cEn]), vi = txt(td[cVi]), ipa = cIpa >= 0 && td[cIpa] ? txt(td[cIpa]) : '';
+      if (!en || !vi || /^english$/i.test(en)) return;
+      var m = en.match(POS), pos = '';
+      if (m) { pos = m[1].toLowerCase(); en = en.replace(POS, ''); }
+      if (ipa && !/^\/?.*\/$/.test(ipa) && ipa.indexOf('/') < 0) ipa = '';
+      var key = en.toLowerCase();
+      if (seen[key]) return; seen[key] = 1;
+      cards.push({ en: en, vi: vi, pos: pos, ipa: ipa });
+    });
   });
   if (cards.length < 2) return;
 
@@ -59,6 +86,7 @@
     '.fc-word{font-size:clamp(24px,7vw,34px);font-weight:700;line-height:1.25;color:var(--ink,#1e232b);word-break:break-word;}' +
     '.fc-back .fc-word{color:var(--amber-ink,#6b4410);font-size:clamp(21px,6vw,28px);}' +
     '.fc-pos{margin-top:8px;font-size:13px;font-weight:600;color:var(--dim,#666e7a);background:var(--paper,#faf8f4);border:1px solid var(--line,#ddd7c9);border-radius:99px;padding:2px 10px;}' +
+    '.fc-ipa{margin-top:6px;font-size:16px;color:var(--dim,#666e7a);font-family:"Segoe UI","Noto Sans","Lucida Sans Unicode",system-ui,sans-serif;}' +
     '.fc-hint{position:absolute;bottom:10px;font-size:12px;color:var(--dim,#666e7a);}' +
     '.fc-say{position:absolute;top:10px;right:10px;font-size:20px;background:none;border:0;cursor:pointer;padding:6px;border-radius:8px;}' +
     '.fc-tag{position:absolute;top:12px;left:12px;font-size:12px;font-weight:700;color:var(--teal,#1f8f6c);}' +
@@ -215,7 +243,7 @@
     stats();
     if (!deck.length || i >= deck.length) { renderDone(); return; }
     var c = deck[i];
-    var enFace = '<div class="fc-word">' + esc(c.en) + '</div>' + (c.pos ? '<span class="fc-pos">' + c.pos + '</span>' : '');
+    var enFace = '<div class="fc-word">' + esc(c.en) + '</div>' + (c.ipa ? '<div class="fc-ipa">' + esc(c.ipa) + '</div>' : '') + (c.pos ? '<span class="fc-pos">' + c.pos + '</span>' : '');
     var viFace = '<div class="fc-word">' + esc(c.vi) + '</div>';
     var front = viFirst ? viFace : enFace, back = viFirst ? enFace : viFace;
     var say = canSpeak ? '<button class="fc-say" type="button" aria-label="Nghe phát âm" title="Nghe phát âm">🔊</button>' : '';
