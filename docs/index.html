@@ -138,7 +138,7 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
 (function(){
   var q=new URLSearchParams(location.search);
   var stops=[].slice.call(document.querySelectorAll('.stop[data-id]'));
-  try{localStorage.removeItem('summaryNew.mo');}catch(e){}
+  try{localStorage.removeItem(SN_PREFIX+'.mo');}catch(e){}
   var gv=q.has('gv'); if(gv) SN.teacher(true);
   var preview=q.get('xem'); // ?xem=MALOP : thầy xem thử như học sinh lớp đó
   if(q.has('lop')) SN.choose(q.get('lop'));
@@ -179,9 +179,9 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
   // ----- chế độ giáo viên -----
   document.body.classList.add('gvmode'); document.body.classList.remove('gated');
   paint(null,true);
-  var NAME={}; stops.forEach(function(s){ var id=s.dataset.id; NAME[id]=id[0]==='W'?'Weekly Revision '+id.slice(1):(id[0]==='R'?'Reading ':'Listening ')+id.slice(1)+' · '+s.querySelector('.name').textContent; });
+  var NAME={}; stops.forEach(function(s){ var id=s.dataset.id; var dn=s.querySelector('.dot b').textContent; NAME[id]=id[0]==='W'?'Weekly Revision '+dn:(id[0]==='R'?'Reading ':'Listening ')+dn+' · '+s.querySelector('.name').textContent; });
   var BY={}; Object.keys(SN_SESSIONS).forEach(function(id){BY[SN_SESSIONS[id]]=id;});
-  var OTHER={10:'Exam master 1',11:'Progress Test 1',22:'Exam master 2',23:'Exam master 3',24:'Progress Test 2'};
+  var OTHER=SN_OTHER;
   var base=location.origin+location.pathname, box=document.getElementById('gvClasses'), t=SN.today();
   SN_CLASSES.forEach(function(c){
     var ds=SN.dates(c), n=SN.doneSessions(c), nextShown=false, rows='';

@@ -29,7 +29,7 @@
     var cEn = -1, cIpa = -1, cVi = -1;
     hs.forEach(function (h, k) {
       if (/english|tiếng anh|từ vựng|word/.test(h) && cEn < 0) cEn = k;
-      else if (/pronunc|phát âm|ipa|phiên âm/.test(h)) cIpa = k;
+      else if (/pronunc|phonetic|phát âm|ipa|phiên âm/.test(h)) cIpa = k;
       else if (/vietnam|tiếng việt|nghĩa|meaning/.test(h)) cVi = k;
     });
     if (cEn < 0 || cVi < 0) {

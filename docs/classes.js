@@ -24,6 +24,9 @@ var SN_SESSIONS = {
   L4: 12, R5: 13, L5: 14, W3: 15, L6: 16, R6: 17, L7: 18, R7: 19, L8: 20, W4: 21
 };
 var SN_TOTAL = 24;
+/* Các buổi không có trang bài học */
+var SN_OTHER = { 10: 'Exam master 1', 11: 'Progress Test 1', 22: 'Exam master 2', 23: 'Exam master 3', 24: 'Progress Test 2' };
+var SN_PREFIX = 'summaryNew';
 var SN_FILES = {
   'reading/unit-01-nouns-pronouns.html': 'R1',
   'reading/unit-02-adjectives-adverbs-comparison.html': 'R2',
@@ -49,7 +52,7 @@ var SN_FILES = {
 /* ===================== phần xử lý (không cần sửa) ===================== */
 var SN = (function () {
   'use strict';
-  var KEY = 'summaryNew.lop', GV = 'summaryNew.gv';
+  var KEY = SN_PREFIX + '.lop', GV = SN_PREFIX + '.gv';
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function set(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
   function norm(s) { return String(s || '').replace(/\s+/g, '').toUpperCase(); }
