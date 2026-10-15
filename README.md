@@ -16,7 +16,8 @@ Tóm tắt kiến thức từng bài của khóa TOEIC Pre ver 3.0 (Reading, Lis
 Mỗi bài có nút **🃏 Flashcard từ vựng** (ở đầu bài và ngay trên bảng từ vựng). Thẻ được tạo tự động từ bảng từ vựng của bài, nên sửa bảng là thẻ đổi theo.
 
 - Chạm vào thẻ để lật (English ↔ Tiếng Việt), có thể đổi mặt trước sang tiếng Việt.
-- 🔊 nghe phát âm, 🔀 trộn thẻ, vuốt trái/phải trên điện thoại để chuyển thẻ.
+- 🔊 nghe phát âm: chọn **giọng đọc** (Mỹ, Anh, Úc… tuỳ máy có sẵn giọng nào), **tốc độ** Chậm/Vừa/Nhanh, bật **Tự đọc từ** để thẻ tự đọc khi hiện ra. Lựa chọn được nhớ cho mọi bài.
+- 🔀 trộn thẻ, vuốt trái/phải trên điện thoại để chuyển thẻ; thẻ có hiệu ứng lật, trượt, đóng dấu ✅ / 🔁 và pháo giấy khi thuộc hết.
 - Đánh dấu **Đã thuộc / Chưa thuộc**; hết một vòng có thể ôn riêng các từ chưa thuộc. Tiến độ được lưu trên máy của học sinh.
 - Phím tắt trên máy tính: Space lật thẻ, ← → chuyển thẻ, 1 chưa thuộc, 2 đã thuộc.
 
