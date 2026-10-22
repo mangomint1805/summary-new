@@ -150,7 +150,8 @@ table.t code{font-size:12px;color:var(--dim);}
 const SDK = 'https://www.gstatic.com/firebasejs/10.12.2/';
 const DBURL = 'https://minto-english-default-rtdb.asia-southeast1.firebasedatabase.app';
 const CFG = { apiKey: 'AIzaSyA7LEweMPy4tSjjR_An_KZaGXSzGI2nQv4', authDomain: 'minto-english.firebaseapp.com', databaseURL: DBURL, projectId: 'minto-english', storageBucket: 'minto-english.firebasestorage.app', messagingSenderId: '160119750089', appId: '1:160119750089:web:aac59cf8b1f577c035bc18' };
-const TEACHER = 'quangkhunpro@gmail.com';
+const TEACHER = '979n45';
+function eh(t) { t = String(t || '').toLowerCase(); let x = 2166136261; for (let i = 0; i < t.length; i++) { x ^= t.charCodeAt(i); x = Math.imul(x, 16777619); } return (x >>> 0).toString(36); }
 const SITES = ['toeic', 'cam', 'summary-new', 'summary-old'];
 const NAME = { toeic: 'TOEIC ETS', cam: 'IELTS Cam', 'summary-new': 'TOEIC Pre (mới)', 'summary-old': 'TOEIC Pre (cũ)' };
 const FRESH = 180000, DAY = 86400000, TZ = 7 * 3600000, PAGE = 200;
@@ -205,7 +206,7 @@ async function boot() {
   Au.onAuthStateChanged(auth, u => {
     stop();
     if (!u) { $('app').classList.add('hide'); $('gate').classList.remove('hide'); return; }
-    if (u.email !== TEACHER || !u.emailVerified) {
+    if (eh(u.email) !== TEACHER || !u.emailVerified) {
       msg('Trang này chỉ dành cho thầy.'); $('gateTxt').textContent = 'Tài khoản ' + (u.email || '') + ' không xem được trang này.';
       Au.signOut(auth); return;
     }
