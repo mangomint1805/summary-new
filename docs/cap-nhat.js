@@ -4,6 +4,8 @@ window.MT_UPDATES = [
     id: '2026-10-24g', date: '24/10/2026',
     title: 'Bài tóm tắt dễ hiểu hơn',
     items: [
+      'Reading Unit 1–7 và Listening Unit 1–8: hầu hết câu ví dụ có thêm bản dịch tiếng Việt, ký hiệu (S, V, N, V3…) và thuật ngữ được giải thích ngay lần đầu xuất hiện.',
+      'Sửa một số ví dụ và đáp án bị sai (ví dụ: so sánh than last year's, câu hỏi gián tiếp trả lời phần có từ để hỏi, lưu ý “Would you mind…?” muốn đồng ý thì nói “No, not at all”).',
       'Weekly Revision 1–4: câu ví dụ có thêm bản dịch tiếng Việt, ký hiệu như S, V, V3 được giải thích ngay trong bài, đáp án luyện tập có ghi lý do chọn.'
     ]
   },
