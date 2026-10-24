@@ -1,6 +1,14 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-24h', date: '24/10/2026',
+    title: 'Sửa thêm vài chỗ trong bài tóm tắt',
+    items: [
+      'Listening Unit 5: câu trả lời mẫu cho câu hỏi lựa chọn (mua máy mới hay sửa) nói rõ phương án được chọn.',
+      'Weekly Revision 3: sửa phần luyện tập ghi đúng là Listening Part 1.'
+    ]
+  },
+  {
     id: '2026-10-24g', date: '24/10/2026',
     title: 'Bài tóm tắt dễ hiểu hơn',
     items: [
