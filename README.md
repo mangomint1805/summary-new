@@ -70,6 +70,13 @@ Mỗi bài có nút **🃏 Flashcard từ vựng** (ở đầu bài và ngay tr�
 | [Weekly Revision 3](https://mangomint1805.github.io/summary-new/weekly/revision-3.html) | Ôn tập Liên từ, Giới từ, Phân từ |
 | [Weekly Revision 4](https://mangomint1805.github.io/summary-new/weekly/revision-4.html) | Ôn tập Sự hoà hợp (Agreement) |
 
+## Ôn tập
+
+| Bài | Nội dung |
+|---|---|
+| [Ôn tập sau Progress Test 1](https://mangomint1805.github.io/summary-new/review/progress-test-1.html) | Câu dễ sai trong Progress Test 1 và từ vựng (mở sau buổi 11) |
+| [Ôn tập trước Progress Test 2](https://mangomint1805.github.io/summary-new/review/progress-test-2.html) | Checklist cả khoá, 22 câu luyện, từ vựng (mở sau buổi 22) |
+
 ## Chuyên đề
 
 Bài tổng hợp theo chủ điểm ngữ pháp, dùng để ôn xuyên suốt khoá.
@@ -81,6 +88,14 @@ Bài tổng hợp theo chủ điểm ngữ pháp, dùng để ôn xuyên suốt 
 | 3 | [Các thì của động từ trong TOEIC](https://mangomint1805.github.io/summary-new/chuyen-de/thi-dong-tu.html) |
 | 4 | [Câu bị động trong TOEIC](https://mangomint1805.github.io/summary-new/chuyen-de/cau-bi-dong.html) |
 | 5 | [Giới từ thường gặp trong TOEIC](https://mangomint1805.github.io/summary-new/chuyen-de/gioi-tu.html) |
+| 6 | [Liên từ trong TOEIC](https://mangomint1805.github.io/summary-new/chuyen-de/lien-tu.html) |
+| 7 | [Đại từ quan hệ trong TOEIC](https://mangomint1805.github.io/summary-new/chuyen-de/dai-tu-quan-he.html) |
+| 8 | [To V và V-ing trong TOEIC](https://mangomint1805.github.io/summary-new/chuyen-de/to-v-v-ing.html) |
+| 9 | [So sánh trong TOEIC](https://mangomint1805.github.io/summary-new/chuyen-de/so-sanh.html) |
+| 10 | [Sự hòa hợp chủ ngữ – động từ](https://mangomint1805.github.io/summary-new/chuyen-de/hoa-hop-chu-vi.html) |
+| 11 | [Bẫy thường gặp ở Part 1](https://mangomint1805.github.io/summary-new/chuyen-de/bay-part-1.html) |
+| 12 | [Câu trả lời gián tiếp ở Part 2](https://mangomint1805.github.io/summary-new/chuyen-de/tra-loi-gian-tiep-part-2.html) |
+| 13 | [Nhận ra cách nói lại (paraphrase) ở Part 3–4](https://mangomint1805.github.io/summary-new/chuyen-de/paraphrase-part-3-4.html) |
 
 ## Cấu trúc thư mục
 
@@ -97,6 +112,7 @@ docs/
   reading/       trang web từng bài Reading
   listening/     trang web từng bài Listening
   weekly/        trang web từng bài Weekly Revision
+  review/        trang Ôn tập Progress Test 1, 2
   chuyen-de/     trang web từng chuyên đề ngữ pháp
 ```
 

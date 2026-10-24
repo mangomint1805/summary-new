@@ -1,6 +1,18 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-24c', date: '24/10/2026',
+    title: 'Ôn tập Progress Test 1, 2 và 8 chuyên đề mới',
+    link: ['index.html', 'Xem trên trang chủ'],
+    items: [
+      'Trang mới “Ôn tập sau Progress Test 1”: xem lại những câu dễ sai trong bài kiểm tra (Part 1, Part 2, Part 5–6), có đáp án, giải thích vì sao đúng và vì sao các lựa chọn khác sai, kèm bảng cụm từ cố định và 49 từ vựng.',
+      'Trang mới “Ôn tập trước Progress Test 2”: checklist kiến thức cả khoá theo từng Part (tick được, máy nhớ giúp), bảng ngữ pháp tóm tắt, mẹo làm bài ngày thi, 22 câu luyện và 44 từ vựng. Trang tự mở sau buổi 22.',
+      '8 chuyên đề mới, mở sẵn cho mọi lớp: Liên từ, Đại từ quan hệ, To V và V-ing, So sánh, Sự hòa hợp chủ ngữ – động từ, Bẫy thường gặp ở Part 1, Câu trả lời gián tiếp ở Part 2, Nhận ra cách nói lại ở Part 3–4.',
+      'Mỗi chuyên đề có 12 câu luyện kèm giải thích tiếng Việt và flashcard từ vựng. Ba chuyên đề Listening luyện bằng cách đọc lời thoại để nhận ra bẫy.',
+      'Flashcard của các chuyên đề và bài ôn tập giờ đã có file phát âm 3 giọng (Mỹ nữ, Mỹ nam, Anh nữ), điện thoại nào cũng nghe được.'
+    ]
+  },
+  {
     id: '2026-10-24b', date: '24/10/2026',
     title: '4 chuyên đề ngữ pháp mới cho Part 5',
     link: ['index.html', 'Xem trên trang chủ'],

@@ -23,13 +23,17 @@ var SN_CLASSES = [
 /* Bài học ứng với buổi nào trong lịch 24 buổi (TOEIC PRE ver 3.0) */
 var SN_SESSIONS = {
   R1: 1, L1: 2, R2: 3, L2: 4, W1: 5, R3: 6, L3: 7, R4: 8, W2: 9,
-  L4: 12, R5: 13, L5: 14, W3: 15, L6: 16, R6: 17, L7: 18, R7: 19, L8: 20, W4: 21
+  L4: 12, R5: 13, L5: 14, W3: 15, L6: 16, R6: 17, L7: 18, R7: 19, L8: 20, W4: 21,
+  PT1: 11, /* trang Ôn tập sau Progress Test 1 – mở sau buổi kiểm tra */
+  PT2: 22  /* trang Ôn tập trước Progress Test 2 – mở trước buổi thi vài ngày */
 };
 var SN_TOTAL = 24;
 /* Các buổi không có trang bài học */
 var SN_OTHER = { 10: 'Exam master 1', 11: 'Progress Test 1', 22: 'Exam master 2', 23: 'Exam master 3', 24: 'Progress Test 2' };
 var SN_PREFIX = 'summaryNew';
 var SN_FILES = {
+  'review/progress-test-1.html': 'PT1',
+  'review/progress-test-2.html': 'PT2',
   'reading/unit-01-nouns-pronouns.html': 'R1',
   'reading/unit-02-adjectives-adverbs-comparison.html': 'R2',
   'reading/unit-03-verb-tenses.html': 'R3',
