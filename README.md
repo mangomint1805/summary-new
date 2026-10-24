@@ -70,6 +70,18 @@ Mỗi bài có nút **🃏 Flashcard từ vựng** (ở đầu bài và ngay tr�
 | [Weekly Revision 3](https://mangomint1805.github.io/summary-new/weekly/revision-3.html) | Ôn tập Liên từ, Giới từ, Phân từ |
 | [Weekly Revision 4](https://mangomint1805.github.io/summary-new/weekly/revision-4.html) | Ôn tập Sự hoà hợp (Agreement) |
 
+## Chuyên đề
+
+Bài tổng hợp theo chủ điểm ngữ pháp, dùng để ôn xuyên suốt khoá.
+
+| # | Chuyên đề |
+|---|---|
+| 1 | [Phân biệt loại từ: Tính – Danh – Động – Trạng](https://mangomint1805.github.io/summary-new/chuyen-de/phan-biet-loai-tu.html) |
+| 2 | [Đại từ trong TOEIC](https://mangomint1805.github.io/summary-new/chuyen-de/dai-tu.html) |
+| 3 | [Các thì của động từ trong TOEIC](https://mangomint1805.github.io/summary-new/chuyen-de/thi-dong-tu.html) |
+| 4 | [Câu bị động trong TOEIC](https://mangomint1805.github.io/summary-new/chuyen-de/cau-bi-dong.html) |
+| 5 | [Giới từ thường gặp trong TOEIC](https://mangomint1805.github.io/summary-new/chuyen-de/gioi-tu.html) |
+
 ## Cấu trúc thư mục
 
 ```
@@ -78,10 +90,14 @@ docs/
   classes.js     danh sách lớp + lịch mở bài
   audio/         file phát âm từ vựng (tạo bằng tools/make_audio.py)
   style.css      giao diện chung
+  extras.js      đánh dấu "đã ôn tập" + tìm kiếm trong các bài
+  cap-nhat.html  trang "Có gì mới" (nội dung trong cap-nhat.js)
+  thong-ke-gv.html  thống kê học viên cho giáo viên
   flashcards.js  flashcard từ vựng (tự đọc bảng từ vựng của mỗi bài)
   reading/       trang web từng bài Reading
   listening/     trang web từng bài Listening
   weekly/        trang web từng bài Weekly Revision
+  chuyen-de/     trang web từng chuyên đề ngữ pháp
 ```
 
 GitHub Pages: Settings → Pages → Branch `main`, folder `/docs`.
