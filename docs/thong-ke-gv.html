@@ -24,7 +24,12 @@
 #msg{min-height:22px;margin:10px 0 0;font-weight:600;color:#9b2c2c;}
 .hide{display:none!important;}
 /* live */
-.live{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;}
+.live{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;}
+.tabs button{font:inherit;font-size:15px;font-weight:700;border:1.5px solid var(--line);background:var(--card);color:var(--dim);border-radius:12px;padding:10px 16px;cursor:pointer;}
+.tabs button.on{border-color:var(--amber);background:var(--amber-soft);color:var(--amber-ink);}
+.tabs button small{display:block;font-size:12px;font-weight:500;}
+.lop{display:inline-block;font-size:12px;font-weight:600;background:var(--amber-soft);color:var(--amber-ink);border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap;}
 .lc h3{margin:0;font-size:14px;font-weight:600;color:var(--dim);}
 .lc .n{font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px;font-variant-numeric:tabular-nums;color:var(--teal);}
 .lc .n small{font-size:13px;font-weight:600;color:var(--dim);margin-left:4px;}
@@ -69,7 +74,6 @@ table.t code{font-size:12px;color:var(--dim);}
 .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:30px 0 10px;}
 .row h2{margin:0;}
 .note{color:var(--dim);font-size:13.5px;margin:6px 0 0;}
-@media (max-width:760px){.live{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media (max-width:480px){
   .tk .hero{padding:26px 0 6px;}
   .card{padding:14px;}
@@ -80,7 +84,7 @@ table.t code{font-size:12px;color:var(--dim);}
   table.t{font-size:13px;}
   table.t th,table.t td{padding:7px 8px;}
   .hist .c-tab,.hist .c-web{display:none;}
-  .stu .c-web{display:none;}
+  .stu .c-web,.stu .c-last{display:none;}
 }
 </style>
 </head>
@@ -88,7 +92,7 @@ table.t code{font-size:12px;color:var(--dim);}
 <div class="wrap tk">
   <header class="hero">
     <h1>Thống kê học viên</h1>
-    <p>Ai đang học trên 4 web, lịch sử xem trang và học viên nào học nhiều. Trang riêng của thầy.</p>
+    <p>Theo dõi riêng từng web: luyện đề TOEIC, luyện đề IELTS và web Tóm tắt của lớp Ms.Hoa. Trang riêng của thầy.</p>
   </header>
 
   <section class="card" id="gate">
@@ -103,6 +107,12 @@ table.t code{font-size:12px;color:var(--dim);}
       <button type="button" class="btn" id="signout">Đăng xuất</button>
     </div>
 
+    <div class="tabs" id="tabs" role="tablist" aria-label="Chọn web">
+      <button type="button" role="tab" data-t="toeic">📘 TOEIC<small>Luyện đề ETS</small></button>
+      <button type="button" role="tab" data-t="ielts">📗 IELTS<small>Cambridge</small></button>
+      <button type="button" role="tab" data-t="summary">📒 Tóm tắt<small>lớp Ms.Hoa</small></button>
+    </div>
+
     <h2><span class="dotl"></span>Đang online</h2>
     <div class="live" id="live"></div>
     <p class="note">Tính các tab có tín hiệu trong 3 phút gần nhất. Tên chỉ hiện với bạn đã đăng nhập Google.</p>
@@ -110,9 +120,8 @@ table.t code{font-size:12px;color:var(--dim);}
     <div class="row"><h2>Lịch sử xem trang</h2><button type="button" class="btn" id="reload">↻ Tải lại</button></div>
     <div class="card">
       <div class="flt">
-        <select id="fSite" aria-label="Web">
-          <option value="">Cả 4 web</option>
-        </select>
+        <select id="fSite" aria-label="Web"></select>
+        <select id="fLop" aria-label="Lớp"></select>
         <div class="seg" id="fRange" role="group" aria-label="Khoảng thời gian">
           <button type="button" data-d="1" class="on">Hôm nay</button><button type="button" data-d="7">7 ngày</button><button type="button" data-d="30">30 ngày</button>
         </div>
@@ -129,8 +138,9 @@ table.t code{font-size:12px;color:var(--dim);}
     <h2 id="chartT">Lượt xem theo ngày</h2>
     <div class="card"><div class="chart" id="chart" role="img"></div><div class="chart-x" id="chartX"></div></div>
 
-    <h2>Theo học viên</h2>
-    <div class="tw"><table class="t stu"><thead><tr><th>Học viên</th><th>Số lượt</th><th>Lần cuối</th><th class="c-web">Web hay dùng</th></tr></thead><tbody id="stuB"></tbody></table></div>
+    <h2 id="stuT">Theo học viên</h2>
+    <p class="note" id="stuNote"></p>
+    <div class="tw"><table class="t stu"><thead id="stuH"></thead><tbody id="stuB"></tbody></table></div>
 
     <div class="row"><h2>Chi tiết</h2><button type="button" class="btn" id="csv">⬇ Xuất CSV</button></div>
     <div class="tw"><table class="t hist"><thead><tr><th>Thời gian</th><th class="c-web">Web</th><th>Trang</th><th>Học viên</th><th class="c-tab">Tab</th></tr></thead><tbody id="histB"></tbody></table></div>
@@ -154,6 +164,14 @@ const TEACHER = '979n45';
 function eh(t) { t = String(t || '').toLowerCase(); let x = 2166136261; for (let i = 0; i < t.length; i++) { x ^= t.charCodeAt(i); x = Math.imul(x, 16777619); } return (x >>> 0).toString(36); }
 const SITES = ['toeic', 'cam', 'summary-new', 'summary-old'];
 const NAME = { toeic: 'TOEIC ETS', cam: 'IELTS Cam', 'summary-new': 'TOEIC Pre (mới)', 'summary-old': 'TOEIC Pre (cũ)' };
+const TABS = { toeic: ['toeic'], ielts: ['cam'], summary: ['summary-new', 'summary-old'] };
+let tab = 'toeic'; try { tab = localStorage.getItem('tk.tab') || 'toeic'; } catch (e) {} if (!TABS[tab]) tab = 'toeic';
+const tabSites = () => TABS[tab], isSum = () => tab === 'summary';
+const curSites = () => $('fSite').value ? [$('fSite').value] : tabSites();
+const CLS = {};   // mã lớp -> tên lớp (đọc từ classes.js của 2 web Tóm tắt)
+let EL = new Map(); // email -> mã lớp gần nhất (bản ghi cũ chưa có lớp thì lấy theo bản ghi mới hơn của cùng bạn đó)
+const lopOf = r => r.l || (r.e && EL.get(r.e)) || '';
+const lopBadge = l => l ? '<span class="lop">' + esc(l) + '</span>' : '';
 const FRESH = 180000, DAY = 86400000, TZ = 7 * 3600000, PAGE = 200;
 const $ = id => document.getElementById(id);
 const esc = t => String(t == null ? '' : t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -186,6 +204,8 @@ function title(path, site) {
   if ((m = base.match(/^mini(?:test)?-?(\d*)$/i))) return 'Minitest' + (m[1] ? ' ' + (+m[1]) : '');
   if ((m = base.match(/^(?:mock|thi-thu)-?(\d*)$/i))) return 'Mock test' + (m[1] ? ' ' + (+m[1]) : '');
   if (base === 'test') return 'Bài thi';
+  if (segs.includes('chuyen-de')) return 'Chuyên đề · ' + base.replace(/-/g, ' ');
+  if ((m = base.match(/progress-test-?(\d+)/i))) return 'Ôn tập Progress Test ' + (+m[1]);
   const nice = { 'ho-so': 'Hồ sơ', 'xep-hang': 'Xếp hạng tuần', 'cap-nhat': 'Cập nhật', 'flashcard': 'Flashcard', 'flashcards': 'Flashcard' };
   return nice[base] || path;
 }
@@ -231,14 +251,14 @@ function start() {
 const KINDS = { home: 'trang chủ', test: 'đang làm bài', lesson: 'bài học' };
 function paintLive() {
   const t = now(), fresh = v => v && typeof v.t === 'number' && v.t >= t - FRESH;
-  $('live').innerHTML = SITES.map(s => {
+  $('live').innerHTML = tabSites().map(s => {
     const on = live.online[s] || {}, wh = live.who[s] || {};
     const ids = Object.keys(on).filter(k => fresh(on[k]));
     const signed = Object.keys(wh).filter(k => fresh(wh[k]) && (on[k] ? fresh(on[k]) : true));
     const anon = ids.filter(k => !signed.includes(k)).length;
     const li = signed.sort((a, b) => String(wh[a].n || wh[a].e).localeCompare(String(wh[b].n || wh[b].e), 'vi')).map(k => {
       const w = wh[k], kind = on[k] && on[k].p;
-      return '<li><b>' + esc(w.n || w.e) + '</b><span>' + esc(w.e) + '</span><br><span>' + esc(w.u ? title(w.u, s) : '') + (kind && KINDS[kind] ? ' · ' + KINDS[kind] : '') + '</span></li>';
+      return '<li><b>' + esc(w.n || w.e) + lopBadge(w.l) + '</b><span>' + esc(w.e) + '</span><br><span>' + esc(w.u ? title(w.u, s) : '') + (kind && KINDS[kind] ? ' · ' + KINDS[kind] : '') + '</span></li>';
     }).join('');
     const n = Math.max(ids.length, signed.length);
     return '<div class="card lc"><h3>' + esc(NAME[s]) + '</h3><div class="n">' + n + '<small>đang học</small></div>' + (li ? '<ul>' + li + '</ul>' : '') + (anon ? '<div class="anon">' + anon + ' bạn chưa đăng nhập</div>' : '') + '</div>';
@@ -249,23 +269,26 @@ function paintLive() {
 async function loadHist() {
   const seq = ++loadSeq, from = fromTs();
   $('histB').innerHTML = '<tr><td colspan="5">Đang tải…</td></tr>';
-  const want = $('fSite').value ? [$('fSite').value] : SITES;
+  const want = curSites();
   try {
     const parts = await Promise.all(want.map(s => D.get(D.query(D.ref(db, 'log/' + s), D.orderByChild('t'), D.startAt(from))).then(sn => {
       const out = []; const v = sn.val() || {};
-      for (const k in v) { const x = v[k]; if (x && typeof x.t === 'number') out.push({ id: k, s, t: x.t, k: x.k || '', u: x.u || '', i: x.i || '', e: x.e || '', n: x.n || '' }); }
+      for (const k in v) { const x = v[k]; if (x && typeof x.t === 'number') out.push({ id: k, s, t: x.t, k: x.k || '', u: x.u || '', i: x.i || '', e: x.e || '', n: x.n || '', l: typeof x.l === 'string' ? x.l : '' }); }
       return out;
     })));
     if (seq !== loadSeq) return;
-    rows = parts.flat().sort((a, b) => b.t - a.t); shown = PAGE; paint();
+    rows = parts.flat().sort((a, b) => b.t - a.t);
+    EL = new Map(); rows.forEach(r => { if (r.e && r.l && !EL.has(r.e)) EL.set(r.e, r.l); });
+    lopOptions(); shown = PAGE; paint();
   } catch (e) {
     if (seq !== loadSeq) return;
     $('histB').innerHTML = '<tr><td colspan="5">Không tải được lịch sử (' + esc(e && e.code || e && e.message || 'lỗi') + ').</td></tr>';
   }
 }
 function filtered() {
-  const q = $('fQ').value.trim().toLowerCase(), only = $('fSigned').checked, site = $('fSite').value, from = fromTs();
-  return rows.filter(r => r.t >= from && (!site || r.s === site) && (!only || r.e) && (!q || (r.e + ' ' + r.n).toLowerCase().includes(q)));
+  const q = $('fQ').value.trim().toLowerCase(), only = $('fSigned').checked, site = $('fSite').value, from = fromTs(), lop = isSum() ? $('fLop').value : '';
+  const ok = tabSites();
+  return rows.filter(r => r.t >= from && ok.includes(r.s) && (!site || r.s === site) && (!only || r.e) && (!lop || (lop === '-' ? !lopOf(r) : lopOf(r) === lop)) && (!q || (r.e + ' ' + r.n + ' ' + lopOf(r)).toLowerCase().includes(q)));
 }
 function paint() {
   const L = filtered();
@@ -275,7 +298,7 @@ function paint() {
   $('sGuest').textContent = L.length - signed.length;
   chart(L); students(signed);
   const H = L.slice(0, shown);
-  $('histB').innerHTML = H.length ? H.map(r => '<tr><td class="nw">' + fmt(r.t) + '</td><td class="c-web">' + esc(NAME[r.s]) + '</td><td>' + esc(title(r.u, r.s)) + '<small>' + esc(r.u) + '</small></td><td>' + (r.e ? esc(r.n || r.e) + (r.n ? '<small>' + esc(r.e) + '</small>' : '') : '<span class="guest">Khách</span>') + '</td><td class="c-tab"><code>' + esc(r.i.slice(0, 6)) + '</code></td></tr>').join('') : '<tr><td colspan="5">Chưa có lượt xem nào trong khoảng này.</td></tr>';
+  $('histB').innerHTML = H.length ? H.map(r => '<tr><td class="nw">' + fmt(r.t) + '</td><td class="c-web">' + esc(NAME[r.s]) + '</td><td>' + esc(title(r.u, r.s)) + '<small>' + esc(r.u) + '</small></td><td>' + (r.e ? esc(r.n || r.e) + (isSum() ? lopBadge(lopOf(r)) : '') + (r.n ? '<small>' + esc(r.e) + '</small>' : '') : '<span class="guest">Khách</span>') + '</td><td class="c-tab"><code>' + esc(r.i.slice(0, 6)) + '</code></td></tr>').join('') : '<tr><td colspan="5">Chưa có lượt xem nào trong khoảng này.</td></tr>';
   $('moreB').classList.toggle('hide', L.length <= shown);
   $('moreB').textContent = 'Xem thêm (' + (L.length - shown) + ' dòng nữa)';
 }
@@ -291,14 +314,52 @@ function chart(L) {
   $('chartX').innerHTML = c.map((v, i) => '<span>' + (i % every === 0 ? lbl(i) : '') + '</span>').join('');
 }
 function students(S) {
-  const m = new Map();
+  const m = new Map(), sum = isSum();
   S.forEach(r => {
-    let x = m.get(r.e); if (!x) m.set(r.e, x = { e: r.e, n: '', c: 0, last: 0, w: {} });
-    x.c++; if (r.t > x.last) { x.last = r.t; x.n = r.n || x.n; } else if (!x.n) x.n = r.n;
+    let x = m.get(r.e); if (!x) m.set(r.e, x = { e: r.e, n: '', c: 0, last: 0, lu: '', ls: '', w: {}, pg: new Set() });
+    x.c++; if (r.t > x.last) { x.last = r.t; x.n = r.n || x.n; x.lu = r.u; x.ls = r.s; } else if (!x.n) x.n = r.n;
     x.w[r.s] = (x.w[r.s] || 0) + 1;
+    if (r.k !== 'home') x.pg.add(r.s + '|' + title(r.u, r.s));
   });
-  const L = [...m.values()].sort((a, b) => b.c - a.c || b.last - a.last);
-  $('stuB').innerHTML = L.length ? L.map(x => { const top = Object.keys(x.w).sort((a, b) => x.w[b] - x.w[a]); return '<tr><td>' + esc(x.n || x.e) + '<small>' + esc(x.e) + '</small></td><td class="nw">' + x.c + '</td><td class="nw">' + fmt(x.last) + '</td><td class="c-web">' + top.map(s => esc(NAME[s]) + ' (' + x.w[s] + ')').join(', ') + '</td></tr>'; }).join('') : '<tr><td colspan="4">Chưa có học viên đăng nhập nào trong khoảng này.</td></tr>';
+  const L = [...m.values()].sort((a, b) => sum ? ((EL.get(a.e) ? 0 : 1) - (EL.get(b.e) ? 0 : 1) || String(EL.get(a.e) || '').localeCompare(String(EL.get(b.e) || '')) || b.c - a.c || b.last - a.last) : (b.c - a.c || b.last - a.last));
+  $('stuT').textContent = sum ? 'Học viên lớp Ms.Hoa đã vào web' : 'Theo học viên';
+  $('stuNote').textContent = sum ? L.length + ' bạn đã đăng nhập và vào web trong khoảng này. Cột Lớp theo mã lớp bạn ấy nhập trên web (bắt đầu ghi từ 25/10/2026, trước đó hiện "chưa rõ").' : '';
+  $('stuH').innerHTML = '<tr><th>Học viên</th>' + (sum ? '<th>Lớp</th>' : '') + '<th>Số lượt</th>' + (sum ? '<th>Số bài đã xem</th>' : '') + '<th class="c-last">Lần cuối</th><th class="c-web">' + (sum ? 'Vừa xem' : 'Web hay dùng') + '</th></tr>';
+  const cols = sum ? 6 : 4;
+  $('stuB').innerHTML = L.length ? L.map(x => {
+    const top = Object.keys(x.w).sort((a, b) => x.w[b] - x.w[a]), l = EL.get(x.e) || '';
+    return '<tr><td>' + esc(x.n || x.e) + '<small>' + esc(x.e) + '</small></td>' +
+      (sum ? '<td class="nw">' + (l ? esc(l) + (CLS[l] ? '<small>' + esc(CLS[l]) + '</small>' : '') : '<span class="guest">chưa rõ</span>') + '</td>' : '') +
+      '<td class="nw">' + x.c + '</td>' + (sum ? '<td class="nw">' + x.pg.size + '</td>' : '') +
+      '<td class="nw c-last">' + fmt(x.last) + '</td><td class="c-web">' +
+      (sum ? esc(title(x.lu, x.ls)) + '<small>' + esc(NAME[x.ls]) + '</small>' : top.map(s => esc(NAME[s]) + ' (' + x.w[s] + ')').join(', ')) + '</td></tr>';
+  }).join('') : '<tr><td colspan="' + cols + '">Chưa có học viên đăng nhập nào trong khoảng này.</td></tr>';
+}
+
+// ---------- tab & bộ lọc ----------
+function lopOptions() {
+  const f = $('fLop'), cur = f.value, codes = new Set(Object.keys(CLS));
+  rows.forEach(r => { const l = lopOf(r); if (l) codes.add(l); });
+  f.innerHTML = '<option value="">Tất cả lớp</option>' + [...codes].sort().map(c => '<option value="' + esc(c) + '">' + esc(CLS[c] || c) + '</option>').join('') + '<option value="-">Chưa rõ lớp</option>';
+  if ([...f.options].some(o => o.value === cur)) f.value = cur;
+}
+function setTab(t) {
+  tab = t; try { localStorage.setItem('tk.tab', t); } catch (e) {}
+  [...$('tabs').children].forEach(b => { const on = b.dataset.t === t; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+  const S = tabSites();
+  $('fSite').innerHTML = (S.length > 1 ? '<option value="">Cả ' + S.length + ' web</option>' : '') + S.map(s => '<option value="' + s + '">' + esc(NAME[s]) + '</option>').join('');
+  $('fSite').classList.toggle('hide', S.length < 2);
+  $('fLop').classList.toggle('hide', !isSum()); $('fLop').value = '';
+  paintLive(); if (!$('app').classList.contains('hide')) loadHist();
+}
+async function loadClasses() {
+  for (const src of ['classes.js', '../summary-old/classes.js']) {
+    try {
+      const t = await (await fetch(src, { cache: 'no-cache' })).text();
+      for (const m of t.matchAll(/ma:\s*'([^']+)',\s*ten:\s*'([^']+)'/g)) CLS[m[1]] = m[2];
+    } catch (e) {}
+  }
+  lopOptions(); if (rows.length) paint();
 }
 
 // ---------- CSV ----------
@@ -333,8 +394,9 @@ async function clean() {
 }
 
 // ---------- điều khiển ----------
-SITES.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = NAME[s]; $('fSite').appendChild(o); });
+$('tabs').onclick = e => { const b = e.target.closest('button[data-t]'); if (b && b.dataset.t !== tab) setTab(b.dataset.t); };
 $('fSite').onchange = loadHist;
+$('fLop').onchange = () => { shown = PAGE; paint(); };
 $('fRange').onclick = e => { const b = e.target.closest('button'); if (!b) return; range = +b.dataset.d; [...$('fRange').children].forEach(x => x.classList.toggle('on', x === b)); loadHist(); };
 $('fSigned').onchange = () => { shown = PAGE; paint(); };
 let qT = 0; $('fQ').oninput = () => { clearTimeout(qT); qT = setTimeout(() => { shown = PAGE; paint(); }, 200); };
@@ -343,6 +405,7 @@ $('reload').onclick = loadHist;
 $('csv').onclick = csv;
 $('clean').onclick = clean;
 let rT = 0; addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(() => { if (rows.length || !$('app').classList.contains('hide')) chart(filtered()); }, 200); });
+setTab(tab); loadClasses();
 boot();
 </script>
 </body>
