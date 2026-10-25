@@ -111,7 +111,7 @@ docs/
   style.css      giao diện chung
   extras.js      đánh dấu "đã ôn tập" + tìm kiếm trong các bài
   cap-nhat.html  trang "Có gì mới" (nội dung trong cap-nhat.js)
-  thong-ke-gv.html  thống kê học viên cho giáo viên
+  thong-ke-gv.html  chỉ chuyển trang: thống kê đã gộp vào mangomint1805.github.io/gv.html (tab Truy cập web)
   flashcards.js  flashcard từ vựng (tự đọc bảng từ vựng của mỗi bài)
   reading/       trang web từng bài Reading
   listening/     trang web từng bài Listening
