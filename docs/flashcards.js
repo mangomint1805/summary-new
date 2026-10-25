@@ -18,17 +18,19 @@
   if (!tables.length) return;
 
   function txt(n) { return n ? n.textContent.replace(/\s+/g, ' ').trim() : ''; }
-  var POS = /\s*\((n|v|adj|adv|phr|prep|conj|n\/v|v\/n|pron)\)\s*$/i;
+  var POS = /\s*\((n|v|adj|adv|phr|prep|conj|n\/v|v\/n|pron|phr\.v|np)\)\s*$/i;
   var cards = [], seen = {};
   tables.forEach(function (table) {
+    if (table.classList.contains('no-fc')) return; // bảng phụ (VD Word Forms, Paraphrase): không làm thẻ
     var rows = [].slice.call(table.querySelectorAll('tr'));
     if (!rows.length) return;
     // Xác định cột theo dòng tiêu đề: English / Pronunciation / Vietnamese
     var head = table.querySelector('thead tr') || rows[0];
     var hs = [].slice.call(head.children).map(function (c) { return txt(c).toLowerCase(); });
-    var cEn = -1, cIpa = -1, cVi = -1;
+    var cEn = -1, cIpa = -1, cVi = -1, cPos = -1;
     hs.forEach(function (h, k) {
-      if (/english|tiếng anh|từ vựng|word/.test(h) && cEn < 0) cEn = k;
+      if (/part of speech|loại từ/.test(h)) cPos = k;
+      else if (/english|tiếng anh|từ vựng|word/.test(h) && cEn < 0) cEn = k;
       else if (/pronunc|phonetic|phát âm|ipa|phiên âm/.test(h)) cIpa = k;
       else if (/vietnam|tiếng việt|nghĩa|meaning/.test(h)) cVi = k;
     });
@@ -45,6 +47,7 @@
       if (!en || !vi || /^english$/i.test(en)) return;
       var m = en.match(POS), pos = '';
       if (m) { pos = m[1].toLowerCase(); en = en.replace(POS, ''); }
+      else if (cPos >= 0 && td[cPos]) pos = esc(txt(td[cPos]).toLowerCase());
       if (ipa && !/^\/?.*\/$/.test(ipa) && ipa.indexOf('/') < 0) ipa = '';
       var key = en.toLowerCase();
       if (seen[key]) return; seen[key] = 1;

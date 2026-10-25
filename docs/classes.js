@@ -13,11 +13,15 @@
    hocToi    : (không bắt buộc) ép mở tới buổi số mấy dù chưa tới ngày.
    Bài của buổi nào sẽ mở SAU GIỜ TAN HỌC của ngày học buổi đó (giờ tan lấy từ
                'ten', ví dụ '19h45 - 21h15' → mở lúc 21:15).
-   gioMo     : (không bắt buộc) giờ mở bài khác giờ tan học, dạng 'HH:MM'.
+   gioMo     : (không bắt buộc) giờ mở bài khác giờ tan học, dạng 'HH:MM' ('00:00' = mở từ 0h ngày học).
+   khoa      : (không bắt buộc) khoá học: 'Pre' (mặc định, TOEIC Pre ver 3.0) hoặc 'A' (TOEIC A).
+               Lớp chỉ thấy và mở được bài của khoá mình.
    ===================================================================== */
 var SN_CLASSES = [
   { ma: 'TOPRE115276', ten: 'TOPRE115276 (2-4-6, 19h45 - 21h15)', khaiGiang: '2026-09-25', thu: [2, 4, 6], nghi: [],
-    moc: ['2026-10-14', 7] } // 14/10 mới học tới buổi 7 (Listening 3 – Information Questions)
+    moc: ['2026-10-14', 7] }, // 14/10 mới học tới buổi 7 (Listening 3 – Information Questions)
+  { ma: 'TOA117110', ten: 'TOA117110 (2-4-6, 17h45 - 19h15)', khaiGiang: '2026-10-26', thu: [2, 4, 6], nghi: [],
+    khoa: 'A', gioMo: '00:00' } // TOEIC A: bài mở từ 0h ngày học buổi đó
 ];
 
 /* Bài học ứng với buổi nào trong lịch 24 buổi (TOEIC PRE ver 3.0) */
@@ -79,6 +83,34 @@ var SN_FILES = {
   'weekly/revision-4.html': 'W4'
 };
 
+/* ----- Khoá TOEIC A (24 buổi): mỗi Unit 3 buổi: Lesson 1 Reading, Lesson 2 Listening, Lesson 3 luyện tập ----- */
+var SN_SESSIONS_A = {
+  AR1: 1, AL1: 2, AR2: 4, AL2: 5, AR3: 7, AL3: 8,
+  AR4: 13, AL4: 14, AR5: 16, AL5: 17, AR6: 19, AL6: 20
+};
+var SN_OTHER_A = {
+  3: 'Unit 1 · Lesson 3', 6: 'Unit 2 · Lesson 3', 9: 'Unit 3 · Lesson 3', 10: 'Exam master 1', 11: 'Exam master 2', 12: 'Progress Test 1',
+  15: 'Unit 4 · Lesson 3', 18: 'Unit 5 · Lesson 3', 21: 'Unit 6 · Lesson 3', 22: 'Exam master 3', 23: 'Exam master 4', 24: 'Progress Test 2'
+};
+(function () {
+  var T = ['Accommodation & Restaurant', 'Meeting', 'Business Trip', 'Community', 'Investment', 'Work Issues'];
+  var S = ['accommodation-restaurant', 'meeting', 'business-trip', 'community', 'investment', 'work-issues'];
+  T.forEach(function (t, k) {
+    var n = k + 1, f = 'unit-0' + n + '-' + S[k] + '.html';
+    SN_TITLES['AR' + n] = 'TOEIC A · Reading Unit ' + n + ' · ' + t;
+    SN_TITLES['AL' + n] = 'TOEIC A · Listening Unit ' + n + ' · ' + t;
+    SN_FILES['a/reading/' + f] = 'AR' + n;
+    SN_FILES['a/listening/' + f] = 'AL' + n;
+  });
+})();
+/* lịch của từng khoá; lớp không ghi khoa thì là Pre */
+var SN_COURSES = {
+  Pre: { ten: 'TOEIC Pre', sessions: SN_SESSIONS, other: SN_OTHER, total: SN_TOTAL },
+  A: { ten: 'TOEIC A', sessions: SN_SESSIONS_A, other: SN_OTHER_A, total: 24 }
+};
+function snKhoa(c) { return c && SN_COURSES[c.khoa] ? c.khoa : 'Pre'; }
+function snIdKhoa(id) { return SN_SESSIONS_A.hasOwnProperty(id) ? 'A' : 'Pre'; }
+
 /* ===================== phần xử lý (không cần sửa) ===================== */
 /* giờ mở bài của lớp: gioMo, hoặc giờ tan học trong tên lớp, mặc định 21:15 */
 function snEndHM(c) {
@@ -108,8 +140,9 @@ var SN = (function () {
     (c.nghi || []).forEach(function (x) { off[x] = 1; });
     (c.thu || []).forEach(function (t) { days[t === 8 ? 0 : t - 1] = 1; });
     function isDay(x) { return days[x.getDay()] && !off[key(x)]; }
-    var m = c.moc && c.moc[1] ? { d: ymd(c.moc[0]), n: Math.min(+c.moc[1], SN_TOTAL) } : null;
-    var need = m ? m.n : SN_TOTAL;
+    var TOTAL = SN_COURSES[snKhoa(c)].total;
+    var m = c.moc && c.moc[1] ? { d: ymd(c.moc[0]), n: Math.min(+c.moc[1], TOTAL) } : null;
+    var need = m ? m.n : TOTAL;
     while (out.length < need && guard++ < 800) {
       if (isDay(d)) out.push(new Date(d));
       d.setDate(d.getDate() + 1);
@@ -119,7 +152,7 @@ var SN = (function () {
       out = out.map(function (x) { return x > m.d ? new Date(m.d) : x; });
       out[m.n - 1] = new Date(m.d);
       d = new Date(m.d); d.setDate(d.getDate() + 1);
-      while (out.length < SN_TOTAL && guard++ < 1600) {
+      while (out.length < TOTAL && guard++ < 1600) {
         if (isDay(d)) out.push(new Date(d));
         d.setDate(d.getDate() + 1);
       }
@@ -132,8 +165,14 @@ var SN = (function () {
     ds.forEach(function (d, i) { var o = new Date(d); o.setHours(e[0], e[1], 0, 0); if (now >= o) n = i + 1; });
     return Math.max(n, c.hocToi || 0);
   }
-  function isOpen(c, id) { var s = SN_SESSIONS[id]; return !s || s <= doneSessions(c); }
-  function openDate(c, id) { var s = SN_SESSIONS[id]; return s ? dates(c)[s - 1] : null; }
+  function course(c) { return SN_COURSES[snKhoa(c)]; }
+  function session(c, id) { return course(c).sessions[id]; }
+  function isOpen(c, id) {
+    if (snIdKhoa(id) !== snKhoa(c)) return false; // bài của khoá khác: không mở
+    var s = session(c, id); return !s || s <= doneSessions(c);
+  }
+  function openDate(c, id) { var s = session(c, id); return s ? dates(c)[s - 1] : null; }
+  function ids(c) { return Object.keys(course(c).sessions); }
   var TH = ['CN', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
   function fmt(d, withDay) {
     if (!d) return '';
@@ -145,7 +184,8 @@ var SN = (function () {
   function leave() { set(KEY, null); }
   function teacher(v) { if (v === undefined) return get(GV) === '1'; set(GV, v ? '1' : null); }
   return { find: find, current: current, choose: choose, leave: leave, teacher: teacher, dates: dates,
-    doneSessions: doneSessions, isOpen: isOpen, openDate: openDate, fmt: fmt, today: today, norm: norm };
+    doneSessions: doneSessions, isOpen: isOpen, openDate: openDate, fmt: fmt, today: today, norm: norm,
+    khoa: snKhoa, course: course, session: session, ids: ids };
 })();
 
 /* ===== Bắt đăng nhập Google trước khi xem web =====
@@ -213,7 +253,9 @@ var SN = (function () {
 (function () {
   'use strict';
   var path = location.pathname.replace(/\\/g, '/');
-  var file = Object.keys(SN_FILES).filter(function (f) { return path.slice(-f.length) === f; })[0];
+  var me = document.currentScript, src = (me && me.getAttribute('src')) || '../classes.js';
+  var file = Object.keys(SN_FILES).filter(function (f) { return path.slice(-f.length - 1) === '/' + f; })
+    .sort(function (a, b) { return b.length - a.length; })[0];
   if (!file) return; // không phải trang bài học (VD trang chủ)
   var id = SN_FILES[file];
   var q = new URLSearchParams(location.search);
@@ -233,15 +275,19 @@ var SN = (function () {
   document.head.appendChild(css);
   document.documentElement.classList.add('sn-lock');
   document.addEventListener('DOMContentLoaded', function () {
-    var home = '../index.html';
+    var home = src.replace(/classes\.js.*$/, '') + 'index.html';
     var box = document.createElement('div'); box.className = 'sn-box';
     if (!c) {
       box.innerHTML = '<div class="ic">🔑</div><h2>Bạn chưa nhập mã lớp</h2><p>Vào trang chủ, nhập mã lớp thầy gửi để xem các bài lớp đã học nhé.</p>' +
         '<a class="btn" href="' + home + '">Về trang chủ nhập mã lớp</a>';
+    } else if (snIdKhoa(id) !== SN.khoa(c)) {
+      box.innerHTML = '<div class="ic">📚</div><h2>Bài này không thuộc khoá của lớp mình</h2>' +
+        '<p>Đây là bài của khoá <b>' + SN_COURSES[snIdKhoa(id)].ten + '</b>, lớp ' + c.ma + ' học khoá <b>' + SN.course(c).ten + '</b>.</p>' +
+        '<a class="btn" href="' + home + '">← Về danh sách bài của lớp</a>';
     } else {
-      var d = SN.openDate(c, id);
+      var d = SN.openDate(c, id), e = snEndHM(c);
       box.innerHTML = '<div class="ic">🔒</div><h2>Lớp mình chưa học tới bài này</h2>' +
-        '<p>Bài này sẽ mở sau giờ học, lúc <b>' + snEndText(c) + ' ngày ' + SN.fmt(d, true) + '/' + d.getFullYear() + '</b> (buổi ' + SN_SESSIONS[id] + ' của lớp ' + c.ma + ').</p>' +
+        '<p>Bài này sẽ mở ' + (e[0] || e[1] ? 'sau giờ học, lúc <b>' + snEndText(c) + ' ' : 'từ <b>0h ') + 'ngày ' + SN.fmt(d, true) + '/' + d.getFullYear() + '</b> (buổi ' + SN.session(c, id) + ' của lớp ' + c.ma + ').</p>' +
         '<p>Ôn lại các bài đã học trước nha!</p><a class="btn" href="' + home + '">← Về danh sách bài</a>';
     }
     var main = document.querySelector('main');
@@ -264,13 +310,13 @@ var SN = (function () {
   function run() {
     if (SN.teacher() || new URLSearchParams(location.search).has('xem')) return;
     var c = SN.current(); if (!c) return;
-    var open = Object.keys(SN_SESSIONS).filter(function (id) { return FILE[id] && SN_TITLES[id] && SN.isOpen(c, id); });
+    var open = SN.ids(c).filter(function (id) { return FILE[id] && SN_TITLES[id] && SN.isOpen(c, id); });
     var k = SN_PREFIX + '.seen.' + c.ma, raw = get(k);
     set(k, JSON.stringify(open));
     if (raw === null) return;
     var seen = {}; try { JSON.parse(raw).forEach(function (id) { seen[id] = 1; }); } catch (e) { return; }
     var fresh = open.filter(function (id) { return !seen[id]; })
-      .sort(function (a, b) { return SN_SESSIONS[a] - SN_SESSIONS[b]; });
+      .sort(function (a, b) { return SN.session(c, a) - SN.session(c, b); });
     if (!fresh.length) return;
     var box = document.createElement('div');
     box.className = 'sn-toast'; box.setAttribute('role', 'status');

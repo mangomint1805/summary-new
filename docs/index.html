@@ -63,13 +63,26 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
 .gv .tag{font-size:12px;font-weight:700;border-radius:99px;padding:1px 8px;}
 .gv .tag.o{background:var(--teal-soft);color:var(--teal);}
 .gv .tag.l{background:#efece5;color:var(--dim);}
+/* khoá học: lớp Pre chỉ thấy bài Pre, lớp TOEIC A chỉ thấy bài TOEIC A (giáo viên thấy hết) */
+body.k-A [data-khoa="Pre"],body.k-Pre [data-khoa="A"],body.gated [data-khoa]{display:none;}
+body.k-A .hero::before{content:"Minto English · TOEIC A";}
+/* mốc không có bài tóm tắt (Lesson 3, Exam master, Progress Test) */
+.stop.ms{padding:6px 0;}
+.stop.ms .dot{width:40px;height:40px;margin-left:8px;border-style:dashed;background:var(--paper);color:var(--dim);}
+.stop.ms .dot small{font-size:9px;}
+.stop.ms .dot b{font-size:15px;}
+.stop.ms .body{padding-top:2px;}
+.stop.ms .name{font-size:15.5px;color:var(--dim);}
+.stop.ms .ms-note{margin:2px 0 0;font-size:13.5px;color:var(--dim);}
+.stop.ms.done .dot{border-style:solid;border-color:var(--teal);color:var(--teal);}
+@media (max-width:640px){.stop.ms .dot{width:36px;height:36px;margin-left:6px;}}
 </style>
 <link rel="icon" type="image/png" href="icons/fav-64.png?v=3">
 </head>
 <body class="gated" data-nav="home">
 <div class="wrap">
   <section class="gate" id="gate" aria-label="Nhập mã lớp">
-    <p class="kick">Tóm tắt kiến thức TOEIC Pre</p>
+    <p class="kick">Tóm tắt kiến thức TOEIC Pre · TOEIC A</p>
     <div class="ic">🔑</div>
     <h2>Nhập mã lớp</h2>
     <p>Nhập mã lớp thầy gửi để xem các bài lớp mình đã học.</p>
@@ -78,8 +91,8 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
   </section>
 
   <header class="hero">
-    <h1>Tóm tắt kiến thức TOEIC Pre</h1>
-    <p>Tóm tắt từng bài Reading, Listening và Weekly Revision (giáo trình mới) bằng tiếng Việt, kèm bảng từ vựng và flashcard. Nhập mã lớp để xem các bài lớp bạn đã học; bài mới sẽ tự mở vào ngày lớp học tới bài đó.</p>
+    <h1 id="heroT">Tóm tắt kiến thức TOEIC Pre</h1>
+    <p id="heroP">Tóm tắt từng bài Reading, Listening và Weekly Revision (giáo trình mới) bằng tiếng Việt, kèm bảng từ vựng và flashcard. Nhập mã lớp để xem các bài lớp bạn đã học; bài mới sẽ tự mở vào ngày lớp học tới bài đó.</p>
   </header>
 
 
@@ -93,13 +106,13 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
   <section class="gv" id="gv" aria-label="Chế độ giáo viên">
     <h2>Chế độ giáo viên</h2>
     <p>Bài tự mở theo lịch học của từng lớp (sửa danh sách lớp, ngày khai giảng, ngày nghỉ trong file <b>docs/classes.js</b>). Trên máy này thầy xem được mọi bài.</p>
-    <details class="sched"><summary>Lịch học (Schedule)</summary><a href="schedule.png" target="_blank"><img src="schedule.png" alt="Lịch học TOEIC Pre ver 3.0: 24 buổi" loading="lazy"></a></details>
+    <details class="sched"><summary>Lịch học TOEIC Pre (Schedule)</summary><a href="schedule.png" target="_blank"><img src="schedule.png" alt="Lịch học TOEIC Pre ver 3.0: 24 buổi" loading="lazy"></a></details>
     <div id="gvClasses"></div>
     <div class="row" style="margin-top:18px"><button type="button" id="gvExit">Thoát chế độ giáo viên trên máy này</button></div>
   </section>
 
-  <h2 class="sec">Reading</h2>
-  <ol class="path">
+  <h2 class="sec" data-khoa="Pre">Reading</h2>
+  <ol class="path" data-khoa="Pre">
     <li class="stop open" data-id="R1"><div class="dot" aria-label="Unit 1"><small>Unit</small><b>1</b></div><div class="body"><p class="name">Nouns &amp; Pronouns</p><a class="go" href="reading/unit-01-nouns-pronouns.html"><span>Xem bài</span><i>Danh từ &amp; Đại từ</i></a><p class="meta">Danh từ &amp; Đại từ</p><span class="soon">Chưa mở</span></div></li>
     <li class="stop open" data-id="R2"><div class="dot" aria-label="Unit 2"><small>Unit</small><b>2</b></div><div class="body"><p class="name">Adjectives, Adverbs &amp; Comparison</p><a class="go" href="reading/unit-02-adjectives-adverbs-comparison.html"><span>Xem bài</span><i>Tính từ, Trạng từ &amp; So sánh</i></a><p class="meta">Tính từ, Trạng từ &amp; So sánh</p><span class="soon">Chưa mở</span></div></li>
     <li class="stop open" data-id="R3"><div class="dot" aria-label="Unit 3"><small>Unit</small><b>3</b></div><div class="body"><p class="name">Verb Tenses</p><a class="go" href="reading/unit-03-verb-tenses.html"><span>Xem bài</span><i>Các thì của động từ</i></a><p class="meta">Các thì của động từ</p><span class="soon">Chưa mở</span></div></li>
@@ -109,8 +122,8 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
     <li class="stop open" data-id="R7"><div class="dot" aria-label="Unit 7"><small>Unit</small><b>7</b></div><div class="body"><p class="name">Comparison</p><a class="go" href="reading/unit-07-comparison.html"><span>Xem bài</span><i>So sánh hơn &amp; so sánh nhất</i></a><p class="meta">So sánh hơn &amp; so sánh nhất</p><span class="soon">Chưa mở</span></div></li>
   </ol>
 
-  <h2 class="sec">Listening</h2>
-  <ol class="path">
+  <h2 class="sec" data-khoa="Pre">Listening</h2>
+  <ol class="path" data-khoa="Pre">
     <li class="stop open" data-id="L1"><div class="dot" aria-label="Unit 1"><small>Unit</small><b>1</b></div><div class="body"><p class="name">Part 1 – Photos of People</p><a class="go" href="listening/unit-01-photos-of-people.html"><span>Xem bài</span><i>Tranh tả người</i></a><p class="meta">Tranh tả người</p><span class="soon">Chưa mở</span></div></li>
     <li class="stop open" data-id="L2"><div class="dot" aria-label="Unit 2"><small>Unit</small><b>2</b></div><div class="body"><p class="name">Part 1 – Photos of Objects &amp; Scenes</p><a class="go" href="listening/unit-02-photos-of-objects-scenes.html"><span>Xem bài</span><i>Tranh tả vật và cảnh</i></a><p class="meta">Tranh tả vật và cảnh</p><span class="soon">Chưa mở</span></div></li>
     <li class="stop open" data-id="L3"><div class="dot" aria-label="Unit 3"><small>Unit</small><b>3</b></div><div class="body"><p class="name">Part 2 – Information Questions</p><a class="go" href="listening/unit-03-information-questions.html"><span>Xem bài</span><i>Câu hỏi Who / What / When / Where / Why / How</i></a><p class="meta">Câu hỏi Who / What / When / Where / Why / How</p><span class="soon">Chưa mở</span></div></li>
@@ -121,18 +134,47 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
     <li class="stop open" data-id="L8"><div class="dot" aria-label="Unit 8"><small>Unit</small><b>8</b></div><div class="body"><p class="name">Part 4 – Telephone Messages &amp; Advertisements</p><a class="go" href="listening/unit-08-telephone-messages-advertisements.html"><span>Xem bài</span><i>Tin nhắn thoại &amp; quảng cáo</i></a><p class="meta">Tin nhắn thoại &amp; quảng cáo</p><span class="soon">Chưa mở</span></div></li>
   </ol>
 
-  <h2 class="sec">Weekly Revision</h2>
-  <ol class="path">
+  <h2 class="sec" data-khoa="Pre">Weekly Revision</h2>
+  <ol class="path" data-khoa="Pre">
     <li class="stop open" data-id="W1"><div class="dot" aria-label="Weekly Revision 1"><small>Ôn tập</small><b>1</b></div><div class="body"><p class="name">Weekly Revision 1</p><a class="go" href="weekly/revision-1.html"><span>Xem bài</span><i>Ôn tập Listening Unit 1–2, Reading Unit 1–2</i></a><p class="meta">Ôn tập Listening Unit 1–2, Reading Unit 1–2</p><span class="soon">Chưa mở</span></div></li>
     <li class="stop open" data-id="W2"><div class="dot" aria-label="Weekly Revision 2"><small>Ôn tập</small><b>2</b></div><div class="body"><p class="name">Weekly Revision 2</p><a class="go" href="weekly/revision-2.html"><span>Xem bài</span><i>Ôn tập các thì của động từ</i></a><p class="meta">Ôn tập các thì của động từ</p><span class="soon">Chưa mở</span></div></li>
     <li class="stop open" data-id="W3"><div class="dot" aria-label="Weekly Revision 3"><small>Ôn tập</small><b>3</b></div><div class="body"><p class="name">Weekly Revision 3</p><a class="go" href="weekly/revision-3.html"><span>Xem bài</span><i>Ôn tập Liên từ, Giới từ, Phân từ</i></a><p class="meta">Ôn tập Liên từ, Giới từ, Phân từ</p><span class="soon">Chưa mở</span></div></li>
     <li class="stop open" data-id="W4"><div class="dot" aria-label="Weekly Revision 4"><small>Ôn tập</small><b>4</b></div><div class="body"><p class="name">Weekly Revision 4</p><a class="go" href="weekly/revision-4.html"><span>Xem bài</span><i>Ôn tập Sự hoà hợp (Agreement)</i></a><p class="meta">Ôn tập Sự hoà hợp (Agreement)</p><span class="soon">Chưa mở</span></div></li>
   </ol>
 
-  <h2 class="sec">Ôn tập</h2>
-  <ol class="path">
+  <h2 class="sec" data-khoa="Pre">Ôn tập</h2>
+  <ol class="path" data-khoa="Pre">
     <li class="stop open" data-id="PT1"><div class="dot" aria-label="Progress Test 1"><small>Test</small><b>1</b></div><div class="body"><p class="name">Ôn tập sau Progress Test 1</p><a class="go" href="review/progress-test-1.html"><span>Xem bài</span><i>Kiến thức hay sai &amp; từ vựng khó</i></a><p class="meta">Kiến thức hay sai &amp; từ vựng khó</p><span class="soon">Chưa mở</span></div></li>
     <li class="stop open" data-id="PT2"><div class="dot" aria-label="Progress Test 2"><small>Test</small><b>2</b></div><div class="body"><p class="name">Ôn tập trước Progress Test 2</p><a class="go" href="review/progress-test-2.html"><span>Xem bài</span><i>Checklist cả khoá, 22 câu luyện &amp; từ vựng</i></a><p class="meta">Checklist cả khoá, 22 câu luyện &amp; từ vựng</p><span class="soon">Chưa mở</span></div></li>
+  </ol>
+
+  <h2 class="sec" data-khoa="A">TOEIC A · Tóm tắt kiến thức</h2>
+  <p class="sec-note" data-khoa="A">Mỗi Unit học 3 buổi: Lesson 1 Reading, Lesson 2 Listening, Lesson 3 luyện tập trên lớp. Bài tóm tắt tự mở từ 0h ngày lớp học bài đó.</p>
+  <ol class="path path-a" data-khoa="A">
+    <li class="stop open" data-id="AR1" data-gv="Reading 1 · Accommodation &amp; Restaurant"><div class="dot" aria-label="Unit 1"><small>Unit</small><b>1</b></div><div class="body"><p class="name">Reading · Accommodation &amp; Restaurant</p><a class="go" href="a/reading/unit-01-accommodation-restaurant.html"><span>Xem bài</span><i>Danh từ &amp; Đại từ · chiến lược Part 5, 6</i></a><p class="meta">Danh từ &amp; Đại từ · chiến lược Part 5, 6</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop open" data-id="AL1" data-gv="Listening 1 · Accommodation &amp; Restaurant"><div class="dot" aria-label="Unit 1"><small>Unit</small><b>1</b></div><div class="body"><p class="name">Listening · Accommodation &amp; Restaurant</p><a class="go" href="a/listening/unit-01-accommodation-restaurant.html"><span>Xem bài</span><i>Part 1 · Mô tả tranh, chiến lược SEA</i></a><p class="meta">Part 1 · Mô tả tranh, chiến lược SEA</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop ms" data-s="3"><div class="dot" aria-label="Buổi 3"><small>Buổi</small><b>3</b></div><div class="body"><p class="name">Unit 1 · Lesson 3</p><p class="ms-note">Luyện tập trên lớp<span class="ms-when"></span></p></div></li>
+    <li class="stop open" data-id="AR2" data-gv="Reading 2 · Meeting"><div class="dot" aria-label="Unit 2"><small>Unit</small><b>2</b></div><div class="body"><p class="name">Reading · Meeting</p><a class="go" href="a/reading/unit-02-meeting.html"><span>Xem bài</span><i>Tính từ &amp; Trạng từ · loại trừ 2 lớp Part 6</i></a><p class="meta">Tính từ &amp; Trạng từ · loại trừ 2 lớp Part 6</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop open" data-id="AL2" data-gv="Listening 2 · Meeting"><div class="dot" aria-label="Unit 2"><small>Unit</small><b>2</b></div><div class="body"><p class="name">Listening · Meeting</p><a class="go" href="a/listening/unit-02-meeting.html"><span>Xem bài</span><i>Part 2 · Hỏi – đáp, chiến lược 3U</i></a><p class="meta">Part 2 · Hỏi – đáp, chiến lược 3U</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop ms" data-s="6"><div class="dot" aria-label="Buổi 6"><small>Buổi</small><b>6</b></div><div class="body"><p class="name">Unit 2 · Lesson 3</p><p class="ms-note">Luyện tập trên lớp<span class="ms-when"></span></p></div></li>
+    <li class="stop open" data-id="AR3" data-gv="Reading 3 · Business Trip"><div class="dot" aria-label="Unit 3"><small>Unit</small><b>3</b></div><div class="body"><p class="name">Reading · Business Trip</p><a class="go" href="a/reading/unit-03-business-trip.html"><span>Xem bài</span><i>Các thì, câu bị động &amp; câu điều kiện</i></a><p class="meta">Các thì, câu bị động &amp; câu điều kiện</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop open" data-id="AL3" data-gv="Listening 3 · Business Trip"><div class="dot" aria-label="Unit 3"><small>Unit</small><b>3</b></div><div class="body"><p class="name">Listening · Business Trip</p><a class="go" href="a/listening/unit-03-business-trip.html"><span>Xem bài</span><i>Part 3 · Hội thoại ngắn, Top-Down Attack</i></a><p class="meta">Part 3 · Hội thoại ngắn, Top-Down Attack</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop ms" data-s="9"><div class="dot" aria-label="Buổi 9"><small>Buổi</small><b>9</b></div><div class="body"><p class="name">Unit 3 · Lesson 3</p><p class="ms-note">Luyện tập trên lớp<span class="ms-when"></span></p></div></li>
+    <li class="stop ms" data-s="10"><div class="dot" aria-label="Buổi 10"><small>Buổi</small><b>10</b></div><div class="body"><p class="name">Exam master 1</p><p class="ms-note">Luyện đề trên lớp<span class="ms-when"></span></p></div></li>
+    <li class="stop ms" data-s="11"><div class="dot" aria-label="Buổi 11"><small>Buổi</small><b>11</b></div><div class="body"><p class="name">Exam master 2</p><p class="ms-note">Luyện đề trên lớp<span class="ms-when"></span></p></div></li>
+    <li class="stop ms" data-s="12"><div class="dot" aria-label="Buổi 12"><small>Buổi</small><b>12</b></div><div class="body"><p class="name">Progress Test 1</p><p class="ms-note">Kiểm tra giữa khoá<span class="ms-when"></span></p></div></li>
+    <li class="stop open" data-id="AR4" data-gv="Reading 4 · Community"><div class="dot" aria-label="Unit 4"><small>Unit</small><b>4</b></div><div class="body"><p class="name">Reading · Community</p><a class="go" href="a/reading/unit-04-community.html"><span>Xem bài</span><i>Liên từ, giới từ, trạng từ liên kết · Part 7</i></a><p class="meta">Liên từ, giới từ, trạng từ liên kết · Part 7</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop open" data-id="AL4" data-gv="Listening 4 · Community"><div class="dot" aria-label="Unit 4"><small>Unit</small><b>4</b></div><div class="body"><p class="name">Listening · Community</p><a class="go" href="a/listening/unit-04-community.html"><span>Xem bài</span><i>Part 3 · Ôn chiến lược, từ tín hiệu</i></a><p class="meta">Part 3 · Ôn chiến lược, từ tín hiệu</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop ms" data-s="15"><div class="dot" aria-label="Buổi 15"><small>Buổi</small><b>15</b></div><div class="body"><p class="name">Unit 4 · Lesson 3</p><p class="ms-note">Luyện tập trên lớp<span class="ms-when"></span></p></div></li>
+    <li class="stop open" data-id="AR5" data-gv="Reading 5 · Investment"><div class="dot" aria-label="Unit 5"><small>Unit</small><b>5</b></div><div class="body"><p class="name">Reading · Investment</p><a class="go" href="a/reading/unit-05-investment.html"><span>Xem bài</span><i>Đại từ quan hệ, mệnh đề quan hệ rút gọn · Part 7</i></a><p class="meta">Đại từ quan hệ, mệnh đề quan hệ rút gọn · Part 7</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop open" data-id="AL5" data-gv="Listening 5 · Investment"><div class="dot" aria-label="Unit 5"><small>Unit</small><b>5</b></div><div class="body"><p class="name">Listening · Investment</p><a class="go" href="a/listening/unit-05-investment.html"><span>Xem bài</span><i>Part 4 · Bài nói ngắn, câu hỏi biểu đồ</i></a><p class="meta">Part 4 · Bài nói ngắn, câu hỏi biểu đồ</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop ms" data-s="18"><div class="dot" aria-label="Buổi 18"><small>Buổi</small><b>18</b></div><div class="body"><p class="name">Unit 5 · Lesson 3</p><p class="ms-note">Luyện tập trên lớp<span class="ms-when"></span></p></div></li>
+    <li class="stop open" data-id="AR6" data-gv="Reading 6 · Work Issues"><div class="dot" aria-label="Unit 6"><small>Unit</small><b>6</b></div><div class="body"><p class="name">Reading · Work Issues</p><a class="go" href="a/reading/unit-06-work-issues.html"><span>Xem bài</span><i>To V &amp; V-ing (danh động từ)</i></a><p class="meta">To V &amp; V-ing (danh động từ)</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop open" data-id="AL6" data-gv="Listening 6 · Work Issues"><div class="dot" aria-label="Unit 6"><small>Unit</small><b>6</b></div><div class="body"><p class="name">Listening · Work Issues</p><a class="go" href="a/listening/unit-06-work-issues.html"><span>Xem bài</span><i>Part 4 · Ôn chiến lược Top-Down</i></a><p class="meta">Part 4 · Ôn chiến lược Top-Down</p><span class="soon">Chưa mở</span></div></li>
+    <li class="stop ms" data-s="21"><div class="dot" aria-label="Buổi 21"><small>Buổi</small><b>21</b></div><div class="body"><p class="name">Unit 6 · Lesson 3</p><p class="ms-note">Luyện tập trên lớp<span class="ms-when"></span></p></div></li>
+    <li class="stop ms" data-s="22"><div class="dot" aria-label="Buổi 22"><small>Buổi</small><b>22</b></div><div class="body"><p class="name">Exam master 3</p><p class="ms-note">Luyện đề trên lớp<span class="ms-when"></span></p></div></li>
+    <li class="stop ms" data-s="23"><div class="dot" aria-label="Buổi 23"><small>Buổi</small><b>23</b></div><div class="body"><p class="name">Exam master 4</p><p class="ms-note">Luyện đề trên lớp<span class="ms-when"></span></p></div></li>
+    <li class="stop ms" data-s="24"><div class="dot" aria-label="Buổi 24"><small>Buổi</small><b>24</b></div><div class="body"><p class="name">Progress Test 2</p><p class="ms-note">Kiểm tra cuối khoá<span class="ms-when"></span></p></div></li>
   </ol>
 
   <h2 class="sec">Chuyên đề</h2>
@@ -163,7 +205,7 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
     </ul>
   </section>
 
-  <footer>TOEIC Pre</footer>
+  <footer id="footT">TOEIC Pre</footer>
 </div>
 <script>
 (function(){
@@ -174,15 +216,32 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
   var preview=q.get('xem'); // ?xem=MALOP : thầy xem thử như học sinh lớp đó
   if(q.has('lop')) SN.choose(q.get('lop'));
 
+  var milestones=[].slice.call(document.querySelectorAll('.stop.ms[data-s]'));
+  var PRE={title:document.title,h1:document.getElementById('heroT').textContent,p:document.getElementById('heroP').textContent,foot:document.getElementById('footT').textContent};
+  function setKhoa(k){
+    document.body.classList.remove('k-Pre','k-A'); if(k) document.body.classList.add('k-'+k);
+    var a=k==='A';
+    if(a) window.MNAV_LABEL='TOEIC A'; // nhãn trên thanh menu (assets/ui.js)
+    document.title=a?'Tóm tắt kiến thức TOEIC A':PRE.title;
+    document.getElementById('heroT').textContent=a?'Tóm tắt kiến thức TOEIC A':PRE.h1;
+    document.getElementById('heroP').textContent=a?'Tóm tắt từng bài Reading và Listening của khoá TOEIC A bằng tiếng Việt, kèm bảng từ vựng và flashcard. Bài mới sẽ tự mở vào ngày lớp học tới bài đó.':PRE.p;
+    document.getElementById('footT').textContent=a?'TOEIC A':PRE.foot;
+  }
   function paint(c, all){
     stops.forEach(function(s){
       var id=s.dataset.id, open=all||SN.isOpen(c,id);
       s.classList.toggle('locked',!open); s.classList.toggle('open',open);
-      if(!open){ var d=SN.openDate(c,id); s.querySelector('.soon').textContent='🔒 Mở '+snEndText(c)+' · '+SN.fmt(d,true); }
+      if(!open){ var d=SN.openDate(c,id), e=snEndHM(c); s.querySelector('.soon').textContent=d?'🔒 Mở '+(e[0]||e[1]?snEndText(c)+' · ':'ngày ')+SN.fmt(d,true):'🔒 Chưa mở'; }
+    });
+    var ds=c&&SN.khoa(c)==='A'?SN.dates(c):null, n=ds?SN.doneSessions(c):0;
+    milestones.forEach(function(m){
+      var k=+m.dataset.s, d=ds&&ds[k-1];
+      m.classList.toggle('done',!!d&&k<=n);
+      m.querySelector('.ms-when').textContent=d?' · '+SN.fmt(d,true)+(k<=n?' · ✓ Đã học':''):'';
     });
   }
   function showClass(c){
-    document.body.classList.remove('gated');
+    document.body.classList.remove('gated'); setKhoa(SN.khoa(c));
     var n=SN.doneSessions(c), ds=SN.dates(c), t=SN.today();
     document.getElementById('lopName').textContent='Lớp '+c.ten;
     var next=ds[n];
@@ -202,7 +261,7 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
     var g=document.getElementById('gate'); g.classList.remove('shake'); void g.offsetWidth; g.classList.add('shake');
     gate(v.trim()?'Mã lớp "'+v.trim().toUpperCase()+'" không đúng, kiểm tra lại hoặc hỏi thầy nhé.':'Bạn chưa nhập mã lớp.');
   });
-  document.getElementById('doiLop').onclick=function(){ SN.leave(); document.getElementById('code').value=''; gate(''); };
+  document.getElementById('doiLop').onclick=function(){ SN.leave(); document.getElementById('code').value=''; setKhoa(''); gate(''); };
 
   if(preview!==null){ var pc=SN.find(preview); if(pc){ showClass(pc); document.getElementById('doiLop').style.display='none'; document.getElementById('lopInfo').textContent+=' · (xem thử)'; return; } }
   if(!SN.teacher()){ var c=SN.current(); if(c) showClass(c); else gate(''); return; }
@@ -210,11 +269,11 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
   // ----- chế độ giáo viên -----
   document.body.classList.add('gvmode'); document.body.classList.remove('gated');
   paint(null,true);
-  var NAME={}; stops.forEach(function(s){ var id=s.dataset.id; var dn=s.querySelector('.dot b').textContent; NAME[id]=id[0]==='P'?s.querySelector('.name').textContent:id[0]==='W'?'Weekly Revision '+dn:(id[0]==='R'?'Reading ':'Listening ')+dn+' · '+s.querySelector('.name').textContent; });
-  var BY={}; Object.keys(SN_SESSIONS).forEach(function(id){var k=SN_SESSIONS[id]; if(NAME[id]) (BY[k]=BY[k]||[]).push(id);});
-  var OTHER=SN_OTHER;
+  var NAME={}; stops.forEach(function(s){ var id=s.dataset.id; var dn=s.querySelector('.dot b').textContent; NAME[id]=s.dataset.gv||(id[0]==='P'?s.querySelector('.name').textContent:id[0]==='W'?'Weekly Revision '+dn:(id[0]==='R'?'Reading ':'Listening ')+dn+' · '+s.querySelector('.name').textContent); });
   var base=location.origin+location.pathname, box=document.getElementById('gvClasses'), t=SN.today();
   SN_CLASSES.forEach(function(c){
+    var CO=SN.course(c), OTHER=CO.other, BY={};
+    Object.keys(CO.sessions).forEach(function(id){var k=CO.sessions[id]; if(NAME[id]) (BY[k]=BY[k]||[]).push(id);});
     var ds=SN.dates(c), n=SN.doneSessions(c), nextShown=false, rows='';
     ds.forEach(function(d,k){
       var s=k+1, id=BY[s], cls=s<=n?'done':(!nextShown?(nextShown=true,'next'):'');
@@ -222,10 +281,10 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
     });
     var link=base+'?lop='+encodeURIComponent(c.ma);
     var div=document.createElement('div');
-    div.innerHTML='<h3>'+c.ten+'</h3><p>Khai giảng '+SN.fmt(ds[0],true)+'/'+ds[0].getFullYear()+' · bế giảng '+SN.fmt(ds[ds.length-1],true)+'/'+ds[ds.length-1].getFullYear()+' · đã học '+Math.min(n,ds.length)+'/'+ds.length+' buổi'+(c.hocToi?' (đang ép mở tới buổi '+c.hocToi+')':'')+'</p>'+
+    div.innerHTML='<h3>'+c.ten+' · '+CO.ten+'</h3><p>Khai giảng '+SN.fmt(ds[0],true)+'/'+ds[0].getFullYear()+' · bế giảng '+SN.fmt(ds[ds.length-1],true)+'/'+ds[ds.length-1].getFullYear()+' · đã học '+Math.min(n,ds.length)+'/'+ds.length+' buổi'+(c.hocToi?' (đang ép mở tới buổi '+c.hocToi+')':'')+'</p>'+
       '<input class="link" readonly value="'+link+'" aria-label="Link gửi lớp '+c.ma+'">'+
       '<div class="row"><button type="button" class="main cp">Sao chép link cho lớp</button><a class="b" target="_blank" href="'+base+'?xem='+encodeURIComponent(c.ma)+'">Xem thử như học sinh</a><span class="ok"></span></div>'+
-      '<details class="cal"><summary>Lịch 24 buổi của lớp</summary><table><thead><tr><th>Buổi</th><th>Ngày</th><th>Nội dung</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></details>';
+      '<details class="cal"><summary>Lịch '+ds.length+' buổi của lớp</summary><table><thead><tr><th>Buổi</th><th>Ngày</th><th>Nội dung</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></details>';
     div.querySelector('.cp').onclick=function(){
       var inp=div.querySelector('input'), ok=div.querySelector('.ok');
       function done(){ok.textContent='Đã sao chép ✓';}

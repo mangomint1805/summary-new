@@ -16,13 +16,15 @@ Học sinh vào trang chủ phải **nhập mã lớp** (hoặc mở link có s�
 Thêm lớp mới / sửa lịch: mở file `docs/classes.js`, sửa danh sách `SN_CLASSES`:
 
 ```js
-{ ma: 'TOPRE115276', ten: 'TOPRE115276 (2-4-6, 19h45 - 21h15)', khaiGiang: '2026-09-25', thu: [2, 4, 6], nghi: [] }
+{ ma: 'TOPRE115276', ten: 'TOPRE115276 (2-4-6, 19h45 - 21h15)', khaiGiang: '2026-09-25', thu: [2, 4, 6], nghi: [] },
+{ ma: 'TOA117110', ten: 'TOA117110 (2-4-6, 17h45 - 19h15)', khaiGiang: '2026-10-26', thu: [2, 4, 6], nghi: [], khoa: 'A', gioMo: '00:00' }
 ```
 
 - `thu`: các thứ học (2 = Thứ 2 … 7 = Thứ 7, 8 = Chủ nhật).
 - `nghi`: ngày lớp nghỉ (`'2026-11-20'`…), các buổi sau tự lùi lại.
 - `moc`: (tuỳ chọn) `['2026-10-14', 7]` = tới ngày 14/10 lớp đã học xong buổi 7; các buổi sau tính tiếp từ mốc này. Dùng khi lớp chậm/nhanh hơn lịch.
 - `hocToi`: (tuỳ chọn) ép mở tới buổi số mấy dù chưa tới ngày.
+- `khoa`: (tuỳ chọn) `'A'` = lớp TOEIC A (lịch và bài trong `SN_SESSIONS_A`); bỏ trống = TOEIC Pre.
 
 Khi học sinh vào lại web, nếu lớp có bài mới mở kể từ lần vào trước thì hiện thông báo ở cuối màn hình (máy học sinh tự nhớ, lần đầu vào không báo).
 
@@ -39,6 +41,19 @@ Mỗi bài có nút **🃏 Flashcard từ vựng** (ở đầu bài và ngay tr�
 - 🔀 trộn thẻ, vuốt trái/phải trên điện thoại để chuyển thẻ; thẻ có hiệu ứng lật, trượt, đóng dấu ✅ / 🔁 và pháo giấy khi thuộc hết.
 - Đánh dấu **Đã thuộc / Chưa thuộc**; hết một vòng có thể ôn riêng các từ chưa thuộc. Tiến độ được lưu trên máy của học sinh.
 - Phím tắt trên máy tính: Space lật thẻ, ← → chuyển thẻ, 1 chưa thuộc, 2 đã thuộc.
+
+## TOEIC A
+
+Lớp TOEIC A (mã `TOA117110`) chỉ thấy các bài dưới đây; lớp TOEIC Pre không thấy bài TOEIC A. Mỗi Unit 3 buổi: Lesson 1 Reading, Lesson 2 Listening, Lesson 3 luyện tập (buổi 10–12 Exam master 1–2 + Progress Test 1, buổi 22–24 Exam master 3–4 + Progress Test 2). Bài mở từ 0h ngày học (`gioMo: '00:00'`).
+
+| Bài | Chủ đề | Reading (Lesson 1) | Listening (Lesson 2) |
+|---|---|---|---|
+| Unit 1 | Accommodation & Restaurant | [Reading](https://mangomint1805.github.io/summary-new/a/reading/unit-01-accommodation-restaurant.html) | [Listening](https://mangomint1805.github.io/summary-new/a/listening/unit-01-accommodation-restaurant.html) |
+| Unit 2 | Meeting | [Reading](https://mangomint1805.github.io/summary-new/a/reading/unit-02-meeting.html) | [Listening](https://mangomint1805.github.io/summary-new/a/listening/unit-02-meeting.html) |
+| Unit 3 | Business Trip | [Reading](https://mangomint1805.github.io/summary-new/a/reading/unit-03-business-trip.html) | [Listening](https://mangomint1805.github.io/summary-new/a/listening/unit-03-business-trip.html) |
+| Unit 4 | Community | [Reading](https://mangomint1805.github.io/summary-new/a/reading/unit-04-community.html) | [Listening](https://mangomint1805.github.io/summary-new/a/listening/unit-04-community.html) |
+| Unit 5 | Investment | [Reading](https://mangomint1805.github.io/summary-new/a/reading/unit-05-investment.html) | [Listening](https://mangomint1805.github.io/summary-new/a/listening/unit-05-investment.html) |
+| Unit 6 | Work Issues | [Reading](https://mangomint1805.github.io/summary-new/a/reading/unit-06-work-issues.html) | [Listening](https://mangomint1805.github.io/summary-new/a/listening/unit-06-work-issues.html) |
 
 ## Reading
 
@@ -113,6 +128,7 @@ docs/
   cap-nhat.html  trang "Có gì mới" (nội dung trong cap-nhat.js)
   thong-ke-gv.html  chỉ chuyển trang: thống kê đã gộp vào mangomint1805.github.io/gv.html (tab Truy cập web)
   flashcards.js  flashcard từ vựng (tự đọc bảng từ vựng của mỗi bài)
+  a/reading/     trang web từng bài Reading khoá TOEIC A (a/listening/: Listening)
   reading/       trang web từng bài Reading
   listening/     trang web từng bài Listening
   weekly/        trang web từng bài Weekly Revision

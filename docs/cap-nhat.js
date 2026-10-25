@@ -1,6 +1,17 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-25', date: '25/10/2026',
+    title: 'Thêm tóm tắt bài cho khoá TOEIC A',
+    items: [
+      'Có thêm 12 bài tóm tắt cho lớp TOEIC A: Reading Unit 1–6 và Listening Unit 1–6 (chủ đề nhà hàng – khách sạn, cuộc họp, công tác, cộng đồng, đầu tư, vấn đề công việc).',
+      'Bài tự mở theo lịch học của lớp TOEIC A: tới ngày học bài nào thì bài đó mở từ 0h, bài chưa học hiện "🔒 Mở …" kèm ngày mở.',
+      'Lớp TOEIC A nhập mã lớp là thấy ngay danh sách bài của khoá mình, có cả các buổi Lesson 3, Exam master và Progress Test để biết lớp đang học tới đâu.',
+      'Mỗi bài có bảng từ vựng và nút 🃏 Flashcard để lật thẻ, nghe phát âm và đánh dấu từ đã thuộc.'
+    ],
+    link: ['index.html', 'Xem trên trang chủ']
+  },
+  {
     id: '2026-10-24i', date: '24/10/2026',
     title: 'Phiên âm thống nhất theo giọng Mỹ',
     items: [
