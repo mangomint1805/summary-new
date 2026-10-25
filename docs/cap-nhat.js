@@ -1,6 +1,17 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-25b', date: '25/10/2026',
+    title: 'Lớp TOEIC A: lịch học và bài ôn lại khoá Pre',
+    items: [
+      'Lớp TOEIC A xem được lịch học 24 buổi ngay trên trang chủ (bấm "📅 Lịch học TOEIC A" để mở hình lịch).',
+      'Có bài mới "Ôn lại kiến thức khoá TOEIC Pre": gom ngữ pháp Reading và mẹo Listening Part 1–4 đã học ở khoá Pre trên một trang, kèm 16 câu luyện chấm ngay. Bài luôn mở, nên đọc trước buổi học đầu tiên.',
+      'Nút ✨ Có gì mới trên thanh menu đã gọn lại như các nút khác, không còn hiện thành ô vuông lạ.',
+      'Giao diện Băng hoại đổi các khung màu nâu (bảng, thẻ, nhãn) sang tông xanh – tím cho đồng bộ, dễ nhìn hơn.'
+    ],
+    link: ['a/on-tap-pre.html', 'Xem bài ôn lại khoá Pre']
+  },
+  {
     id: '2026-10-25', date: '25/10/2026',
     title: 'Thêm tóm tắt bài cho khoá TOEIC A',
     items: [

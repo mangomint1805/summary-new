@@ -51,9 +51,10 @@ body.gvmode .gate,body.gvmode .lopbar{display:none;}
 .gv button.main{background:var(--amber);color:#fff;}
 .gv input.link{width:100%;margin-top:8px;font:inherit;font-size:13.5px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);}
 .gv .ok{color:var(--teal);font-weight:600;font-size:14px;margin-left:4px;}
-.gv .sched{margin:10px 0 6px;}
-.gv .sched summary,.gv details.cal summary{cursor:pointer;font-weight:700;color:var(--amber-ink);}
-.gv .sched img{display:block;width:100%;height:auto;margin-top:8px;border:1px solid var(--line);border-radius:8px;background:#fff;}
+.sched{margin:10px 0 6px;}
+.sched summary,.gv details.cal summary{cursor:pointer;font-weight:700;color:var(--amber-ink);}
+.sched img{display:block;width:100%;height:auto;margin-top:8px;border:1px solid var(--line);border-radius:8px;background:#fff;}
+.sched-a{max-width:760px;margin:0 auto 14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 16px;}
 .gv table{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px;}
 .gv th,.gv td{border:1px solid var(--line);padding:5px 8px;text-align:left;}
 .gv th{background:var(--amber-soft);color:var(--amber-ink);}
@@ -107,6 +108,7 @@ body.k-A .hero::before{content:"Minto English · TOEIC A";}
     <h2>Chế độ giáo viên</h2>
     <p>Bài tự mở theo lịch học của từng lớp (sửa danh sách lớp, ngày khai giảng, ngày nghỉ trong file <b>docs/classes.js</b>). Trên máy này thầy xem được mọi bài.</p>
     <details class="sched"><summary>Lịch học TOEIC Pre (Schedule)</summary><a href="schedule.png" target="_blank"><img src="schedule.png" alt="Lịch học TOEIC Pre ver 3.0: 24 buổi" loading="lazy"></a></details>
+    <details class="sched"><summary>Lịch học TOEIC A (Schedule)</summary><a href="schedule-a.png" target="_blank"><img src="schedule-a.png" alt="Lịch học TOEIC A ver 3.0: 24 buổi" loading="lazy"></a></details>
     <div id="gvClasses"></div>
     <div class="row" style="margin-top:18px"><button type="button" id="gvExit">Thoát chế độ giáo viên trên máy này</button></div>
   </section>
@@ -150,6 +152,10 @@ body.k-A .hero::before{content:"Minto English · TOEIC A";}
 
   <h2 class="sec" data-khoa="A">TOEIC A · Tóm tắt kiến thức</h2>
   <p class="sec-note" data-khoa="A">Mỗi Unit học 3 buổi: Lesson 1 Reading, Lesson 2 Listening, Lesson 3 luyện tập trên lớp. Bài tóm tắt tự mở từ 0h ngày lớp học bài đó.</p>
+  <details class="sched sched-a" data-khoa="A"><summary>📅 Lịch học TOEIC A (24 buổi)</summary><a href="schedule-a.png" target="_blank"><img src="schedule-a.png" alt="Lịch học TOEIC A ver 3.0: 24 buổi, 6 Unit, 4 buổi Exam master và 2 bài Progress Test" loading="lazy"></a></details>
+  <ol class="path" data-khoa="A">
+    <li class="stop open"><div class="dot" aria-label="Ôn lại khoá Pre"><small>Ôn lại</small><b>Pre</b></div><div class="body"><p class="name">Ôn lại kiến thức khoá TOEIC Pre</p><a class="go" href="a/on-tap-pre.html"><span>Xem bài</span><i>Luôn mở · Tóm tắt ngữ pháp Reading và mẹo Listening Part 1–4 đã học ở Pre, kèm câu luyện</i></a></div></li>
+  </ol>
   <ol class="path path-a" data-khoa="A">
     <li class="stop open" data-id="AR1" data-gv="Reading 1 · Accommodation &amp; Restaurant"><div class="dot" aria-label="Unit 1"><small>Unit</small><b>1</b></div><div class="body"><p class="name">Reading · Accommodation &amp; Restaurant</p><a class="go" href="a/reading/unit-01-accommodation-restaurant.html"><span>Xem bài</span><i>Danh từ &amp; Đại từ · chiến lược Part 5, 6</i></a><p class="meta">Danh từ &amp; Đại từ · chiến lược Part 5, 6</p><span class="soon">Chưa mở</span></div></li>
     <li class="stop open" data-id="AL1" data-gv="Listening 1 · Accommodation &amp; Restaurant"><div class="dot" aria-label="Unit 1"><small>Unit</small><b>1</b></div><div class="body"><p class="name">Listening · Accommodation &amp; Restaurant</p><a class="go" href="a/listening/unit-01-accommodation-restaurant.html"><span>Xem bài</span><i>Part 1 · Mô tả tranh, chiến lược SEA</i></a><p class="meta">Part 1 · Mô tả tranh, chiến lược SEA</p><span class="soon">Chưa mở</span></div></li>
@@ -296,6 +302,6 @@ body.k-A .hero::before{content:"Minto English · TOEIC A";}
   document.getElementById('gvExit').onclick=function(){ SN.teacher(false); location.href=base; };
 })();
 </script>
-<script>window.ETSCFG=window.ETSCFG||{SCRIPT_URL:'https://script.google.com/macros/s/AKfycby3_45o2Zn3FMEMrVAg9nBCiQEIUvU9HgQxI2ZZtwJ4oUQ_bqXxj1vN0kL6cvhbDQCx/exec'};</script><script src="assets/ui.js?v=3" data-site="summary"></script>
+<script>window.ETSCFG=window.ETSCFG||{SCRIPT_URL:'https://script.google.com/macros/s/AKfycby3_45o2Zn3FMEMrVAg9nBCiQEIUvU9HgQxI2ZZtwJ4oUQ_bqXxj1vN0kL6cvhbDQCx/exec'};</script><script src="assets/ui.js?v=4" data-site="summary"></script>
 </body>
 </html>
