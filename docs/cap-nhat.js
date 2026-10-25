@@ -1,6 +1,14 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-26', date: '26/10/2026',
+    title: 'Lớp TOEIC A: bài mở sau giờ học',
+    items: [
+      'Bài tóm tắt của lớp TOEIC A giờ mở sau khi buổi học kết thúc (19:15 ngày học bài đó), để các bạn học trên lớp trước rồi về ôn lại cho chắc.',
+      'Bài "Ôn lại kiến thức khoá TOEIC Pre" vẫn luôn mở, đọc lúc nào cũng được.'
+    ]
+  },
+  {
     id: '2026-10-25b', date: '25/10/2026',
     title: 'Lớp TOEIC A: lịch học và bài ôn lại khoá Pre',
     items: [
