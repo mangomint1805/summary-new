@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-26b', date: '26/10/2026',
+    title: 'Bài tóm tắt dễ hiểu hơn',
+    items: [
+      'Các bài Reading, Listening và Weekly Revision có thêm dịch tiếng Việt cho câu ví dụ và câu luyện tập, thuật ngữ được giải nghĩa ngay lần đầu.',
+      'Thêm hộp 💡 Mẹo làm bài và 📌 Bẫy hay gặp: cách nhận ra loại từ, chọn thì, liên từ hay giới từ, câu hỏi đuôi, bẫy Part 1…',
+      'Bài cũ các bạn đã học cũng được bổ sung, mở lại ôn là thấy ngay.'
+    ]
+  },
+  {
     id: '2026-10-26', date: '26/10/2026',
     title: 'Lớp TOEIC A: bài mở sau giờ học',
     items: [
