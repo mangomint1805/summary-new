@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-27', date: '27/10/2026',
+    title: 'Luyện thêm ngay sau mỗi bài học',
+    items: [
+      'Cuối mỗi bài tóm tắt có khung "🎯 Luyện thêm sau bài này": bấm là vào đúng phần luyện của bài đó. Bài Part 1 có chép chính tả Part 1, bài Part 2 có Phản xạ Part 2 và chép chính tả Part 2, bài ngữ pháp có 15 câu Part 5 và chuyên đề tương ứng. Lớp TOEIC A có thêm nút Đề khó (Part 3 + Part 6) ở các bài Listening Part 3 và bài Reading.',
+      'Trang chủ có hàng "⚡ Luyện tập nhanh": Đề mini hôm nay (hiện luôn chuỗi 🔥 ngày liên tục của bạn), Phản xạ Part 2, Chép chính tả và trò Gõ từ rơi.',
+      'Bấm vào "15 câu Part 5", "10 câu Part 2" hay "Đề mini hôm nay" là vào làm bài ngay, không phải chọn lại.'
+    ]
+  },
+  {
     id: '2026-10-26b', date: '26/10/2026',
     title: 'Bài tóm tắt dễ hiểu hơn',
     items: [
