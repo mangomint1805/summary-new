@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-28', date: '28/10/2026',
+    title: 'TOEIC A · Unit 1: thêm tranh ví dụ Part 1',
+    items: [
+      'Bài Listening Unit 1 có thêm mục 3.3 "Có thấy hành động thì mới chọn": từng cặp tranh cho thấy khi nào được chọn câu serving food, paying, taking an order, pouring và khi nào phải loại.',
+      'Có cả tranh đề ETS thật để bạn nhận ra bẫy "tranh có đồ ăn, có nhà hàng nhưng không ai đang làm hành động đó".',
+      'Cuối mục có bảng kiểm tra nhanh: nghe động từ nào thì cần nhìn thấy gì trong tranh.'
+    ]
+  },
+  {
     id: '2026-10-27c', date: '27/10/2026',
     title: 'Sửa lỗi đăng nhập Google trên iPhone',
     items: [
