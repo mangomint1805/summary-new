@@ -1,6 +1,16 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-29', date: '29/10/2026',
+    title: 'Làm mới 3 phong cách: Hành baro, Thiên thần, Băng hoại',
+    items: [
+      'Hành baro đổi sang tông Miku: xanh ngọc phối hồng, chữ logo tròn kèm nốt nhạc ♪, viền xanh ngọc trên các thẻ.',
+      'Thiên thần đổi sang tông KAngel: thanh menu hồng – tím – xanh trời, chữ logo kiểu pixel, dải màu pastel trên đầu mỗi thẻ.',
+      'Băng hoại đổi sang tông Honkai Impact 3rd: xanh đêm phối vàng, logo chữ in hoa kiểu game, viền vàng bên trái thẻ, nền lưới lục giác.',
+      'Trang chủ Minto English giờ cũng đổi theo phong cách bạn chọn. Đổi phong cách ở bảng ⚙ góc trên.'
+    ]
+  },
+  {
     id: '2026-10-28', date: '28/10/2026',
     title: 'TOEIC A · Unit 1: thêm tranh ví dụ Part 1',
     items: [
