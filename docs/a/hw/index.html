@@ -1,0 +1,238 @@
+<!doctype html><html lang="vi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>TOEIC A · Bài tập về nhà</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css"><link rel="icon" type="image/png" href="../../icons/fav-64.png?v=3">
+<script src="../../classes.js"></script><script src="data.js?v=1"></script>
+<style>
+:root{color-scheme:light}
+body{background:var(--paper,#faf8f4)}
+main{max-width:820px}
+.hw-list{display:grid;gap:12px;margin:18px 0}
+.hw-card{display:flex;gap:14px;align-items:center;padding:16px 18px;background:#fff;border:1.5px solid var(--line,#ddd7c9);border-radius:14px;text-decoration:none;color:var(--ink,#1e232b)}
+.hw-card:hover{border-color:var(--amber,#a8691a)}
+.hw-card .no{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font:600 18px/1 Fraunces,serif;background:var(--amber-soft,#f2e2c4);color:var(--amber-ink,#6b4410)}
+.hw-card .tt{font-weight:600;font-size:16.5px}
+.hw-card .st{font-size:14px;color:var(--dim,#666e7a);margin-top:3px}
+.hw-card.lock{opacity:.6;cursor:default}
+.hw-card.lock .no{background:#eee;color:#888}
+.hw-card .badge{margin-left:auto;flex:none;font-size:13.5px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--teal-soft,#e1f4ec);color:var(--teal,#1f8f6c)}
+.part{background:#fff;border:1.5px solid var(--line,#ddd7c9);border-radius:14px;padding:18px 18px 8px;margin:18px 0}
+.part h2{margin:0 0 4px;font-size:21px}
+.part .hd{color:var(--dim,#666e7a);margin:0 0 12px}
+.part audio{width:100%;margin:6px 0 12px}
+.passage{background:#fbf7ef;border:1px solid #eadfca;border-radius:10px;padding:12px 14px;margin:0 0 14px;font-size:15.5px;line-height:1.6}
+.passage p{margin:0 0 8px}
+.q{padding:12px 0;border-top:1px dashed #e6dfd1}
+.q:first-of-type{border-top:0}
+.q .stem{margin:0 0 8px;font-size:16px;line-height:1.5}
+.q .num{font-weight:700;margin-right:4px}
+.q img{display:block;max-width:100%;max-height:340px;border-radius:10px;margin:4px 0 10px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.row{flex-direction:row;flex-wrap:wrap}
+.opt{display:flex;gap:8px;align-items:flex-start;padding:9px 12px;border:1.5px solid var(--line,#ddd7c9);border-radius:10px;cursor:pointer;background:#fff;font-size:15.5px;line-height:1.4;text-align:left;font-family:inherit;color:inherit}
+.opts.row .opt{min-width:62px;justify-content:center;font-weight:600}
+.opt:hover{border-color:var(--amber,#a8691a)}
+.opt.on{border-color:var(--amber,#a8691a);background:var(--amber-soft,#f2e2c4)}
+.opt .l{font-weight:700;flex:none}
+.opt.ok{border-color:var(--teal,#1f8f6c);background:var(--teal-soft,#e1f4ec)}
+.opt.bad{border-color:#c2410c;background:#fde8dd}
+.done .opt{cursor:default}
+.gap{font-size:16px;line-height:2.1}
+.gap input{font:inherit;width:7.5em;max-width:60vw;padding:2px 6px;border:0;border-bottom:2px solid var(--amber,#a8691a);background:#fffaf0;border-radius:4px 4px 0 0;color:inherit}
+.gap input.ok{border-color:var(--teal,#1f8f6c);background:var(--teal-soft,#e1f4ec)}
+.gap input.bad{border-color:#c2410c;background:#fde8dd}
+.gap .fix{color:var(--teal,#1f8f6c);font-weight:600;font-size:14px;margin:0 4px}
+.why{margin:8px 0 0;padding:8px 12px;border-radius:8px;background:#f5f3ee;font-size:14.5px;line-height:1.5;color:#3c4350}
+.speak li{margin:4px 0}
+.bar{position:sticky;bottom:0;background:rgba(250,248,244,.96);border-top:1px solid var(--line,#ddd7c9);padding:12px 0;margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{font:600 15.5px/1 inherit;padding:12px 18px;border-radius:10px;border:1.5px solid var(--amber,#a8691a);background:var(--amber,#a8691a);color:#fff;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.alt{background:#fff;color:var(--amber-ink,#6b4410)}
+.bar .cnt{color:var(--dim,#666e7a);font-size:14.5px}
+.score{background:#fff;border:2px solid var(--teal,#1f8f6c);border-radius:14px;padding:18px;margin:18px 0;text-align:center}
+.score .big{font:600 40px/1.1 Fraunces,serif;color:var(--teal,#1f8f6c)}
+.score p{margin:6px 0 0;color:var(--dim,#666e7a)}
+.name{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.name input{font:inherit;padding:9px 12px;border:1.5px solid var(--line,#ddd7c9);border-radius:10px;min-width:220px}
+.lockbox{max-width:520px;margin:40px auto;padding:26px 24px;background:#fff;border:1.5px solid var(--amber,#a8691a);border-radius:14px;text-align:center}
+.lockbox .ic{font-size:44px}
+</style>
+</head><body>
+<header class="top"><a href="./">TOEIC A · Bài tập về nhà</a></header>
+<main id="app"><p class="sub">Đang tải…</p></main>
+<script>
+(function () {
+  'use strict';
+  var app = document.getElementById('app');
+  var P = 'summaryNew.hwA.';
+  var L = ['A', 'B', 'C', 'D'];
+  function J(k, d) { try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } }
+  function S(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var cls = SN.find(HW_CLASS);
+  var teacher = SN.teacher() || /[?&]gv(=|&|$)/.test(location.search);
+
+  function openAt(hw) {
+    var d = SN.dates(cls)[hw.buoi - 1]; if (!d) return null;
+    var e = snEndHM(cls), o = new Date(d); o.setHours(e[0], e[1], 0, 0); return o;
+  }
+  function isOpen(hw) { if (teacher) return true; var o = openAt(hw); return o && new Date() >= o; }
+  function fmtOpen(o) { return snEndText(cls) + ' ' + SN.fmt(o, true); }
+  function find(id) { for (var i = 0; i < HW_LIST.length; i++) if (HW_LIST[i].id === id) return HW_LIST[i]; return null; }
+
+  // ---------- danh sách bài ----------
+  function list() {
+    document.title = 'TOEIC A · Bài tập về nhà';
+    var h = '<h1>Bài tập về nhà · TOEIC A</h1><p class="sub">Làm bài xong bấm <b>Nộp bài</b> để xem điểm và đáp án. Bài mới sẽ tự mở sau mỗi buổi học.</p><div class="hw-list">';
+    HW_LIST.forEach(function (hw, i) {
+      var r = J(P + hw.id + '.kq', null), op = isOpen(hw), o = openAt(hw);
+      var st = r ? 'Đã nộp ' + r.n + ' lần · lần gần nhất ' + r.got + '/' + r.total : (op ? 'Chưa làm' : '🔒 Mở lúc ' + fmtOpen(o));
+      h += op ? '<a class="hw-card" href="?b=' + hw.id + '">' : '<div class="hw-card lock">';
+      h += '<span class="no">' + (i + 1) + '</span><span><span class="tt">' + esc(hw.tieuDe) + '</span><div class="st">' + esc(st) + '</div></span>';
+      if (r) h += '<span class="badge">' + r.best + ' / 10</span>';
+      h += op ? '</a>' : '</div>';
+    });
+    app.innerHTML = h + '</div>';
+  }
+
+  // ---------- chấm điền từ ----------
+  function norm(s) {
+    return String(s || '').toLowerCase().replace(/[’‘`]/g, "'").replace(/[.,!?;:"()]/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function gapParts(t) { // tách câu thành chữ và ô trống
+    var out = [], re = /\[([^\]]+)\]/g, m, last = 0;
+    while ((m = re.exec(t))) { out.push({ txt: t.slice(last, m.index) }); out.push({ ans: m[1].split('|') }); last = re.lastIndex; }
+    out.push({ txt: t.slice(last) }); return out;
+  }
+
+  // ---------- làm bài ----------
+  function exam(hw) {
+    document.title = hw.tieuDe + ' · Bài tập về nhà';
+    var key = P + hw.id, st = J(key + '.dang', {}), res = null;
+    var items = []; // mọi câu có chấm (mcq/pic/resp: 1 câu; gap: mỗi ô 1 câu)
+    var h = '<p class="sub"><a href="./">← Tất cả bài tập</a></p><h1>' + esc(hw.tieuDe) + '</h1>';
+    hw.phan.forEach(function (p, pi) {
+      h += '<section class="part"><h2>' + esc(p.ten) + '</h2><p class="hd">' + esc(p.huongDan) + '</p>';
+      if (p.audio) h += '<audio controls preload="none" src="' + p.audio + '"></audio>';
+      if (p.doan) h += '<div class="passage">' + p.doan + '</div>';
+      if (p.noi) h += '<ol class="speak">' + p.noi.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>';
+      p.cau.forEach(function (c, ci) {
+        var id = pi + '-' + ci, n = (p.so || 1) + ci;
+        h += '<div class="q" data-id="' + id + '">';
+        if (c.k === 'gap') {
+          var parts = gapParts(c.t), g = 0;
+          h += '<div class="gap"><span class="num">' + n + '.</span>';
+          parts.forEach(function (x) {
+            if (x.ans) { var gid = id + '-' + (g++); items.push({ id: gid, k: 'gap', ans: x.ans, n: n }); h += '<input data-g="' + gid + '" autocomplete="off" autocapitalize="off" spellcheck="false" value="' + esc(st[gid] || '') + '">'; }
+            else h += x.txt;
+          });
+          h += '</div>';
+        } else {
+          items.push({ id: id, k: c.k, ans: c.a, c: c, n: n });
+          if (c.img) h += '<p class="stem"><span class="num">' + n + '.</span></p><img src="' + c.img + '" alt="Photo ' + n + '" loading="lazy">';
+          else if (c.q) h += '<p class="stem"><span class="num">' + n + '.</span>' + esc(c.q) + '</p>';
+          else if (c.k === 'resp') h += '<p class="stem"><span class="num">' + n + '.</span>Mark your answer.</p>';
+          else h += '<p class="stem"><span class="num">' + n + '.</span></p>';
+          var nOpt = c.k === 'resp' ? 3 : (c.o ? c.o.length : 4), row = !c.o;
+          h += '<div class="opts' + (row ? ' row' : '') + '">';
+          for (var i = 0; i < nOpt; i++) {
+            h += '<button type="button" class="opt' + (st[id] === L[i] ? ' on' : '') + '" data-q="' + id + '" data-v="' + L[i] + '"><span class="l">(' + L[i] + ')</span>' + (c.o ? '<span>' + esc(c.o[i]) + '</span>' : '') + '</button>';
+          }
+          h += '</div>';
+        }
+        h += '</div>';
+      });
+      h += '</section>';
+    });
+    var acc = J('mt.acc', {}), nm = J(P + 'ten', '') || acc.name || '';
+    h += '<div class="bar"><button type="button" class="btn" id="nop">Nộp bài</button><span class="cnt" id="cnt"></span></div><div id="kq"></div>';
+    app.innerHTML = h;
+
+    function count() {
+      var done = items.filter(function (it) { return st[it.id] && String(st[it.id]).trim(); }).length;
+      document.getElementById('cnt').textContent = 'Đã làm ' + done + '/' + items.length + ' câu';
+      return done;
+    }
+    count();
+    app.addEventListener('click', function (e) {
+      var b = e.target.closest('.opt'); if (!b || res) return;
+      var id = b.getAttribute('data-q');
+      app.querySelectorAll('.opt[data-q="' + id + '"]').forEach(function (x) { x.classList.toggle('on', x === b); });
+      st[id] = b.getAttribute('data-v'); S(key + '.dang', st); count();
+    });
+    app.addEventListener('input', function (e) {
+      var g = e.target.getAttribute && e.target.getAttribute('data-g'); if (!g || res) return;
+      st[g] = e.target.value; S(key + '.dang', st); count();
+    });
+    document.getElementById('nop').onclick = function () {
+      if (res) { // làm lại
+        st = {}; S(key + '.dang', st); exam(hw); window.scrollTo(0, 0); return;
+      }
+      var left = items.length - count();
+      if (left && !confirm('Còn ' + left + ' câu chưa làm. Nộp bài luôn nhé?')) return;
+      grade();
+    };
+
+    function grade() {
+      var got = 0, wrong = [];
+      app.classList.add('done');
+      items.forEach(function (it) {
+        var v = st[it.id], ok;
+        if (it.k === 'gap') {
+          ok = it.ans.some(function (a) { return norm(a) === norm(v); });
+          var inp = app.querySelector('input[data-g="' + it.id + '"]'); inp.disabled = true;
+          inp.classList.add(ok ? 'ok' : 'bad');
+          if (!ok) { inp.insertAdjacentHTML('afterend', '<span class="fix">→ ' + esc(it.ans[0]) + '</span>'); wrong.push(it.n + '(' + (v || '—') + '→' + it.ans[0] + ')'); }
+        } else {
+          ok = v === it.ans;
+          app.querySelectorAll('.opt[data-q="' + it.id + '"]').forEach(function (x) {
+            var l = x.getAttribute('data-v'); if (l === it.ans) x.classList.add('ok'); else if (l === v) x.classList.add('bad');
+          });
+          if (!ok) wrong.push(it.n + ':' + (v || '—') + '>' + it.ans);
+          var c = it.c, why = '';
+          if (c.k === 'pic') why = c.s.map(function (x, i) { return '(' + L[i] + ') ' + esc(x); }).join('<br>');
+          if (c.k === 'resp') why = '<b>' + esc(c.s[0]) + '</b><br>' + c.s.slice(1).map(function (x, i) { return '(' + L[i] + ') ' + esc(x); }).join('<br>');
+          if (why) app.querySelector('.q[data-id="' + it.id + '"]').insertAdjacentHTML('beforeend', '<div class="why">' + why + '</div>');
+        }
+        if (ok) got++;
+      });
+      var total = items.length, diem = Math.round(got / total * 100) / 10;
+      var old = J(key + '.kq', null), n = old ? old.n + 1 : 1;
+      res = { got: got, total: total, diem: diem, n: n, best: Math.max(diem, old ? old.best : 0), at: new Date().toISOString() };
+      S(key + '.kq', res);
+      document.getElementById('nop').textContent = 'Làm lại từ đầu';
+      var box = document.getElementById('kq');
+      box.innerHTML = '<div class="score"><div class="big">' + got + ' / ' + total + '</div><p>Điểm: <b>' + diem + ' / 10</b> · lần nộp thứ ' + n + '</p>' +
+        '<p>Câu đúng tô <b style="color:var(--teal)">xanh</b>, câu sai tô <b style="color:#c2410c">cam</b>. Kéo lên xem lại đáp án nhé!</p>' +
+        '<div class="name" style="justify-content:center"><label>Họ tên: <input id="ten" value="' + esc(nm) + '" placeholder="Nhập họ tên đầy đủ"></label><button type="button" class="btn" id="gui">Gửi kết quả cho thầy</button></div><p id="msg"></p></div>';
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('gui').onclick = function () {
+        var t = document.getElementById('ten').value.trim(), msg = document.getElementById('msg');
+        if (!t) { msg.textContent = 'Nhập họ tên trước khi gửi nhé.'; return; }
+        S(P + 'ten', t);
+        if (!HW_SCRIPT_URL) { msg.textContent = 'Đã lưu điểm trên máy. Chụp màn hình gửi thầy giúp nhé!'; return; }
+        var body = { kind: 'hwA', lop: HW_CLASS, bai: hw.tieuDe, ma: hw.id, name: t, email: (J('mt.acc', {}).email || ''), got: got, total: total, diem: diem, lan: n, sai: wrong.join(', '), submittedAt: new Date().toISOString() };
+        this.disabled = true; msg.textContent = 'Đang gửi…';
+        fetch(HW_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) })
+          .then(function () { msg.textContent = '✅ Đã gửi kết quả cho thầy rồi!'; }, function () { msg.textContent = 'Gửi chưa được (mạng yếu?). Bấm gửi lại hoặc chụp màn hình gửi thầy nhé.'; document.getElementById('gui').disabled = false; });
+      };
+    }
+  }
+
+  function lockMsg(hw) {
+    var o = openAt(hw);
+    app.innerHTML = '<div class="lockbox"><div class="ic">🔒</div><h2>Bài tập này chưa mở</h2><p>Bài sẽ mở lúc <b>' + esc(fmtOpen(o)) + '</b>, sau buổi học.</p><p><a class="btn" href="./">← Về danh sách bài tập</a></p></div>';
+  }
+
+  function run() {
+    if (!cls) { app.innerHTML = '<p>Không tìm thấy lớp.</p>'; return; }
+    var b = new URLSearchParams(location.search).get('b'), hw = b && find(b);
+    if (!hw) return list();
+    if (!isOpen(hw)) return lockMsg(hw);
+    exam(hw);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+})();
+</script>
+</body></html>
