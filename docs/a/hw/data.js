@@ -6,7 +6,7 @@
               gap  – điền từ khi nghe: { t: 'câu có [đáp án|đáp án khác]' }
    Phần (phan): { ten, huongDan, audio?, doan? (đoạn văn), cau: [...] , noi? (luyện nói, không chấm) } */
 var HW_CLASS = 'TOA117110';
-var HW_SCRIPT_URL = ''; // link web app Google Apps Script (gửi kết quả về Google Sheet); để trống = chỉ tự chấm
+var HW_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_VHnMwGwVRyDKMUe561FjNTQCC7TcsnhiX1pr9DF_g8B8J7SeRK4p-tu7OvDdy9y-/exec'; // link web app Google Apps Script (gửi kết quả về Google Sheet); để trống = chỉ tự chấm
 
 var HW_LIST = [
 {
