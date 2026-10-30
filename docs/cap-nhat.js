@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-30b', date: '30/10/2026',
+    title: 'TOEIC Pre: lộ trình xếp theo từng buổi học',
+    items: [
+      'Trang chủ TOEIC Pre không còn chia riêng Reading, Listening, Weekly Revision nữa. Giờ các bài xếp đúng thứ tự 24 buổi học trên lớp: Buổi 1 Reading 1, Buổi 2 Listening 1, Buổi 3 Reading 2…',
+      'Mỗi bài có nhãn nhỏ (Reading 3, Listening 5, Weekly Revision 2…) để bạn biết bài thuộc phần nào.',
+      'Các buổi Exam master và Progress Test cũng nằm trong lộ trình, có ghi ngày học để bạn theo dõi.'
+    ]
+  },
+  {
     id: '2026-10-30', date: '30/10/2026',
     title: 'Flashcard đọc được trên iPhone, lộ trình ghi cả Buổi và Unit',
     items: [
