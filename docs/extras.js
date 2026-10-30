@@ -163,10 +163,10 @@
       var jobs = stops.filter(function (s) { return !s.classList.contains('locked'); }).map(function (s) {
         var a = s.querySelector('a.go'); if (!a) return null;
         var href = a.getAttribute('href'), name = (s.querySelector('.name') || {}).textContent || '';
-        var dn = (s.querySelector('.dot b') || {}).textContent || '';
+        var un = s.querySelector('.name .unit'), dn = un ? un.textContent.replace(/\D/g, '') : (s.querySelector('.dot b') || {}).textContent || '';
         var id = s.dataset.id, k0 = id.replace(/^A(?=[RL]\d)/, '')[0];
         var kind = (k0 !== id[0] ? 'TOEIC A · ' : '') + (k0 === 'R' ? 'Reading ' : k0 === 'L' ? 'Listening ' : 'Weekly Revision ');
-        var label = kind + dn + ' · ' + name.replace('✓ Đã ôn', '').replace(/^Mới/, '').replace(/^\s*(Reading|Listening) · /, '').trim();
+        var label = kind + dn + ' · ' + name.replace('✓ Đã ôn', '').replace(/^Mới/, '').replace(/^\s*Unit \d+\s*/, '').replace(/^\s*(Reading|Listening) · /, '').trim();
         return fetch(href).then(function (r) { return r.text(); }).then(function (html) {
           var d = new DOMParser().parseFromString(html, 'text/html'), doc = d.querySelector('.doc');
           if (!doc) return [];

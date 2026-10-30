@@ -1,6 +1,16 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-30', date: '30/10/2026',
+    title: 'Flashcard đọc được trên iPhone, lộ trình ghi cả Buổi và Unit',
+    items: [
+      'Sửa lỗi flashcard trên iPhone/iPad: bấm 🔊 mà không nghe thấy gì. Giờ bấm là đọc ngay.',
+      'Bổ sung giọng đọc cho mọi từ vựng của TOEIC A (trước đây còn thiếu ở nhiều bài), nghe được cả giọng Mỹ nam, Mỹ nữ và Anh nữ.',
+      'Lộ trình TOEIC A: vòng tròn ghi số Buổi theo lịch học, tên bài có thêm nhãn Unit, không còn hai vòng "Unit 1" giống nhau gây rối.',
+      'Mẹo: nếu vẫn chưa nghe, bạn kiểm tra nút gạt im lặng bên hông máy và âm lượng.'
+    ]
+  },
+  {
     id: '2026-10-28c', date: '28/10/2026',
     title: 'Thanh menu vừa màn hình laptop',
     items: [
