@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-10-31', date: '31/10/2026',
+    title: 'Trang chữa bài Mock Test',
+    items: [
+      'Thêm trang Chữa bài cho cả 6 Mock Test của lớp TOEIC Pre, hiện ngay dưới buổi làm bài trên lộ trình.',
+      'Mỗi câu: tự chọn lại đáp án rồi xem đúng sai, dịch tiếng Việt, mẹo và giải thích vì sao các đáp án khác sai.',
+      'Bài nghe có nút nghe lại từng đoạn kèm lời thoại và bản dịch. Bài đọc có bản dịch đoạn văn.'
+    ]
+  },
+  {
     id: '2026-10-30d', date: '30/10/2026',
     title: 'Thêm nút bấm hợp phong cách',
     items: [

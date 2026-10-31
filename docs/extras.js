@@ -165,8 +165,9 @@
         var href = a.getAttribute('href'), name = (s.querySelector('.name') || {}).textContent || '';
         var un = s.querySelector('.name .unit'), dn = un ? un.textContent.replace(/\D/g, '') : (s.querySelector('.dot b') || {}).textContent || '';
         var id = s.dataset.id, k0 = id.replace(/^A(?=[RL]\d)/, '')[0];
-        var kind = (k0 !== id[0] ? 'TOEIC A · ' : '') + (k0 === 'R' ? 'Reading ' : k0 === 'L' ? 'Listening ' : 'Weekly Revision ');
-        var label = kind + dn + ' · ' + name.replace('✓ Đã ôn', '').replace(/^Mới/, '').replace(/^\s*Unit \d+\s*/, '').replace(/^\s*(Reading|Listening) · /, '').trim();
+        var kind = (k0 !== id[0] ? 'TOEIC A · ' : '') + (k0 === 'R' ? 'Reading ' : k0 === 'L' ? 'Listening ' : k0 === 'M' ? 'Mock Test ' : k0 === 'P' ? '' : 'Weekly Revision ');
+        var label = kind + dn + ' · ' + name.replace('✓ Đã ôn', '').replace(/^Mới/, '').replace(un ? un.textContent : '\u0000', '').replace(/^\s*Unit \d+\s*/, '').replace(/^\s*(Reading|Listening) · /, '').trim();
+        if (k0 === 'P') label = label.replace(/^\d* · /, '');
         return fetch(href).then(function (r) { return r.text(); }).then(function (html) {
           var d = new DOMParser().parseFromString(html, 'text/html'), doc = d.querySelector('.doc');
           if (!doc) return [];

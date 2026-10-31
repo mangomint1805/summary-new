@@ -29,8 +29,12 @@ var SN_SESSIONS = {
   R1: 1, L1: 2, R2: 3, L2: 4, W1: 5, R3: 6, L3: 7, R4: 8, W2: 9,
   L4: 12, R5: 13, L5: 14, W3: 15, L6: 16, R6: 17, L7: 18, R7: 19, L8: 20, W4: 21,
   PT1: 11, /* trang Ôn tập sau Progress Test 1 – mở sau buổi kiểm tra */
-  PT2: 22  /* trang Ôn tập trước Progress Test 2 – mở trước buổi thi vài ngày */
+  PT2: 22, /* trang Ôn tập trước Progress Test 2 – mở trước buổi thi vài ngày */
+  /* trang Chữa bài Mock Test: mở trễ SN_OPEN_DELAY ngày sau buổi làm bài, ĐÓNG sau ngày học cuối của lớp */
+  MK1: 3, MK2: 6, MK3: 9, MK4: 13, MK5: 16, MK6: 19
 };
+var SN_OPEN_DELAY = { MK1: 2, MK2: 2, MK3: 2, MK4: 2, MK5: 2, MK6: 2 };
+var SN_CLOSE_END = { MK1: 1, MK2: 1, MK3: 1, MK4: 1, MK5: 1, MK6: 1 };
 var SN_TOTAL = 24;
 /* Các buổi không có trang bài học */
 var SN_OTHER = { 10: 'Exam master 1', 11: 'Progress Test 1', 22: 'Exam master 2', 23: 'Exam master 3', 24: 'Progress Test 2' };
@@ -56,12 +60,24 @@ var SN_TITLES = {
   "W3": "Weekly Revision 3",
   "W4": "Weekly Revision 4",
   "PT1": "Ôn tập sau Progress Test 1",
-  "PT2": "Ôn tập trước Progress Test 2"
+  "PT2": "Ôn tập trước Progress Test 2",
+  "MK1": "Chữa bài Mock Test 1 · Part 1",
+  "MK2": "Chữa bài Mock Test 2 · Part 5",
+  "MK3": "Chữa bài Mock Test 3 · Part 6",
+  "MK4": "Chữa bài Mock Test 4 · Part 2",
+  "MK5": "Chữa bài Mock Test 5 · Part 3",
+  "MK6": "Chữa bài Mock Test 6 · Part 7"
  };
 var SN_PREFIX = 'summaryNew';
 var SN_FILES = {
   'review/progress-test-1.html': 'PT1',
   'review/progress-test-2.html': 'PT2',
+  'review/mock-test-1.html': 'MK1',
+  'review/mock-test-2.html': 'MK2',
+  'review/mock-test-3.html': 'MK3',
+  'review/mock-test-4.html': 'MK4',
+  'review/mock-test-5.html': 'MK5',
+  'review/mock-test-6.html': 'MK6',
   'reading/unit-01-nouns-pronouns.html': 'R1',
   'reading/unit-02-adjectives-adverbs-comparison.html': 'R2',
   'reading/unit-03-verb-tenses.html': 'R3',
@@ -167,11 +183,22 @@ var SN = (function () {
   }
   function course(c) { return SN_COURSES[snKhoa(c)]; }
   function session(c, id) { return course(c).sessions[id]; }
+  function delay(id) { return (typeof SN_OPEN_DELAY !== 'undefined' && SN_OPEN_DELAY[id]) || 0; }
+  function closeDate(c) { var ds = dates(c), d = new Date(ds[ds.length - 1]); d.setDate(d.getDate() + 1); d.setHours(0, 0, 0, 0); return d; }
+  function isClosed(c, id) { return !!(c && typeof SN_CLOSE_END !== 'undefined' && SN_CLOSE_END[id]) && new Date() >= closeDate(c); }
+  function openDate(c, id) {
+    var s = session(c, id); if (!s) return null;
+    var d = new Date(dates(c)[s - 1]); d.setDate(d.getDate() + delay(id)); return d;
+  }
   function isOpen(c, id) {
     if (snIdKhoa(id) !== snKhoa(c)) return false; // bài của khoá khác: không mở
-    var s = session(c, id); return !s || s <= doneSessions(c);
+    var s = session(c, id);
+    if (s && delay(id)) { // mở lúc tan học của ngày (buổi + số ngày trễ)
+      var o = openDate(c, id), e = snEndHM(c); o.setHours(e[0], e[1], 0, 0);
+      return new Date() >= o && !isClosed(c, id);
+    }
+    return (!s || s <= doneSessions(c)) && !isClosed(c, id);
   }
-  function openDate(c, id) { var s = session(c, id); return s ? dates(c)[s - 1] : null; }
   function ids(c) { return Object.keys(course(c).sessions); }
   var TH = ['CN', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
   function fmt(d, withDay) {
@@ -184,7 +211,7 @@ var SN = (function () {
   function leave() { set(KEY, null); }
   function teacher(v) { if (v === undefined) return get(GV) === '1'; set(GV, v ? '1' : null); }
   return { find: find, current: current, choose: choose, leave: leave, teacher: teacher, dates: dates,
-    doneSessions: doneSessions, isOpen: isOpen, openDate: openDate, fmt: fmt, today: today, norm: norm,
+    doneSessions: doneSessions, isOpen: isOpen, isClosed: isClosed, closeDate: closeDate, openDate: openDate, fmt: fmt, today: today, norm: norm,
     khoa: snKhoa, course: course, session: session, ids: ids };
 })();
 
@@ -284,10 +311,15 @@ var SN = (function () {
       box.innerHTML = '<div class="ic">📚</div><h2>Bài này không thuộc khoá của lớp mình</h2>' +
         '<p>Đây là bài của khoá <b>' + SN_COURSES[snIdKhoa(id)].ten + '</b>, lớp ' + c.ma + ' học khoá <b>' + SN.course(c).ten + '</b>.</p>' +
         '<a class="btn" href="' + home + '">← Về danh sách bài của lớp</a>';
+    } else if (SN.isClosed(c, id)) {
+      var last = SN.dates(c)[SN.dates(c).length - 1];
+      box.innerHTML = '<div class="ic">🔒</div><h2>Trang này đã đóng</h2>' +
+        '<p>Khoá học của lớp ' + c.ma + ' đã kết thúc ngày <b>' + SN.fmt(last) + '/' + last.getFullYear() + '</b>, nên trang chữa bài đã đóng lại.</p>' +
+        '<p>Các bài tóm tắt kiến thức vẫn mở để bạn ôn tiếp nhé!</p><a class="btn" href="' + home + '">← Về danh sách bài</a>';
     } else {
-      var d = SN.openDate(c, id), e = snEndHM(c);
-      box.innerHTML = '<div class="ic">🔒</div><h2>Lớp mình chưa học tới bài này</h2>' +
-        '<p>Bài này sẽ mở ' + (e[0] || e[1] ? 'sau giờ học, lúc <b>' + snEndText(c) + ' ' : 'từ <b>0h ') + 'ngày ' + SN.fmt(d, true) + '/' + d.getFullYear() + '</b> (buổi ' + SN.session(c, id) + ' của lớp ' + c.ma + ').</p>' +
+      var d = SN.openDate(c, id), e = snEndHM(c), dl = SN_OPEN_DELAY[id];
+      box.innerHTML = '<div class="ic">🔒</div><h2>' + (dl ? 'Trang chữa bài chưa mở' : 'Lớp mình chưa học tới bài này') + '</h2>' +
+        '<p>Bài này sẽ mở ' + (e[0] || e[1] ? 'sau giờ học, lúc <b>' + snEndText(c) + ' ' : 'từ <b>0h ') + 'ngày ' + SN.fmt(d, true) + '/' + d.getFullYear() + '</b> (' + (dl ? dl + ' ngày sau ' : '') + 'buổi ' + SN.session(c, id) + ' của lớp ' + c.ma + ').</p>' +
         '<p>Ôn lại các bài đã học trước nha!</p><a class="btn" href="' + home + '">← Về danh sách bài</a>';
     }
     var main = document.querySelector('main');
