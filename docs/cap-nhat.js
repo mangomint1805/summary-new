@@ -1,6 +1,17 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-02b', date: '02/11/2026',
+    title: 'Chữa bài Mock Test lớp TOEIC A và Chép chính tả',
+    items: [
+      'Lớp TOEIC A: thêm trang Chữa bài cho 6 Mock Test (Part 1, 2, 5–6, 3, 4, 7). Mỗi câu có nghe lại, dịch tiếng Việt và giải thích vì sao đúng, vì sao sai. Trang mở 2 ngày sau buổi làm bài, nằm ngay dưới buổi đó trên lộ trình.',
+      'Nếu bạn đã làm bài online trên máy này, trang chữa bài hiện lại đáp án bạn đã chọn để so sánh.',
+      'Lớp TOEIC A: thêm trang Tổng quan Progress Test 2 (mở sau buổi 23): cách làm từng Part, các điểm ngữ pháp sẽ gặp và mẹo ngày thi.',
+      'Trang mới Chép chính tả Listening: nghe từng câu trong audio Mock Test Part 1, 2, gõ lại và xem từ nào đúng, sai, còn thiếu; có nút nghe chậm và gợi ý. Bài của Mock Test nào mở cùng lúc với trang chữa bài Mock Test đó.'
+    ],
+    link: ['chinh-ta.html', 'Thử chép chính tả']
+  },
+  {
     id: '2026-11-02', date: '02/11/2026',
     title: 'Nút bấm dễ chạm hơn trên điện thoại',
     items: [

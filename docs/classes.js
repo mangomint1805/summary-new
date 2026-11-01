@@ -102,8 +102,22 @@ var SN_FILES = {
 /* ----- Khoá TOEIC A (24 buổi): mỗi Unit 3 buổi: Lesson 1 Reading, Lesson 2 Listening, Lesson 3 luyện tập ----- */
 var SN_SESSIONS_A = {
   AR1: 1, AL1: 2, AR2: 4, AL2: 5, AR3: 7, AL3: 8,
-  AR4: 13, AL4: 14, AR5: 16, AL5: 17, AR6: 19, AL6: 20
+  AR4: 13, AL4: 14, AR5: 16, AL5: 17, AR6: 19, AL6: 20,
+  /* Chữa bài Mock Test lớp A (theo lịch schedule-a.png): mở trễ 2 ngày sau buổi làm bài, đóng sau ngày học cuối */
+  AMK1: 3, AMK2: 6, AMK3: 10, AMK4: 15, AMK5: 19, AMK6: 22,
+  APT2: 23 /* Tổng quan Progress Test 2: mở sau buổi 23 (Exam master 4) */
 };
+(function () {
+  var T = { AMK1: 'Part 1', AMK2: 'Part 2', AMK3: 'Part 5, 6', AMK4: 'Part 3', AMK5: 'Part 4', AMK6: 'Part 7' };
+  Object.keys(T).forEach(function (id) {
+    var n = id.slice(3);
+    SN_OPEN_DELAY[id] = 2; SN_CLOSE_END[id] = 1;
+    SN_TITLES[id] = 'TOEIC A · Chữa bài Mock Test ' + n + ' · ' + T[id];
+    SN_FILES['a/review/mock-test-' + n + '.html'] = id;
+  });
+  SN_TITLES.APT2 = 'TOEIC A · Tổng quan Progress Test 2';
+  SN_FILES['a/review/progress-test-2.html'] = 'APT2';
+})();
 var SN_OTHER_A = {
   3: 'Unit 1 · Lesson 3', 6: 'Unit 2 · Lesson 3', 9: 'Unit 3 · Lesson 3', 10: 'Exam master 1', 11: 'Exam master 2', 12: 'Progress Test 1',
   15: 'Unit 4 · Lesson 3', 18: 'Unit 5 · Lesson 3', 21: 'Unit 6 · Lesson 3', 22: 'Exam master 3', 23: 'Exam master 4', 24: 'Progress Test 2'
