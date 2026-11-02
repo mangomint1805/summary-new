@@ -170,3 +170,16 @@ html[data-theme=dark] .doc table.v3note td{background:#2a2216!important;}
 .sn-pill,.mt-skip{position:relative;}
 .sn-pill::before,.mt-skip::before{content:"";position:absolute;inset:-9px -4px;}
 }
+/* Phần "Chữa bài tập trong sách" ở cuối trang bài học: tách khỏi phần tóm tắt kiến thức, mặc định thu gọn */
+.doc h2.ex-head{margin-top:46px;padding-top:24px;border-top:3px dashed var(--line);}
+.doc .ex-note{color:var(--dim);font-size:15px;margin:4px 0 12px;}
+.doc details.ex-box{margin:8px 0 4px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:0 16px;}
+.doc details.ex-box>summary{cursor:pointer;font-weight:700;color:var(--amber-ink);padding:12px 0;list-style:none;}
+.doc details.ex-box>summary::-webkit-details-marker{display:none;}
+.doc details.ex-box>summary::after{content:" ▾";}
+.doc details.ex-box[open]>summary{border-bottom:1px solid var(--line);margin-bottom:6px;}
+.doc details.ex-box[open]>summary::after{content:" ▴";}
+.doc details.ex-box .ex-c,.doc details.ex-box[open] .ex-o{display:none;}
+.doc details.ex-box[open] .ex-c{display:inline;}
+.doc details.ex-box[open]{padding-bottom:10px;}
+.doc details.ex-box>h2:first-of-type,.doc details.ex-box>summary+h3{margin-top:14px;}

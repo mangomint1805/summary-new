@@ -89,6 +89,18 @@
     main.appendChild(card);
     paint();
     if (location.hash) { var t = document.getElementById(location.hash.slice(1)); if (t) { t.classList.add('sn-hit'); } }
+    /* phần "Chữa bài tập" thu gọn: bấm mục lục / link kết quả tìm kiếm tới mục bên trong thì tự mở ra */
+    function reveal(id) {
+      var t = id && document.getElementById(id), d = t && t.closest && t.closest('details.ex-box');
+      if (d && !d.open) { d.open = true; setTimeout(function () { t.scrollIntoView(); }, 0); }
+    }
+    function hid() { try { return decodeURIComponent(location.hash.slice(1)); } catch (e) { return location.hash.slice(1); } }
+    reveal(hid());
+    window.addEventListener('hashchange', function () { reveal(hid()); });
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (a) reveal(a.getAttribute('href').slice(1));
+    }, true);
     /* mục lục + nút lên đầu */
     var hs = doc ? [].slice.call(doc.querySelectorAll('h2,h3')) : [];
     if (hs.length > 2) {
@@ -173,7 +185,12 @@
           if (!doc) return [];
           var out = [], cur = { h: label, hid: '', text: '' };
           [].forEach.call(doc.querySelectorAll('h2,h3'), function (h, i) { if (!h.id) h.id = 'sn-h' + i; });
+          var kids = [];
           [].forEach.call(doc.children, function (el) {
+            if (el.matches('details.ex-box')) [].push.apply(kids, [].filter.call(el.children, function (c) { return c.tagName !== 'SUMMARY'; }));
+            else kids.push(el);
+          });
+          kids.forEach(function (el) {
             if (/^H[23]$/.test(el.tagName)) {
               if (cur.text || cur.hid) out.push(cur);
               cur = { h: el.textContent.trim(), hid: el.id, text: '' };
