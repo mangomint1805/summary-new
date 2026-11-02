@@ -4,7 +4,7 @@ window.MT_UPDATES = [
     id: '2026-11-02c', date: '02/11/2026',
     title: 'Bài tóm tắt dễ đọc hơn: kiến thức ở trên, chữa bài ở dưới',
     items: [
-      'Các bài tóm tắt lớp TOEIC Pre và lớp TOEIC A giờ chia làm 2 phần rõ ràng. Phần trên chỉ có kiến thức cần nhớ: từ vựng, thông tin Part, chiến lược, ngữ pháp, mẹo, bẫy, Tổng kết và Bảng từ vựng.',
+      'Các bài tóm tắt lớp TOEIC Pre (cả 4 bài Weekly Revision) và lớp TOEIC A giờ chia làm 2 phần rõ ràng. Phần trên chỉ có kiến thức cần nhớ: từ vựng, thông tin Part, chiến lược, ngữ pháp, mẹo, bẫy, Tổng kết và Bảng từ vựng.',
       'Phần chữa bài tập trong sách (Luyện tập, Check-up, Exercise, ví dụ có đáp án) được gom xuống cuối bài, mục "📘 Chữa bài tập trong sách". Bấm "Mở phần chữa bài" để xem lại khi chữa bài trên lớp.',
       'Mục lục bài và ô tìm kiếm trên trang chủ vẫn tìm được nội dung phần chữa bài; bấm vào là phần đó tự mở ra.'
     ]
