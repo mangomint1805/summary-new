@@ -22,6 +22,7 @@
 .ct-top span{font-size:13.5px;color:var(--dim)}
 .ct-play,.ct-acts{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
 .ct-btn{font:inherit;font-weight:700;font-size:14.5px;border:1.5px solid var(--amber);background:var(--card,#fff);color:var(--amber-ink);border-radius:9px;padding:9px 14px;cursor:pointer;min-height:44px}
+html[data-theme=dark] .ct-btn.main{color:#141d42}
 .ct-btn.main{background:var(--amber);color:#fff}
 .ct-btn.alt{border-color:var(--line);color:var(--ink);background:var(--paper)}
 .ct-btn.on{background:var(--amber-soft)}
@@ -45,8 +46,8 @@ html[data-theme=dark] .ct-dots button.mid,html[data-theme=dark] .w-miss{backgrou
 </head><body data-nav="dict"><header class="top"><a href="index.html">Tóm tắt kiến thức</a></header><main><p class="sub"><a href="index.html">← Tất cả bài</a></p><h1>Chép chính tả Listening</h1><p class="sub">Nghe từng câu trong audio Mock Test Part 1, 2 rồi gõ lại. Web chỉ ra từ đúng, sai, còn thiếu.</p>
 <div class="doc">
 <p>Mỗi bài Mock Test mở phần chép chính tả <b>cùng lúc với trang chữa bài</b> của bài đó. <b>Cách học:</b> bấm ▶ Nghe cả câu một lần → nghe lại (hoặc 🐢 nghe chậm) và gõ từng cụm → bấm <b>Kiểm tra</b>. Gõ gần đúng là được: không cần viết hoa, dấu câu; <i>it's</i> = <i>it is</i>, <i>10</i> = <i>ten</i>.</p>
-<div id="ctSets" class="ct-sets" aria-label="Chọn bài"></div>
-<div id="ctDots" class="ct-dots" aria-label="Danh sách câu"></div>
+<div id="ctSets" class="ct-sets" role="group" aria-label="Chọn bài"></div>
+<div id="ctDots" class="ct-dots" role="group" aria-label="Danh sách câu"></div>
 <div id="ctMain"></div>
 </div>
 </main><footer>Tóm tắt kiến thức · kết quả chép chính tả lưu trên máy này</footer>
@@ -162,5 +163,5 @@ html[data-theme=dark] .ct-dots button.mid,html[data-theme=dark] .w-miss{backgrou
 })();
 </script>
 <script>try{var _c=SN.current();if(_c&&SN.khoa(_c)==='A')window.MNAV_LABEL='TOEIC A';}catch(e){}</script>
-<script>window.ETSCFG=window.ETSCFG||{SCRIPT_URL:'https://script.google.com/macros/s/AKfycby3_45o2Zn3FMEMrVAg9nBCiQEIUvU9HgQxI2ZZtwJ4oUQ_bqXxj1vN0kL6cvhbDQCx/exec'};</script><script src="assets/ui.js?v=15" data-site="summary"></script>
+<script>window.ETSCFG=window.ETSCFG||{SCRIPT_URL:'https://script.google.com/macros/s/AKfycby3_45o2Zn3FMEMrVAg9nBCiQEIUvU9HgQxI2ZZtwJ4oUQ_bqXxj1vN0kL6cvhbDQCx/exec'};</script><script src="assets/ui.js?v=16" data-site="summary"></script>
 </body></html>

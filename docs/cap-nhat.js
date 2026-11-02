@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-03', date: '03/11/2026',
+    title: 'Chữ và nút dễ đọc hơn',
+    items: [
+      'Chữ màu cam, chữ phụ màu xám và nút bấm ở giao diện Xoài, Hành baro, Thiên thần được làm đậm hơn một chút, nhìn rõ hơn trên điện thoại, nhất là khi ra ngoài trời sáng.',
+      'Thanh menu dưới cùng có chữ to hơn một chút, dễ đọc tên từng mục hơn.',
+      'Băng hoại: nút "Vào học" ở ô nhập mã lớp và nút Nghe / Kiểm tra ở trang Chép chính tả không còn chữ trắng trên nền vàng, đọc rõ hơn.'
+    ]
+  },
+  {
     id: '2026-11-02c', date: '02/11/2026',
     title: 'Bài tóm tắt dễ đọc hơn: kiến thức ở trên, chữa bài ở dưới',
     items: [
