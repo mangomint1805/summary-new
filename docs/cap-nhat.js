@@ -1,6 +1,14 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-09c', date: '09/11/2026',
+    title: '📂 Lớp A · Reading Unit 3 gọn hơn, thêm phần học kỹ',
+    items: [
+      'Bài Reading Unit 3 (Business Trip) giờ thu gọn theo đề mục: bấm vào đề mục nào thì mở phần đó, hoặc bấm "Mở tất cả" để xem hết.',
+      'Thêm mục "📚 Học kỹ hơn" với 3 phần chi tiết: các thì (khẳng định, phủ định, nghi vấn, cách dùng), câu bị động và câu điều kiện (loại 0, 1, 2, 3, hỗn hợp).'
+    ]
+  },
+  {
     id: '2026-11-09b', date: '09/11/2026',
     title: '🎨 Công thức và đề mục có màu, dễ đọc hơn',
     items: [
