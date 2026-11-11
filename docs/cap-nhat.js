@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-11', date: '11/11/2026',
+    title: '⚖️ Reading 7 (Comparison): thêm phần so sánh bằng',
+    items: [
+      'Bài Reading 7 có thêm đề mục mới "So sánh bằng": as … as (bằng), not as / not so … as (không bằng), as … as possible (càng … càng tốt), as many / as much … as, twice as … as và the same … as, kèm ví dụ chủ đề tuyển dụng.',
+      'Có mẹo làm Part 5: thấy "as ____ as" là chọn dạng nguyên của tính từ / trạng từ, loại ngay đáp án -er / -est / more / most.',
+      'Khung "⚡ Tóm tắt nhanh" và bảng Tổng kết cũng thêm dòng so sánh bằng để ôn nhanh.'
+    ]
+  },
+  {
     id: '2026-11-09d', date: '09/11/2026',
     title: '📂 Bài tóm tắt thu gọn theo đề mục',
     items: [
