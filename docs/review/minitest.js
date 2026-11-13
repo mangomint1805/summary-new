@@ -103,13 +103,13 @@
     g.qs.forEach(function (q) {
       var acc = q.ans.join(''), stat = '';
       if (q.cls) { var tot = 0, ok = 0; L.split('').forEach(function (c) { if (q.cls[c] != null) { tot += q.cls[c]; if (acc.indexOf(c) >= 0) ok += q.cls[c]; } }); stat = '<span class="st' + (ok / tot < 0.4 ? ' low' : '') + '">Lớp đúng ' + ok + '/' + (q.of || tot) + '</span>'; }
-      h += '<div class="mt-q" id="q' + q.n + '" data-n="' + q.n + '"><div class="mt-qh"><b>Câu ' + q.n + '</b>' + stat + '</div>';
+      h += '<div class="mt-q" id="q' + q.n + '" data-n="' + q.n + '"><div class="mt-qh"><b>Câu ' + esc(q.label || q.n) + '</b>' + stat + '</div>';
       if (q.q) h += '<p class="mt-stem">' + fmt(q.q) + '</p>';
       if (q.qvi) h += '<p class="mt-qvi"' + (M.qviAfter ? ' hidden' : '') + '>' + esc(q.qvi) + '</p>';
       h += '<div class="mt-opts">' + q.opts.map(function (o, i) {
         var c = L[i];
         return '<button type="button" class="mt-opt" data-c="' + c + '"><span class="l">' + c + '</span><span class="t">' +
-          (M.hideOpts ? '<span class="h">' + (M.hideHint || 'Nghe rồi chọn') + '</span><span class="sh" hidden>' + fmt(o.t) + '</span>' : fmt(o.t)) +
+          ((M.hideOpts || g.hideOpts) ? '<span class="h">' + (M.hideHint || 'Nghe rồi chọn') + '</span><span class="sh" hidden>' + fmt(o.t) + '</span>' : fmt(o.t)) +
           (o.vi ? '<small hidden>' + esc(o.vi) + '</small>' : '') + '</span>' + (q.cls && q.cls[c] != null ? '<span class="n" hidden>' + q.cls[c] + ' bạn</span>' : '') + '</button>';
       }).join('') + '</div><button type="button" class="mt-skip">Chưa chắc? Xem đáp án luôn</button>';
       h += '<div class="mt-ex"><p class="k">✓ Đáp án: ' + q.ans.map(function (c) { var o = q.opts[L.indexOf(c)]; return '(' + c + ') ' + fmt(o ? o.t : ''); }).join(' hoặc ') + '</p>' +

@@ -105,7 +105,9 @@ var SN_SESSIONS_A = {
   AR4: 13, AL4: 14, AR5: 16, AL5: 17, AR6: 19, AL6: 20,
   /* Chữa bài Mock Test lớp A (theo lịch schedule-a.png): mở trễ 2 ngày sau buổi làm bài, đóng sau ngày học cuối */
   AMK1: 3, AMK2: 6, AMK3: 10, AMK4: 15, AMK5: 19, AMK6: 22,
-  APT2: 23 /* Tổng quan Progress Test 2: mở sau buổi 23 (Exam master 4) */
+  APT2: 23, /* Tổng quan Progress Test 2: mở sau buổi 23 (Exam master 4) */
+  /* File nghe + chữa bài phần luyện tập trên lớp các buổi Thực chiến đề thi (Lesson 3) */
+  ATC1: 3, ATC2: 6, ATC3: 9
 };
 (function () {
   var T = { AMK1: 'Part 1', AMK2: 'Part 2', AMK3: 'Part 5, 6', AMK4: 'Part 3', AMK5: 'Part 4', AMK6: 'Part 7' };
@@ -116,6 +118,10 @@ var SN_SESSIONS_A = {
     SN_FILES['a/review/mock-test-' + n + '.html'] = id;
   });
   SN_TITLES.APT2 = 'TOEIC A · Tổng quan Progress Test 2';
+  ['Accommodation & Restaurant', 'Meeting', 'Business Trip'].forEach(function (t, k) {
+    SN_TITLES['ATC' + (k + 1)] = 'TOEIC A · Unit ' + (k + 1) + ' · Thực chiến đề thi · ' + t;
+    SN_FILES['a/review/thuc-chien-' + (k + 1) + '.html'] = 'ATC' + (k + 1);
+  });
   SN_FILES['a/review/progress-test-2.html'] = 'APT2';
 })();
 var SN_OTHER_A = {
