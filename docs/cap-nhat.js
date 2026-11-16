@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-16', date: '16/11/2026',
+    title: '🎧 Lớp A: thêm trang Thực chiến đề thi Unit 4, 5, 6',
+    items: [
+      'Ba buổi Thực chiến đề thi còn lại (Community, Investment, Work Issues) đã có trang file nghe + chữa bài, tự mở sau giờ học của từng buổi.',
+      'Có bài nghe điền từ, nghe Part 3 / Part 4 kèm lời thoại và bản dịch, Part 5, Part 6 và Part 7 (đọc hiểu) với giải thích vì sao đúng, vì sao sai.',
+      'Mỗi trang có bảng từ vựng của buổi và nút 🃏 Flashcard để ôn.'
+    ]
+  },
+  {
     id: '2026-11-13', date: '13/11/2026',
     title: '🎧 Lớp A: file nghe + chữa bài các buổi Thực chiến đề thi',
     items: [
