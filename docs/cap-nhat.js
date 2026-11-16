@@ -1,6 +1,14 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-16c', date: '16/11/2026',
+    title: '📌 Chữa bài Part 3, 4, 6, 7: đỡ phải cuộn lên cuộn xuống',
+    items: [
+      'Ở các nhóm nhiều câu (Part 3, 4, 6, 7), đoạn văn hoặc file nghe giờ luôn nằm ở trên màn hình trong lúc bạn làm từng câu bên dưới, không phải kéo lên đọc lại nữa.',
+      'Trên điện thoại có nút "Thu gọn đoạn văn" để mở rộng chỗ làm bài khi cần. Trên máy tính, đoạn văn nằm cột trái, câu hỏi nằm cột phải.'
+    ]
+  },
+  {
     id: '2026-11-16b', date: '16/11/2026',
     title: '📝 Lớp A: file nghe + chữa bài Exam Master 1',
     items: [
