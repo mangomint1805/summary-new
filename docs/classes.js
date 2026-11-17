@@ -109,7 +109,7 @@ var SN_SESSIONS_A = {
   /* File nghe + chữa bài phần luyện tập trên lớp các buổi Thực chiến đề thi (Lesson 3) */
   ATC1: 3, ATC2: 6, ATC3: 9, ATC4: 15, ATC5: 18, ATC6: 21,
   /* File nghe + chữa bài đề luyện các buổi Exam master */
-  AEM1: 10
+  AEM1: 10, AEM2: 11
 };
 (function () {
   var T = { AMK1: 'Part 1', AMK2: 'Part 2', AMK3: 'Part 5, 6', AMK4: 'Part 3', AMK5: 'Part 4', AMK6: 'Part 7' };
@@ -126,6 +126,8 @@ var SN_SESSIONS_A = {
   });
   SN_TITLES.AEM1 = 'TOEIC A · Exam Master 1 · Luyện đề Part 1, 2, 5, 6';
   SN_FILES['a/review/exam-master-1.html'] = 'AEM1';
+  SN_TITLES.AEM2 = 'TOEIC A · Exam Master 2 · Luyện đề Part 1, 2, 5, 6';
+  SN_FILES['a/review/exam-master-2.html'] = 'AEM2';
   SN_FILES['a/review/progress-test-2.html'] = 'APT2';
 })();
 var SN_OTHER_A = {
