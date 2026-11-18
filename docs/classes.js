@@ -21,7 +21,10 @@ var SN_CLASSES = [
   { ma: 'TOPRE115276', ten: 'TOPRE115276 (2-4-6, 19h45 - 21h15)', khaiGiang: '2026-09-25', thu: [2, 4, 6], nghi: [],
     moc: ['2026-10-14', 7] }, // 14/10 mới học tới buổi 7 (Listening 3 – Information Questions)
   { ma: 'TOA117110', ten: 'TOA117110 (2-4-6, 17h45 - 19h15)', khaiGiang: '2026-10-26', thu: [2, 4, 6], nghi: [],
-    khoa: 'A' } // TOEIC A: bài mở sau giờ tan học (19:15) của ngày học buổi đó
+    khoa: 'A' }, // TOEIC A: bài mở sau giờ tan học (19:15) của ngày học buổi đó
+  { ma: 'TOA120023', ten: 'TOA120023 (3-5-7, 17h45 - 19h15)', khaiGiang: '2026-11-19', thu: [3, 5, 7], nghi: ['2026-11-24'],
+    khoa: 'A' },
+  { ma: 'TOPRE120016', ten: 'TOPRE120016 (3-5-7, 19h45 - 21h15)', khaiGiang: '2026-11-19', thu: [3, 5, 7], nghi: ['2026-11-24'] }
 ];
 
 /* Bài học ứng với buổi nào trong lịch 24 buổi (TOEIC PRE ver 3.0) */
