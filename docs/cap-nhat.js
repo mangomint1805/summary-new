@@ -6,6 +6,7 @@ window.MT_UPDATES = [
     items: [
       'Hai buổi Exam Master 2 và 3 có trang riêng (mở sau giờ học của buổi đó): đủ 200 câu mỗi đề, từ Part 1 đến Part 7.',
       'Câu nghe có file nghe từng câu, từng đoạn, kèm lời thoại và dịch tiếng Việt. Câu đọc có giải thích vì sao đúng, chỗ nào trong bài chứa đáp án.',
+      'Exam Master 3: sách thiếu file nghe hội thoại 62–70, nên 3 đoạn này có file nghe giọng đọc máy với đúng lời thoại trong sách.',
       'Đây là cách ôn tốt nhất trước Progress Test 2: làm lại các câu sai và ghi vào sổ Error Log nha.'
     ]
   },
