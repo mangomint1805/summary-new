@@ -31,7 +31,9 @@ var SN_SESSIONS = {
   PT1: 11, /* trang Ôn tập sau Progress Test 1 – mở sau buổi kiểm tra */
   PT2: 22, /* trang Ôn tập trước Progress Test 2 – mở trước buổi thi vài ngày */
   /* trang Chữa bài Mock Test: mở trễ SN_OPEN_DELAY ngày sau buổi làm bài, ĐÓNG sau ngày học cuối của lớp */
-  MK1: 3, MK2: 6, MK3: 9, MK4: 13, MK5: 16, MK6: 19
+  MK1: 3, MK2: 6, MK3: 9, MK4: 13, MK5: 16, MK6: 19,
+  /* File nghe + chữa bài đề luyện các buổi Exam master */
+  PEM2: 22, PEM3: 23
 };
 var SN_OPEN_DELAY = { MK1: 2, MK2: 2, MK3: 2, MK4: 2, MK5: 2, MK6: 2 };
 var SN_CLOSE_END = { MK1: 1, MK2: 1, MK3: 1, MK4: 1, MK5: 1, MK6: 1 };
@@ -66,7 +68,9 @@ var SN_TITLES = {
   "MK3": "Chữa bài Mock Test 3 · Part 6",
   "MK4": "Chữa bài Mock Test 4 · Part 2",
   "MK5": "Chữa bài Mock Test 5 · Part 3",
-  "MK6": "Chữa bài Mock Test 6 · Part 7"
+  "MK6": "Chữa bài Mock Test 6 · Part 7",
+  "PEM2": "Exam Master 2 · Chữa đề 200 câu",
+  "PEM3": "Exam Master 3 · Chữa đề 200 câu"
  };
 var SN_PREFIX = 'summaryNew';
 var SN_FILES = {
@@ -78,6 +82,8 @@ var SN_FILES = {
   'review/mock-test-4.html': 'MK4',
   'review/mock-test-5.html': 'MK5',
   'review/mock-test-6.html': 'MK6',
+  'review/exam-master-2.html': 'PEM2',
+  'review/exam-master-3.html': 'PEM3',
   'reading/unit-01-nouns-pronouns.html': 'R1',
   'reading/unit-02-adjectives-adverbs-comparison.html': 'R2',
   'reading/unit-03-verb-tenses.html': 'R3',

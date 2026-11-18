@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-18', date: '18/11/2026',
+    title: '📝 Lớp Pre: file nghe + chữa bài Exam Master 2 và 3',
+    items: [
+      'Hai buổi Exam Master 2 và 3 có trang riêng (mở sau giờ học của buổi đó): đủ 200 câu mỗi đề, từ Part 1 đến Part 7.',
+      'Câu nghe có file nghe từng câu, từng đoạn, kèm lời thoại và dịch tiếng Việt. Câu đọc có giải thích vì sao đúng, chỗ nào trong bài chứa đáp án.',
+      'Đây là cách ôn tốt nhất trước Progress Test 2: làm lại các câu sai và ghi vào sổ Error Log nha.'
+    ]
+  },
+  {
     id: '2026-11-17', date: '17/11/2026',
     title: '📝 Lớp A: file nghe + chữa bài Exam Master 2',
     items: [
