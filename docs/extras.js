@@ -103,7 +103,7 @@
     }, true);
     /* mục lục + nút lên đầu */
     var hs = doc ? [].slice.call(doc.querySelectorAll('h2,h3')) : [];
-    if (hs.length > 2) {
+    if (hs.length > 2 && !(doc && doc.querySelectorAll('details.sec').length >= 3)) {
       var toc = document.createElement('details'); toc.className = 'sn-toc';
       toc.innerHTML = '<summary>Mục lục bài (' + hs.filter(function (h) { return h.tagName === 'H2'; }).length + ' phần)</summary><ol>' +
         hs.map(function (h) { return '<li class="' + h.tagName.toLowerCase() + '"><a href="#' + h.id + '">' + esc(h.textContent.trim()) + '</a></li>'; }).join('') + '</ol>';

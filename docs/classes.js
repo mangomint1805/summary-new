@@ -328,7 +328,7 @@ var SN = (function () {
 
   var css = document.createElement('style');
   css.textContent = 'html.sn-lock main{display:none}' +
-    '.sn-box{max-width:520px;margin:40px auto;padding:26px 24px;background:var(--card,#fff);border:1.5px solid var(--amber,#a8691a);border-radius:14px;text-align:center;font-family:inherit;}' +
+    '.sn-box{max-width:520px;width:calc(100% - 32px);box-sizing:border-box;margin:40px auto;padding:26px 24px;background:var(--card,#fff);border:1.5px solid var(--amber,#a8691a);border-radius:14px;text-align:center;font-family:inherit;}' +
     '.sn-box .ic{font-size:44px;line-height:1;}' +
     '.sn-box h2{font-family:Lora,"Times New Roman",serif;font-weight:600;font-size:23px;margin:12px 0 6px;}' +
     '.sn-box p{color:var(--dim,#666e7a);margin:6px 0;}' +

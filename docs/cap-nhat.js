@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-19', date: '19/11/2026',
+    title: 'Dễ đọc, dễ bấm hơn trên điện thoại',
+    items: [
+      "Trang bài học bỏ bớt \"Mục lục bài\" vì các phần đã tự thu gọn được, trang nhìn gọn hơn.",
+      "Chữ \"Buổi\" trên lịch học to hơn; nhãn động từ (V) trong công thức đậm màu hơn cho dễ đọc.",
+      "Link \"← Tất cả bài\" và các nút nhỏ dễ bấm hơn; khung nhắc nhập mã lớp không còn sát mép màn hình."
+    ]
+  },
+  {
     id: '2026-11-18', date: '18/11/2026',
     title: '📝 Lớp Pre: file nghe + chữa bài Exam Master 2 và 3',
     items: [

@@ -19,7 +19,7 @@ h2.sec{font-family:'Lora','Times New Roman',serif;font-weight:600;font-size:24px
 .stop{position:relative;display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:start;padding:10px 0;}
 .dot{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;background:var(--paper);border:2px solid var(--line);
   display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--dim);}
-.dot small{font-size:10.5px;line-height:1;}
+.dot small{font-size:11.5px;line-height:1;}
 .dot b{font-family:'Lora','Times New Roman',serif;font-size:20px;font-weight:600;line-height:1.1;}
 .stop.long .dot b{font-size:14px;}
 .stop.open .dot{border-color:var(--amber);background:var(--amber-soft);color:var(--amber-ink);}
@@ -213,7 +213,9 @@ html[data-theme=dark] .doc table.v3note td{background:#2a2216!important;}
 .fx i{font-style:normal;}
 .fx .fx-s,.fx .fx-v,.fx .fx-a,.fx .fx-n{padding:1px 6px;border-radius:6px;white-space:nowrap;}
 .fx .fx-s{color:#1d5fd1;background:rgba(37,99,235,.11);}
-.fx .fx-v{color:var(--teal);background:var(--teal-soft);}
+.fx .fx-v{color:var(--teal-ink,var(--teal));background:var(--teal-soft);}
+:root{--teal-ink:#136e52;}
+html[data-theme=dark]{--teal-ink:var(--teal);}
 .fx .fx-a{color:var(--amber-ink);background:var(--amber-soft);}
 .fx .fx-n{color:#7a3fd6;background:rgba(124,58,237,.10);}
 .fx .fx-f{font-weight:inherit;}
@@ -265,3 +267,6 @@ html[data-theme=dark] .fx .fx-n{color:#c4a6ff;background:rgba(160,120,255,.16);}
 .doc h4{color:var(--amber-ink);}
 .doc em strong,.doc i strong,.doc strong em{color:var(--amber);}
 .qk-pts li::before{color:var(--card);}
+
+/* link quay lại đầu trang bài học: vùng bấm cao 44px, không đổi bố cục */
+main>p.sub:first-child a,header.top>a{display:inline-block;padding:12px 0;margin:-12px 0;}
