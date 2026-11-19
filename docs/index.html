@@ -83,6 +83,35 @@ body.k-A .hero::before{content:"Minto English · TOEIC A";}
 .stop.ms .ms-note{margin:2px 0 0;font-size:13.5px;color:var(--dim);}
 .stop.ms.done .dot{border-style:solid;border-color:var(--teal);color:var(--teal);}
 @media (max-width:640px){.stop.ms .dot{width:36px;height:36px;margin-left:6px;}}
+/* Chế độ giáo viên gọn: mỗi lớp 1 thẻ, 2 cột trên máy tính */
+.gv{padding:16px 18px;}
+.gv h2{font-size:20px;}
+.gv>p{font-size:13.5px;margin:2px 0 8px;}
+.gvtop{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 0;}
+.gv a.gvs{font-size:13.5px;font-weight:600;color:var(--amber-ink);background:var(--amber-soft);border-radius:99px;padding:6px 12px;text-decoration:none;}
+.gv a.gvs:hover{text-decoration:underline;}
+#gvClasses{display:grid;gap:10px;margin-top:12px;}
+@media (min-width:760px){#gvClasses{grid-template-columns:1fr 1fr;}}
+.gvc{position:relative;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--paper);min-width:0;}
+.gvc.open{grid-column:1/-1;}
+.gvc-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.gvc-h b{font-size:16.5px;color:var(--amber-ink);}
+.gvc-k{font-size:12px;font-weight:700;color:var(--amber-ink);background:var(--amber-soft);border-radius:99px;padding:1px 9px;}
+.gvc-t{font-size:13.5px;color:var(--dim);margin:2px 0 8px;}
+.gvc-p{height:6px;border-radius:3px;background:var(--line);overflow:hidden;}
+.gvc-p i{display:block;height:100%;background:var(--amber);border-radius:3px;}
+.gvc-n{font-size:13px;color:var(--dim);margin-top:4px;}
+.gvc-n b{color:var(--ink);}
+.gvc-next{font-size:14px;line-height:1.45;margin-top:6px;}
+.gvc-a{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.gv .gvc-a button,.gv .gvc-a a.b{font-size:13.5px;padding:7px 11px;min-height:36px;}
+@media (max-width:600px){.gvc{padding:12px;}.gvc-a{gap:5px;}.gv .gvc-a button,.gv .gvc-a a.b{padding:7px 9px;}}
+.gvc input.link{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;}
+.gvc .cal{margin-top:10px;overflow-x:auto;}
+.gvc .cal table{margin-top:0;font-size:13.5px;}
+@media (max-width:600px){.gvc .cal th:nth-child(4),.gvc .cal td:nth-child(4){display:none;}.gvc .cal th,.gvc .cal td{padding:5px 6px;}}
+.gv .gvx{margin-top:12px;justify-content:flex-end;}
+.gv .gvx button{border-color:var(--line);color:var(--dim);font-size:13px;padding:6px 12px;}
 </style>
 <link rel="icon" type="image/png" href="icons/fav-64.png?v=3">
 </head>
@@ -112,11 +141,11 @@ body.k-A .hero::before{content:"Minto English · TOEIC A";}
 
   <section class="gv" id="gv" aria-label="Chế độ giáo viên">
     <h2>Chế độ giáo viên</h2>
-    <p>Bài tự mở theo lịch học của từng lớp (sửa danh sách lớp, ngày khai giảng, ngày nghỉ trong file <b>docs/classes.js</b>). Trên máy này thầy xem được mọi bài.</p>
-    <details class="sched"><summary>Lịch học TOEIC Pre (Schedule)</summary><a href="schedule.png" target="_blank"><img src="schedule.png" alt="Lịch học TOEIC Pre ver 3.0: 24 buổi" loading="lazy"></a></details>
-    <details class="sched"><summary>Lịch học TOEIC A (Schedule)</summary><a href="schedule-a.png" target="_blank"><img src="schedule-a.png" alt="Lịch học TOEIC A ver 3.0: 24 buổi" loading="lazy"></a></details>
+    <p>Bài tự mở theo lịch của từng lớp (sửa lớp, ngày khai giảng, ngày nghỉ trong <b>docs/classes.js</b>). Máy này xem được mọi bài.</p>
+    <div class="gvtop"><a class="gvs" href="schedule.png" target="_blank">📅 Lịch TOEIC Pre</a>
+    <a class="gvs" href="schedule-a.png" target="_blank">📅 Lịch TOEIC A</a></div>
     <div id="gvClasses"></div>
-    <div class="row" style="margin-top:18px"><button type="button" id="gvExit">Thoát chế độ giáo viên trên máy này</button></div>
+    <div class="row gvx"><button type="button" id="gvExit">Thoát chế độ giáo viên trên máy này</button></div>
   </section>
 
   <h2 class="sec" data-khoa="Pre">Lộ trình theo buổi học</h2>
@@ -313,17 +342,26 @@ body.k-A .hero::before{content:"Minto English · TOEIC A";}
       rows+='<tr class="'+cls+'"><td>'+s+'</td><td>'+SN.fmt(d,true)+'</td><td>'+(OTHER[s]?[OTHER[s]]:[]).concat((id||[]).map(function(x){return NAME[x];})).join(' + ')+'</td><td>'+(id?(s<=n?'<span class="tag o">Đã mở</span>':'<span class="tag l">Chưa mở</span>'):'')+'</td></tr>';
     });
     var link=base+'?lop='+encodeURIComponent(c.ma);
-    var div=document.createElement('div');
-    div.innerHTML='<h3>'+c.ten+' · '+CO.ten+'</h3><p>Khai giảng '+SN.fmt(ds[0],true)+'/'+ds[0].getFullYear()+' · bế giảng '+SN.fmt(ds[ds.length-1],true)+'/'+ds[ds.length-1].getFullYear()+' · đã học '+Math.min(n,ds.length)+'/'+ds.length+' buổi'+(c.hocToi?' (đang ép mở tới buổi '+c.hocToi+')':'')+'</p>'+
-      '<input class="link" readonly value="'+link+'" aria-label="Link gửi lớp '+c.ma+'">'+
-      '<div class="row"><button type="button" class="main cp">Sao chép link cho lớp</button><a class="b" target="_blank" href="'+base+'?xem='+encodeURIComponent(c.ma)+'">Xem thử như học sinh</a><span class="ok"></span></div>'+
-      '<details class="cal"><summary>Lịch '+ds.length+' buổi của lớp</summary><table><thead><tr><th>Buổi</th><th>Ngày</th><th>Nội dung</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></details>';
+    var m=/^(\S+)\s*\((.*)\)\s*$/.exec(c.ten||''), code=m?m[1]:(c.ten||c.ma), when=m?m[2]:'';
+    var tot=ds.length, done=Math.min(n,tot), ns=done+1, nx='';
+    if(ns<=tot){ var cont=(OTHER[ns]?[OTHER[ns]]:[]).concat((BY[ns]||[]).map(function(x){return NAME[x];})).join(' + '); nx='<div class="gvc-next">Buổi tới: <b>Buổi '+ns+' · '+SN.fmt(ds[ns-1],true)+'</b>'+(cont?' · '+cont:'')+'</div>'; }
+    else nx='<div class="gvc-next">Đã học xong '+tot+' buổi 🎉</div>';
+    var kh=(typeof CO!=='undefined'&&CO&&CO.ten)?'<span class="gvc-k">'+CO.ten+'</span>':'';
+    var div=document.createElement('div'); div.className='gvc';
+    div.innerHTML='<div class="gvc-h"><b>'+code+'</b>'+kh+'</div>'+
+      '<div class="gvc-t">'+(when?when+' · ':'')+SN.fmt(ds[0],true)+' → '+SN.fmt(ds[tot-1],true)+'/'+ds[tot-1].getFullYear()+'</div>'+
+      '<div class="gvc-p" role="img" aria-label="Đã học '+done+'/'+tot+' buổi"><i style="width:'+Math.round(done/tot*100)+'%"></i></div>'+
+      '<div class="gvc-n">Đã học <b>'+done+'/'+tot+'</b> buổi'+(c.hocToi?' · đang ép mở tới buổi '+c.hocToi:'')+'</div>'+nx+
+      '<div class="gvc-a"><button type="button" class="main cp" title="'+link+'">📋 Chép link</button><a class="b" target="_blank" href="'+base+'?xem='+encodeURIComponent(c.ma)+'">👀 Xem như HS</a><button type="button" class="b calt" aria-expanded="false" title="Lịch '+tot+' buổi của lớp">📅 Lịch</button></div>'+
+      '<input class="link" readonly tabindex="-1" aria-hidden="true" value="'+link+'">'+
+      '<div class="cal" hidden><table><thead><tr><th>Buổi</th><th>Ngày</th><th>Nội dung</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
     div.querySelector('.cp').onclick=function(){
-      var inp=div.querySelector('input'), ok=div.querySelector('.ok');
-      function done(){ok.textContent='Đã sao chép ✓';}
-      if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(done,function(){inp.select();document.execCommand('copy');done();});
-      else{inp.select();document.execCommand('copy');done();}
+      var inp=div.querySelector('input'), bt=this;
+      function ok(){ bt.textContent='✓ Đã chép'; setTimeout(function(){ bt.textContent='📋 Chép link'; },2000); }
+      if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(ok,function(){inp.select();document.execCommand('copy');ok();});
+      else{inp.select();document.execCommand('copy');ok();}
     };
+    div.querySelector('.calt').onclick=function(){ var cal=div.querySelector('.cal'), op=cal.hidden; cal.hidden=!op; this.setAttribute('aria-expanded',op?'true':'false'); div.classList.toggle('open',op); };
     box.appendChild(div);
   });
   document.getElementById('gvExit').onclick=function(){ SN.teacher(false); location.href=base; };
