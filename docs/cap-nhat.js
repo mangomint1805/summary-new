@@ -1,6 +1,13 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-19b', date: '19/11/2026',
+    title: '🔎 Lớp A: giải thích "by themselves" và "by them"',
+    items: [
+      'Bài tóm tắt Unit 1 (Reading) có thêm khung giải thích vì sao câu 8 chọn "by themselves" (tự làm) mà không chọn "by them", kèm mẹo nhận ra dạng câu này khi làm Part 5.'
+    ]
+  },
+  {
     id: '2026-11-19', date: '19/11/2026',
     title: 'Dễ đọc, dễ bấm hơn trên điện thoại',
     items: [
