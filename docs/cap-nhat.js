@@ -1,6 +1,14 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-20', date: '20/11/2026',
+    title: 'Bảng đại từ dễ học hơn',
+    items: [
+      "Bài Reading Unit 1 (Nouns & Pronouns) có bảng đại từ mới giống lớp A: mỗi hàng là một người, đọc ngang thấy đủ 5 dạng (chủ ngữ, tân ngữ, tính từ sở hữu, đại từ sở hữu, phản thân), có ghi chú vị trí dùng ngay dưới tên cột.",
+      "Trên điện thoại, bảng đại từ không còn bị bẻ đôi chữ: kéo ngang để xem, cột \"Nghĩa\" đứng yên."
+    ]
+  },
+  {
     id: '2026-11-19b', date: '19/11/2026',
     title: '🔎 Lớp A: giải thích "by themselves" và "by them"',
     items: [

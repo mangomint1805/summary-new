@@ -270,3 +270,14 @@ html[data-theme=dark] .fx .fx-n{color:#c4a6ff;background:rgba(160,120,255,.16);}
 
 /* link quay lại đầu trang bài học: vùng bấm cao 44px, không đổi bố cục */
 main>p.sub:first-child a,header.top>a{display:inline-block;padding:12px 0;margin:-12px 0;}
+/* Bảng đại từ trên điện thoại: không bẻ đôi từ, kéo ngang để xem, cột "Nghĩa" đứng yên */
+@media (max-width:600px){
+.doc table.pron{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.doc table.pron th,.doc table.pron td{white-space:nowrap;padding:8px 10px;}
+.doc table.pron th{white-space:normal;min-width:78px;font-size:13.5px;}
+.doc table.pron td strong{font-size:15px;}
+.doc table.pron th:first-child,.doc table.pron td:first-child{position:sticky;left:0;z-index:1;background:var(--card);box-shadow:1px 0 0 var(--line);min-width:0;}
+.doc table.pron thead th:first-child{background:var(--amber-soft);}
+.doc table.pron tbody tr:nth-child(even) td:first-child{background:#fbf7ef;}
+html[data-theme=dark] .doc table.pron tbody tr:nth-child(even) td:first-child{background:#20242a;}
+}
