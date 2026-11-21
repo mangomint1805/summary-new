@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-21', date: '21/11/2026',
+    title: 'Chiến thuật Part 1 mới: SVO dễ nhớ hơn',
+    items: [
+      "Bài Listening Unit 1 lớp TOEIC A đổi sang chiến thuật SVO: nhìn tranh theo thứ tự Ai (Subject) → Đang làm gì (Verb) → Cái gì, ở đâu (Object), đúng như thứ tự câu đáp án.",
+      "Ví dụ chữa bài chỉ rõ câu sai ở phần nào (sai chủ ngữ, sai hành động hay sai đồ vật) để các em loại đáp án nhanh hơn."
+    ],
+    link: ['a/listening/unit-01-accommodation-restaurant.html', 'Xem bài Listening Unit 1']
+  },
+  {
     id: '2026-11-20', date: '20/11/2026',
     title: 'Bảng đại từ dễ học hơn',
     items: [
