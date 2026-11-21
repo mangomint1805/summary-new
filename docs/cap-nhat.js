@@ -1,6 +1,14 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-21b', date: '21/11/2026',
+    title: 'Học xong làm thử đề ETS ngay',
+    items: [
+      "Cuối mỗi bài Listening và Reading có thêm ô \"Làm thử đề ETS\": chọn một đề (ETS 2026 hoặc ETS 2024) rồi bấm Part vừa học để làm riêng các câu Part đó, nộp là có điểm và đáp án ngay.",
+      "Bài Listening mở đúng Part của bài (Part 1, 2, 3 hoặc 4); bài Reading có nút Part 5, 6 và 7. Lần đầu mở cần đăng nhập Google trên web luyện ETS."
+    ]
+  },
+  {
     id: '2026-11-21', date: '21/11/2026',
     title: 'Chiến thuật Part 1 mới: SVO dễ nhớ hơn',
     items: [
