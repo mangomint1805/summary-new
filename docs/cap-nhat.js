@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-25', date: '25/11/2026',
+    title: 'Lớp A: mẹo làm câu hỏi trích lời người nói (Part 3)',
+    items: [
+      "Bài Listening Unit 4 (Community) có thêm mục 2.5 về dạng câu hỏi \"What does the man mean when he says...?\": 3 bước làm bài, bẫy hay gặp và ví dụ lấy từ Exercise 3.",
+      "Có bảng các câu nói hay gặp trong đề kèm ý thật sự của người nói (ví dụ \"That's a good question.\" = không biết câu trả lời)."
+    ],
+    link: ['a/listening/unit-04-community.html', 'Xem bài Listening Unit 4']
+  },
+  {
     id: '2026-11-21b', date: '21/11/2026',
     title: 'Học xong làm thử đề ETS ngay',
     items: [
