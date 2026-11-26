@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-26', date: '26/11/2026',
+    title: 'Lớp Pre: có đáp án phần Lesson Preparation',
+    items: [
+      "Mỗi bài Reading 1–7 và Listening 1–8 có thêm đáp án phần Lesson Preparation (bài chuẩn bị trước buổi học trong giáo trình), kèm nghĩa tiếng Việt và giải thích ngắn.",
+      "Đáp án nằm ở mục đầu tiên trong phần \"📘 Chữa bài tập trong sách\" ở cuối mỗi bài. Em làm trước ở nhà rồi so đáp án nha."
+    ],
+    link: ['reading/unit-02-adjectives-adverbs-comparison.html', 'Xem thử bài Reading 2']
+  },
+  {
     id: '2026-11-25', date: '25/11/2026',
     title: 'Lớp A: mẹo làm câu hỏi trích lời người nói (Part 3)',
     items: [
