@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-26c', date: '26/11/2026',
+    title: 'Reading 2: bảng đuôi từ để nhận diện loại từ',
+    items: [
+      "Bài Reading 2 có thêm mục 4.1: bảng đuôi từ thường gặp của danh từ, động từ, tính từ, trạng từ, kèm ví dụ và nghĩa tiếng Việt.",
+      "Có thêm ví dụ một gốc từ đổi thành 4 loại từ (success → succeed → successful → successfully), giúp em làm câu chọn loại từ trong Part 5 nhanh hơn."
+    ],
+    link: ['reading/unit-02-adjectives-adverbs-comparison.html', 'Xem bài Reading 2']
+  },
+  {
     id: '2026-11-26b', date: '26/11/2026',
     title: 'Lesson Preparation: thêm hình và 4 bài Weekly Revision',
     items: [
