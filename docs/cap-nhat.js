@@ -1,6 +1,15 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-26b', date: '26/11/2026',
+    title: 'Lesson Preparation: thêm hình và 4 bài Weekly Revision',
+    items: [
+      "Các bài tập Lesson Preparation có tranh giờ hiện luôn hình trong giáo trình, em nhìn hình rồi so đáp án dễ hơn.",
+      "Weekly Revision 1–4 cũng có đáp án phần Lesson Preparation (kèm phần Get ready to learn)."
+    ],
+    link: ['weekly/revision-1.html', 'Xem Weekly Revision 1']
+  },
+  {
     id: '2026-11-26', date: '26/11/2026',
     title: 'Lớp Pre: có đáp án phần Lesson Preparation',
     items: [
