@@ -14,6 +14,7 @@
    Bài của buổi nào sẽ mở SAU GIỜ TAN HỌC của ngày học buổi đó (giờ tan lấy từ
                'ten', ví dụ '19h45 - 21h15' → mở lúc 21:15).
    gioMo     : (không bắt buộc) giờ mở bài khác giờ tan học, dạng 'HH:MM' ('00:00' = mở từ 0h ngày học).
+   moHet     : (không bắt buộc) true = mở hết mọi bài của khoá, không khoá theo lịch (cho bạn ôn tập).
    khoa      : (không bắt buộc) khoá học: 'Pre' (mặc định, TOEIC Pre ver 3.0) hoặc 'A' (TOEIC A).
                Lớp chỉ thấy và mở được bài của khoá mình.
    ===================================================================== */
@@ -24,7 +25,9 @@ var SN_CLASSES = [
     khoa: 'A' }, // TOEIC A: bài mở sau giờ tan học (19:15) của ngày học buổi đó
   { ma: 'TOA120023', ten: 'TOA120023 (3-5-7, 17h45 - 19h15)', khaiGiang: '2026-11-19', thu: [3, 5, 7], nghi: ['2026-11-24'],
     khoa: 'A' },
-  { ma: 'TOPRE120016', ten: 'TOPRE120016 (3-5-7, 19h45 - 21h15)', khaiGiang: '2026-11-19', thu: [3, 5, 7], nghi: ['2026-11-24'] }
+  { ma: 'TOPRE120016', ten: 'TOPRE120016 (3-5-7, 19h45 - 21h15)', khaiGiang: '2026-11-19', thu: [3, 5, 7], nghi: ['2026-11-24'] },
+  /* lớp khác vào ôn tập (Quỳnh Như, Tú Anh): tạm mở bài theo lịch lớp TOPRE120016, chờ hai bạn báo lớp học tới buổi mấy */
+  { ma: 'TOPRE117109', ten: 'TOPRE117109 (ôn tập)', khaiGiang: '2026-11-19', thu: [3, 5, 7], nghi: ['2026-11-24'], gioMo: '21:15' }
 ];
 
 /* Bài học ứng với buổi nào trong lịch 24 buổi (TOEIC PRE ver 3.0) */
@@ -214,7 +217,7 @@ var SN = (function () {
   function doneSessions(c) {
     var now = new Date(), ds = dates(c), n = 0, e = snEndHM(c);
     ds.forEach(function (d, i) { var o = new Date(d); o.setHours(e[0], e[1], 0, 0); if (now >= o) n = i + 1; });
-    return Math.max(n, c.hocToi || 0);
+    return c.moHet ? SN_COURSES[snKhoa(c)].total : Math.max(n, c.hocToi || 0);
   }
   function course(c) { return SN_COURSES[snKhoa(c)]; }
   function session(c, id) { return course(c).sessions[id]; }
@@ -227,6 +230,7 @@ var SN = (function () {
   }
   function isOpen(c, id) {
     if (snIdKhoa(id) !== snKhoa(c)) return false; // bài của khoá khác: không mở
+    if (c.moHet) return true; // mã ôn tập: mở hết
     var s = session(c, id);
     if (s && delay(id)) { // mở lúc tan học của ngày (buổi + số ngày trễ)
       var o = openDate(c, id), e = snEndHM(c); o.setHours(e[0], e[1], 0, 0);
@@ -340,8 +344,8 @@ var SN = (function () {
     var home = src.replace(/classes\.js.*$/, '') + 'index.html';
     var box = document.createElement('div'); box.className = 'sn-box';
     if (!c) {
-      box.innerHTML = '<div class="ic">🔑</div><h2>Bạn chưa nhập mã lớp</h2><p>Vào trang chủ, nhập mã lớp thầy gửi để xem các bài lớp đã học nhé.</p>' +
-        '<a class="btn" href="' + home + '">Về trang chủ nhập mã lớp</a>';
+      box.innerHTML = '<div class="ic">🔑</div><h2>Bạn chưa chọn lớp</h2><p>Vào trang chủ, chọn lớp của mình để xem các bài lớp đã học nhé.</p>' +
+        '<a class="btn" href="' + home + '">Về trang chủ chọn lớp</a>';
     } else if (snIdKhoa(id) !== SN.khoa(c)) {
       box.innerHTML = '<div class="ic">📚</div><h2>Bài này không thuộc khoá của lớp mình</h2>' +
         '<p>Đây là bài của khoá <b>' + SN_COURSES[snIdKhoa(id)].ten + '</b>, lớp ' + c.ma + ' học khoá <b>' + SN.course(c).ten + '</b>.</p>' +

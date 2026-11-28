@@ -1,6 +1,14 @@
 /* Có gì mới trên web Tóm tắt kiến thức (giáo trình mới) — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-22b). link (tuỳ chọn): [đường dẫn, chữ trên nút]. */
 window.MT_UPDATES = [
   {
+    id: '2026-11-28', date: '28/11/2026',
+    title: 'Chọn lớp bằng danh sách, có thêm lớp TOPRE117109',
+    items: [
+      "Trang chủ giờ có ô chọn lớp sẵn, em chỉ cần bấm chọn đúng lớp mình là vào học, không phải gõ mã nữa.",
+      "Các bạn lớp TOPRE117109 đã có tên lớp trong danh sách, chọn vào là xem được các bài để ôn tập."
+    ]
+  },
+  {
     id: '2026-11-26c', date: '26/11/2026',
     title: 'Reading 2: bảng đuôi từ để nhận diện loại từ',
     items: [

@@ -27,8 +27,9 @@ body.gated .gate{display:block;}
 .gate h2{font-family:'Lora','Times New Roman',serif;font-weight:600;font-size:23px;margin:10px 0 4px;}
 .gate p{margin:4px 0 14px;color:var(--dim);font-size:15px;}
 .gate form{display:flex;gap:8px;max-width:400px;margin:0 auto;}
-.gate input{flex:1;min-width:0;font:inherit;font-size:17px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);}
-.gate input:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-soft);}
+.gate select{text-transform:none;letter-spacing:0;font-size:16px;cursor:pointer;}
+.gate input,.gate select{flex:1;min-width:0;font:inherit;font-size:17px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);}
+.gate input:focus,.gate select:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-soft);}
 .gate button{font:inherit;font-size:16px;font-weight:700;border:0;border-radius:10px;padding:12px 18px;background:var(--amber);color:#fff;cursor:pointer;white-space:nowrap;}
 html[data-theme=dark] .gate button{color:#141d42;}html[data-theme=dark] .gate .err{color:#ff9b9b;}
 .gate .err{min-height:22px;margin:10px 0 0;color:#9b2c2c;font-size:14.5px;font-weight:600;}
@@ -117,12 +118,12 @@ body.k-A .hero::before{content:"Minto English · TOEIC A";}
 </head>
 <body class="gated" data-nav="home">
 <div class="wrap">
-  <section class="gate" id="gate" aria-label="Nhập mã lớp">
+  <section class="gate" id="gate" aria-label="Chọn lớp">
     <p class="kick">Tóm tắt kiến thức TOEIC Pre · TOEIC A</p>
     <div class="ic">🔑</div>
-    <h2>Nhập mã lớp</h2>
-    <p>Nhập mã lớp thầy gửi để xem các bài lớp mình đã học.</p>
-    <form id="gateForm" autocomplete="off"><input id="code" name="code" placeholder="Mã lớp" aria-label="Mã lớp" autocapitalize="characters" spellcheck="false"><button type="submit">Vào học</button></form>
+    <h2>Chọn lớp của bạn</h2>
+    <p>Chọn đúng lớp mình đang học để xem các bài lớp đã học.</p>
+    <form id="gateForm" autocomplete="off"><select id="code" name="code" aria-label="Chọn lớp"><option value="">— Chọn lớp của bạn —</option></select><button type="submit">Vào học</button></form>
     <div class="err" id="err" role="alert"></div>
   </section>
 
@@ -307,7 +308,7 @@ body.k-A .hero::before{content:"Minto English · TOEIC A";}
     var n=SN.doneSessions(c), ds=SN.dates(c), t=SN.today();
     document.getElementById('lopName').textContent='Lớp '+c.ten;
     var next=ds[n];
-    document.getElementById('lopInfo').textContent='Đã học '+Math.min(n,ds.length)+'/'+ds.length+' buổi'+(next?' · Buổi tới: '+SN.fmt(next,true):' · Đã kết thúc khoá');
+    document.getElementById('lopInfo').textContent=c.moHet?'Đã mở hết bài để bạn ôn tập':'Đã học '+Math.min(n,ds.length)+'/'+ds.length+' buổi'+(next?' · Buổi tới: '+SN.fmt(next,true):' · Đã kết thúc khoá');
     document.getElementById('lopProg').style.width=Math.min(100,n/ds.length*100)+'%';
     paint(c,false);
   }
@@ -316,12 +317,16 @@ body.k-A .hero::before{content:"Minto English · TOEIC A";}
     var e=document.getElementById('err'); e.textContent=msg||'';
     setTimeout(function(){var i=document.getElementById('code'); if(i&&!('ontouchstart' in window)) i.focus();},50);
   }
+  (function(){ var sel=document.getElementById('code'), now=new Date();
+    SN_CLASSES.forEach(function(c){ if(!c.moHet && SN.closeDate(c)<=now) return; // lớp đã kết thúc: ẩn
+      var o=document.createElement('option'); o.value=c.ma; o.textContent=c.ten; sel.appendChild(o); });
+  })();
   document.getElementById('gateForm').addEventListener('submit',function(ev){
     ev.preventDefault();
     var v=document.getElementById('code').value, c=SN.choose(v);
     if(c){ showClass(c); window.scrollTo(0,0); return; }
     var g=document.getElementById('gate'); g.classList.remove('shake'); void g.offsetWidth; g.classList.add('shake');
-    gate(v.trim()?'Mã lớp "'+v.trim().toUpperCase()+'" không đúng, kiểm tra lại hoặc hỏi thầy nhé.':'Bạn chưa nhập mã lớp.');
+    gate(v.trim()?'Không tìm thấy lớp "'+v.trim().toUpperCase()+'", hỏi thầy nhé.':'Bạn chưa chọn lớp.');
   });
   document.getElementById('doiLop').onclick=function(){ SN.leave(); document.getElementById('code').value=''; setKhoa(''); gate(''); };
 
